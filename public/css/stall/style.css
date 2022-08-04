@@ -1,0 +1,333 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+:root {
+    --base-color : #3d5661;
+    --active-color :#1bb0b5;
+    --office-color :#fc7f03;
+}
+
+
+html {
+    height: 100%;
+    box-sizing: border-box;
+  }
+  
+  *,
+  *:before,
+  *:after {
+    box-sizing: inherit;
+  }
+  
+  body {
+    margin: 0;
+    padding: 0;
+    position: relative;
+    height: 100%;
+  }
+
+
+.header-title {
+    position: absolute;
+    top: 0;
+    left: 20px;
+    font-family: "Roboto",sans-serif;
+}
+
+section {
+    height: 100%;
+    background-color: var(--base-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.denah {
+    width: 90%;
+    height: 80%;
+    overflow: auto;
+    background-color: white;
+    border-radius: 10px;
+    position: relative;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+
+/* -------- HEADING ---------------- */
+.header {
+    top: 0;
+    height: 10%;
+    width: 90%;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "Roboto", sans-serif;
+    color: white;
+}
+
+/*------ PARKING AREA STYLING -------- */
+
+.kantor {
+    height: 60%;
+    width: 60%;
+    position: absolute;
+    top: 10%;
+    right: 50px;
+    margin: 0;
+    border-radius: 10px;
+
+    background-color: var(--office-color);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 10px;
+    font-family: "Roboto", sans-serif;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.seat-row {
+    display: flex;
+    justify-content: end;
+    padding: 10px 20px;
+    column-gap: 8px;
+}
+
+.gap-8 {
+    column-gap: 8px;
+}
+
+.opacity-0 {
+    opacity: 0;
+}
+
+.pos {
+    background-color: var(--office-color);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "Roboto", sans-serif;
+    color: white;
+}
+
+.pos:hover {
+    color: white;
+}
+
+.seat {
+    border-radius: 10px;
+    background-color: #3d5661;
+}
+
+.seat-active {
+    border-radius: 10px;
+    background-color: var(--active-color) ;
+}
+
+.seat-shadow {
+    border: 2px dashed var(--base-color);
+    background-color: white;
+    border-radius: 10px;
+}
+
+.seat-vertical {
+    width: 50px;
+    height: 100px;
+    cursor: pointer;
+    display: flex;
+    text-decoration: none;
+    color: white;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 5px 0px;
+    writing-mode: vertical-rl;
+    font-family: "Roboto", sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    -webkit-transform: rotate(-180deg);
+    -moz-transform: rotate(-180deg);
+}
+
+.seat-vertical:hover {
+    color: white;
+}
+
+.seat-horizontal {
+    width: 100px;
+    height: 50px;
+    cursor: pointer;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    font-family: "Roboto", sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+
+.seat-horizontal-gap {
+    width: 100px;
+}
+
+.seat-horizontal:hover {
+    color: white;
+}
+
+/* -------------- SCROLLBAR ---------------- */
+/* width */
+::-webkit-scrollbar {
+    height: 8px;
+    width: 10px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+  }
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #888; 
+    border-radius: 10px;
+    transition: 0.2s;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+  }
+
+
+/* ---------------- LEGEND ------------------ */
+
+.legend {
+    height: 10px;
+    width: 10px;
+    border-radius: 5px;
+}
+
+.legend-wrap {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    padding: 5px 20px;
+    border-radius: 20px;
+    background-color: #f2f2f2;
+    width: fit-content;
+    column-gap: 10px;
+}
+
+.legend-wrap .desc-wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 7px;
+    font-size: 10px;
+}
+
+.legend-wrap-desc {
+    display: flex;
+    column-gap: 8px;
+}
+
+.legend-text {
+    font-family: "Roboto",sans-serif;
+}
+
+.legend-wrap .desc-wrap .legend-text {
+    font-size: 12;
+    font-family: "Roboto", sans-serif;
+}
+
+.legend-shadow {
+    border: 1px dashed var(--base-color);
+}
+
+.legend-active {
+    background-color: var(--active-color);
+}
+
+.legend-empty {
+    background-color: var(--base-color);
+}
+
+
+/*---------- BOTTOM NAVIGATION ---------------*/
+.bottom-nav {
+    position: fixed;
+    width: 40%;
+    height: 10%;
+    align-self: center;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0px 20px;
+}
+
+
+.success-button {
+    display: flex;
+    align-items: center;
+    border: none;
+    background-color: var(--office-color);
+    padding: 10px 20px;
+    font-family: "Roboto", sans-serif;
+    color: white;
+    font-size: 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.success-button:hover {
+    background-color: #d17436;
+    color: white;
+}
+
+/* ------ WHEN ON SMARTPHONE ------ */
+@media (max-width:1080px) {
+    .legend-wrap-desc {
+        display: none;
+    }
+}
+
+@media (max-width:867px) {
+    .legend-wrap {
+        display: none;
+    }
+
+    .kantor {
+        top: 50%;
+        font-size: 10px;
+        width: 100px;
+    }
+
+    .bottom-nav {
+        margin: 20px 0px;
+        height: 5%;
+        width: 100%;
+        position: relative;
+    }
+
+    .success-button {
+        margin-bottom: 5px;
+        padding: 5px 20px;
+    }
+
+    .header {
+        display: none;
+    }
+
+}
