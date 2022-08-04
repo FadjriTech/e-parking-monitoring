@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use App\Models\ParkirModel;
+use PDO;
 
 class Parkir extends BaseController
 {
@@ -43,5 +44,38 @@ class Parkir extends BaseController
         ];
 
         return view('pages/main', $data);
+    }
+
+
+    public function update_posisi()
+    {
+        $grup      = '';
+        $posisi    = '';
+        $newGrup   = '';
+        $newPosisi = '';
+
+        if (isset($_POST['grup'])) {
+            $grup = $_POST['grup'];
+        }
+
+        if (isset($_POST['posisi'])) {
+            $posisi = $_POST['posisi'];
+        }
+
+        if (isset($_POST['newGrup'])) {
+            $newGrup = $_POST['newGrup'];
+        }
+
+        if (isset($_POST['newPosisi'])) {
+            $newPosisi = $_POST['newPosisi'];
+        }
+
+        $dataAwal = $this->parkir->select('*')->where('grup', $grup)->where('position', $posisi)->get()->getRowArray();
+        $update   = $this->parkir->set('position', $newPosisi)->set('grup', $newGrup)->where('id', $dataAwal['id'])->update();
+        if ($update) {
+            return json_encode(array(
+                'model_code' => $dataAwal['model_code']
+            ));
+        }
     }
 }

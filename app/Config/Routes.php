@@ -38,6 +38,10 @@ $routes->set404Override();
 
 $routes->get('/', 'Parkir::index');
 
+$routes->group('parkir', function ($routes) {
+    $routes->post('update_posisi', 'Parkir::update_posisi');
+});
+
 /*
  * --------------------------------------------------------------------
  * Additional Routing

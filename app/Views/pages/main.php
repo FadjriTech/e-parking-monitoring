@@ -38,12 +38,12 @@
             <?php for ($i = 1; $i <= 8; $i++) : ?>
                 <?php $key = array_search($i, array_column($grupA, 'position')); ?>
                 <?php if (!empty($key) || $key === 0) : ?>
-                    <a class="<?= ($grupA[$key]['status'] == 'Internal') ? "seat-internal" : "seat"; ?> seat-vertical text-white" grup="A" position="<?= $i; ?>">
-                        <?= $grupA[$key]['model_code']; ?>
+                    <a class="<?= ($grupA[$key]['status'] == 'Internal') ? "seat-internal" : "seat"; ?> seat-vertical text-white" draggable="true" ondragstart="drag(event)" grup="A" position="<?= $i; ?>" id="A<?= $i; ?>">
+                        <?= $grupA[$key]['model_code'] . " | " . $grupA[$key]['license_plate']; ?>
                     </a>
                 <?php else : ?>
                     <!-- Defaul Value -->
-                    <a class="seat seat-vertical text-white" grup="A" position="<?= $i; ?>"></a>
+                    <a class="seat seat-vertical text-white" grup="A" position="<?= $i; ?>" id="A<?= $i; ?>" ondrop="drop(event, this)" ondragover="allowDrop(event)"></a>
                 <?php endif; ?>
             <?php endfor; ?>
         </div>
@@ -52,12 +52,28 @@
         <!--------- GRUP B -------->
         <div class="seat-row">
             <?php for ($i = 1; $i <= 5; $i++) : ?>
-                <a class="seat-shadow seat-horizontal" grup="B" position="<?= $i; ?>"></a>
+                <?php $key = array_search($i, array_column($grupB, 'position')); ?>
+                <?php if (!empty($key) || $key === 0) : ?>
+                    <a class="<?= ($grupB[$key]['status'] == 'Internal') ? "seat-internal" : "seat"; ?> seat-horizontal text-white" grup="B" position="<?= $i; ?>">
+                        <?= $grupB[$key]['model_code']; ?>
+                    </a>
+                <?php else : ?>
+                    <!-- Defaul Value -->
+                    <a class="seat-shadow seat-horizontal text-white" grup="B" position="<?= $i; ?>"></a>
+                <?php endif; ?>
             <?php endfor; ?>
         </div>
         <div class="seat-row">
             <?php for ($i = 6; $i <= 10; $i++) : ?>
-                <a class="seat-shadow seat-horizontal" grup="B" position="<?= $i; ?>"></a>
+                <?php $key = array_search($i, array_column($grupB, 'position')); ?>
+                <?php if (!empty($key) || $key === 0) : ?>
+                    <a class="<?= ($grupB[$key]['status'] == 'Internal') ? "seat-internal" : "seat"; ?> seat-horizontal text-white" grup="B" position="<?= $i; ?>">
+                        <?= $grupB[$key]['model_code']; ?>
+                    </a>
+                <?php else : ?>
+                    <!-- Defaul Value -->
+                    <a class="seat-shadow seat-horizontal text-white" grup="B" position="<?= $i; ?>"></a>
+                <?php endif; ?>
             <?php endfor; ?>
         </div>
 
@@ -68,9 +84,25 @@
         <div class="seat-row">
             <?php for ($i = 1; $i <= 5; $i++) : ?>
                 <?php if ($i == 1) : ?>
-                    <a class="seat-shadow seat-vertical" grup="C" position="<?= $i; ?>"></a>
+                    <?php $key = array_search($i, array_column($grupC, 'position')); ?>
+                    <?php if (!empty($key) || $key === 0) : ?>
+                        <a class="<?= ($grupC[$key]['status'] == 'Internal') ? "seat-internal" : "seat"; ?> seat-vertical text-white" grup="C" position="<?= $i; ?>">
+                            <?= $grupC[$key]['model_code']; ?>
+                        </a>
+                    <?php else : ?>
+                        <!-- Defaul Value -->
+                        <a class="seat-shadow seat-vertical text-white" grup="C" position="<?= $i; ?>"></a>
+                    <?php endif; ?>
                 <?php else : ?>
-                    <a class="seat seat-vertical" grup="C" position="<?= $i; ?>"></a>
+                    <?php $key = array_search($i, array_column($grupC, 'position')); ?>
+                    <?php if (!empty($key) || $key === 0) : ?>
+                        <a class="<?= ($grupC[$key]['status'] == 'Internal') ? "seat-internal" : "seat"; ?> seat-vertical text-white" grup="C" position="<?= $i; ?>">
+                            <?= $grupC[$key]['model_code']; ?>
+                        </a>
+                    <?php else : ?>
+                        <!-- Defaul Value -->
+                        <a class="seat seat-vertical text-white" grup="C" position="<?= $i; ?>"></a>
+                    <?php endif; ?>
                 <?php endif; ?>
             <?php endfor; ?>
 
@@ -170,6 +202,9 @@
     </main>
 </section>
 
+<script>
+</script>
+
 <?= $this->endSection(); ?>
 
 
@@ -190,5 +225,50 @@
             $("#addModal").modal('show');
         });
     });
+
+
+
+    //-------------- DRAG & DROP COLUMN
+    function allowDrop(ev) {
+        ev.preventDefault();
+    }
+
+    function drag(ev) {
+        var group = ev.target.getAttribute('grup');
+        var posisi = ev.target.getAttribute('position');
+        var id = ev.target.id;
+
+        ev.dataTransfer.setData("grup", String(group));
+        ev.dataTransfer.setData("posisi", String(posisi));
+        ev.dataTransfer.setData("id", String(id));
+    }
+
+    function drop(ev) {
+        ev.preventDefault();
+        var grup = ev.dataTransfer.getData("grup", grup);
+        var posisi = ev.dataTransfer.getData("posisi", posisi);
+        var prevId = ev.dataTransfer.getData("id", posisi);
+
+        var newGrup = ev.target.getAttribute('grup');
+        var newPosisi = ev.target.getAttribute('position');
+        var newId = ev.target.id;
+
+        $.ajax({
+            type: "POST",
+            url: "/parkir/update_posisi",
+            data: {
+                grup: grup,
+                posisi: posisi,
+                newGrup: newGrup,
+                newPosisi: newPosisi
+            },
+            dataType: "json",
+            success: function(response) {
+                location.reload();
+                // $(`#${newId}`).html(response['model_code']);
+                // $(`#${prevId}`).html("");
+            }
+        });
+    }
 </script>
 <?= $this->endSection(); ?>

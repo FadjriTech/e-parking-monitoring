@@ -9,6 +9,8 @@ class ParkirModel extends Model
     protected $DBGroup          = 'default';
     protected $table            = 'tb_parking';
     protected $primaryKey       = 'id';
+    protected $allowedFields    = ['grup', 'position', 'model_code', 'license_plate', 'status', 'lokasi', 'created_at', 'updated_at'];
+    protected $useTimestamps    = true;
     protected $builder;
 
     public function __construct()
