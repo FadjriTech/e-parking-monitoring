@@ -74,7 +74,8 @@ class Parkir extends BaseController
         $update   = $this->parkir->set('position', $newPosisi)->set('grup', $newGrup)->where('id', $dataAwal['id'])->update();
         if ($update) {
             return json_encode(array(
-                'model_code' => $dataAwal['model_code']
+                'model_code' => $dataAwal['model_code'],
+                'license_plate' => $dataAwal['license_plate'],
             ));
         }
     }
