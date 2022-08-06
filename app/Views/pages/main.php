@@ -35,7 +35,7 @@
 
         <!-------- GRUP A ------->
         <div class="seat-row">
-            <?php for ($i = 1; $i <= 8; $i++) : ?>
+            <?php for ($i = 1; $i <= 9; $i++) : ?>
                 <!-- Lakukan Pengecekan Key -->
                 <?php $key = array_search($i, array_column($grupA, 'position')); ?>
                 <?php if (!empty($key) || $key === 0) : ?>
@@ -217,21 +217,37 @@
 
 
         <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg">
+            <div class="modal-dialog modal-fullscreen">
                 <div class="modal-content">
                     <div class="modal-header boder-0">
                         <h5 class="modal-title border-0" id="exampleModalLabel">Seat Detail</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body border-0">
-                        <div class="mb-3">
-                            <input type="text" class="form-control" id="grup" name="grup" readonly>
-                            <input type="text" class="form-control" id="posisi" name="posisi" readonly>
+                        <div>
+                            <input type="hidden" class="form-control" id="grup" name="grup" disabled readonly>
+                            <input type="hidden" class="form-control" id="posisi" name="posisi" disabled readonly>
                         </div>
+                        <form>
+                            <div class="mb-2">
+                                <label for="nopol" class="form-label">Nomor Polisi</label>
+                                <input type="text" class="form-control" id="nopol">
+                            </div>
+                            <div class="mb-3">
+                                <label for="model" class="form-label">Model Kendaraan</label>
+                                <select name="model" id="model" class="form-control">
+                                    <option value="AVZ">AVANZA</option>
+                                    <option value="FTR">FORTUNER</option>
+                                    <option value="HLX">HILUX</option>
+                                    <option value="INV">INNOVA</option>
+                                    <option value="RZE">RAIZE</option>
+                                </select>
+                            </div>
+                        </form>
                     </div>
                     <div class="modal-footer border-0">
-                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-secondary">Update Perubahan</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Update Perubahan</button>
                     </div>
                 </div>
             </div>
@@ -259,6 +275,11 @@
 
             $("#grup").val(grup);
             $("#posisi").val(position);
+
+            var html = $(this).html();
+            if (!html) {
+
+            }
 
             $("#addModal").modal('show');
         });
@@ -305,6 +326,9 @@
                 success: function(response) {
                     $(`#${prevId}`).html("");
                     $(`#${newId}`).html(response.model_code + ' | ' + response.license_plate);
+                },
+                error: function() {
+                    location.reload();
                 }
             });
         } else {
