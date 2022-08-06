@@ -54,12 +54,12 @@
             <?php for ($i = 1; $i <= 5; $i++) : ?>
                 <?php $key = array_search($i, array_column($grupB, 'position')); ?>
                 <?php if (!empty($key) || $key === 0) : ?>
-                    <a class="<?= ($grupB[$key]['status'] == 'Internal') ? "seat-internal" : "seat"; ?> seat-horizontal text-white" grup="B" position="<?= $i; ?>" draggable="true" ondragstart="drag(event)" ondrop="drop(event)" ondragover="allowDrop(event)" id="B<?= $i; ?>">
+                    <a class="<?= ($grupB[$key]['status'] == 'Internal') ? "seat-internal" : "seat"; ?> seat-horizontal" grup="B" position="<?= $i; ?>" draggable="true" ondragstart="drag(event)" ondrop="drop(event)" ondragover="allowDrop(event)" id="B<?= $i; ?>">
                         <?= $grupB[$key]['model_code'] . " | " . $grupB[$key]['license_plate']; ?>
                     </a>
                 <?php else : ?>
                     <!-- Defaul Value -->
-                    <a class="seat-shadow seat-horizontal text-white" ondrop="drop(event)" ondragover="allowDrop(event)" grup="B" position="<?= $i; ?>" id="B<?= $i; ?>"></a>
+                    <a class="seat-shadow seat-horizontal" draggable="true" ondragstart="drag(event)" ondrop="drop(event)" ondragover="allowDrop(event)" grup="B" position="<?= $i; ?>" id="B<?= $i; ?>"></a>
                 <?php endif; ?>
             <?php endfor; ?>
         </div>
@@ -156,7 +156,15 @@
         </div>
         <div class="seat-row">
             <?php for ($i = 2; $i <= 5; $i++) : ?>
-                <a class="seat-shadow seat-horizontal" grup="D" position="<?= $i; ?>"></a>
+                <?php $key = array_search($i, array_column($grupD, 'position')); ?>
+                <?php if (!empty($key) || $key === 0) : ?>
+                    <a class="<?= ($grupD[$key]['status'] == 'Internal') ? "seat-internal" : "seat"; ?> seat-horizontal text-white" grup="D" position="<?= $i; ?>" draggable="true" ondragstart="drag(event)" ondrop="drop(event)" ondragover="allowDrop(event)" id="D<?= $i; ?>">
+                        <?= $grupD[$key]['model_code'] . " | " . $grupD[$key]['license_plate']; ?>
+                    </a>
+                <?php else : ?>
+                    <!-- Defaul Value -->
+                    <a class="seat-shadow seat-horizontal text-white" ondrop="drop(event)" ondragover="allowDrop(event)" grup="D" position="<?= $i; ?>" id="D<?= $i; ?>"></a>
+                <?php endif; ?>
             <?php endfor; ?>
         </div>
 
@@ -165,9 +173,25 @@
         <div class="seat-row">
             <?php for ($i = 1; $i <= 7; $i++) : ?>
                 <?php if ($i == 1 || $i == 2) : ?>
-                    <a class="seat-shadow seat-vertical" grup="E" position="<?= $i; ?>"></a>
+                    <?php $key = array_search($i, array_column($grupE, 'position')); ?>
+                    <?php if (!empty($key) || $key === 0) : ?>
+                        <a class="<?= ($grupE[$key]['status'] == 'Internal') ? "seat-internal" : "seat"; ?> seat-vertical text-white" grup="E" position="<?= $i; ?>" draggable="true" ondragstart="drag(event)" ondrop="drop(event)" ondragover="allowDrop(event)" id="E<?= $i; ?>">
+                            <?= $grupE[$key]['model_code'] . " | " . $grupE[$key]['license_plate']; ?>
+                        </a>
+                    <?php else : ?>
+                        <!-- Defaul Value -->
+                        <a class="seat-shadow seat-vertical text-white" ondrop="drop(event)" ondragover="allowDrop(event)" grup="E" position="<?= $i; ?>" id="E<?= $i; ?>"></a>
+                    <?php endif; ?>
                 <?php else : ?>
-                    <a class="seat seat-vertical" grup="E" position="<?= $i; ?>"></a>
+                    <?php $key = array_search($i, array_column($grupE, 'position')); ?>
+                    <?php if (!empty($key) || $key === 0) : ?>
+                        <a class="<?= ($grupE[$key]['status'] == 'Internal') ? "seat-internal" : "seat"; ?> seat-vertical text-white" grup="E" position="<?= $i; ?>" draggable="true" ondragstart="drag(event)" ondrop="drop(event)" ondragover="allowDrop(event)" id="E<?= $i; ?>">
+                            <?= $grupE[$key]['model_code'] . " | " . $grupE[$key]['license_plate']; ?>
+                        </a>
+                    <?php else : ?>
+                        <!-- Defaul Value -->
+                        <a class="seat seat-vertical text-white" ondrop="drop(event)" ondragover="allowDrop(event)" grup="E" position="<?= $i; ?>" id="E<?= $i; ?>"></a>
+                    <?php endif; ?>
                 <?php endif; ?>
             <?php endfor; ?>
         </div>
@@ -175,12 +199,28 @@
         <!------------- GRUP F -------------------------->
         <div class="seat-row">
             <?php for ($i = 1; $i <= 4; $i++) : ?>
-                <a class="seat-shadow seat-horizontal" grup="F" position="<?= $i; ?>"></a>
+                <?php $key = array_search($i, array_column($grupF, 'position')); ?>
+                <?php if (!empty($key) || $key === 0) : ?>
+                    <a class="<?= ($grupF[$key]['status'] == 'Internal') ? "seat-internal" : "seat"; ?> seat-horizontal text-white" grup="F" position="<?= $i; ?>" draggable="true" ondragstart="drag(event)" ondrop="drop(event)" ondragover="allowDrop(event)" id="F<?= $i; ?>">
+                        <?= $grupF[$key]['model_code'] . " | " . $grupF[$key]['license_plate']; ?>
+                    </a>
+                <?php else : ?>
+                    <!-- Defaul Value -->
+                    <a class="seat-shadow seat-horizontal" ondrop="drop(event)" ondragover="allowDrop(event)" grup="F" position="<?= $i; ?>" id="F<?= $i; ?>"></a>
+                <?php endif; ?>
             <?php endfor; ?>
         </div>
         <div class="seat-row">
             <?php for ($i = 5; $i <= 11; $i++) : ?>
-                <a class="seat seat-vertical" grup="F" position="<?= $i; ?>"></a>
+                <?php $key = array_search($i, array_column($grupF, 'position')); ?>
+                <?php if (!empty($key) || $key === 0) : ?>
+                    <a class="<?= ($grupF[$key]['status'] == 'Internal') ? "seat-internal" : "seat"; ?> seat-vertical text-white" grup="F" position="<?= $i; ?>" draggable="true" ondragstart="drag(event)" ondrop="drop(event)" ondragover="allowDrop(event)" id="F<?= $i; ?>">
+                        <?= $grupF[$key]['model_code'] . " | " . $grupF[$key]['license_plate']; ?>
+                    </a>
+                <?php else : ?>
+                    <!-- Defaul Value -->
+                    <a class="seat seat-vertical text-white" ondrop="drop(event)" ondragover="allowDrop(event)" grup="F" position="<?= $i; ?>" id="F<?= $i; ?>"></a>
+                <?php endif; ?>
             <?php endfor; ?>
             <div class="seat seat-vertical opacity-0"></div>
         </div>
@@ -290,9 +330,8 @@
                 },
                 dataType: "json",
                 success: function(response) {
-                    location.reload();
-                    // $(`#${prevId}`).html("");
-                    // $(`#${newId}`).html(response.model_code + ' | ' + response.license_plate);
+                    $(`#${prevId}`).html("");
+                    $(`#${newId}`).html(response.model_code + ' | ' + response.license_plate);
                 }
             });
         } else {

@@ -132,6 +132,7 @@ section {
     border: 2px dashed var(--base-color);
     background-color: white;
     border-radius: 10px;
+    color: black;
 }
 
 .seat-vertical {
@@ -167,7 +168,6 @@ section {
     align-items: center;
     justify-content: center;
     text-align: center;
-    color: white;
     font-family: "Roboto", sans-serif;
     font-size: 12px;
     font-weight: 500;
