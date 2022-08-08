@@ -40,6 +40,9 @@ $routes->get('/', 'Parkir::index');
 
 $routes->group('parkir', function ($routes) {
     $routes->post('update_posisi', 'Parkir::update_posisi');
+    $routes->post('tambah_parkir', 'Parkir::tambah_parkir');
+    $routes->post('delete', 'Parkir::delete_parkir');
+    $routes->post('get_detail', 'Parkir::get_detail');
 });
 
 /*

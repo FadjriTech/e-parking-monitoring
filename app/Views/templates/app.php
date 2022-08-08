@@ -14,6 +14,7 @@
 
     <!-- Material Icons -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 
 </head>

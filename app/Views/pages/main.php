@@ -15,16 +15,12 @@
                     Parkir Bayangan
                 </div>
                 <div class="desc-wrap">
-                    <div class="legend legend-active"></div>
-                    Parkir Terisi
-                </div>
-                <div class="desc-wrap">
                     <div class="legend legend-empty"></div>
-                    Parkir Kosong
+                    Parkir Seat
                 </div>
                 <div class="desc-wrap">
                     <div class="legend legend-internal"></div>
-                    Internal
+                    Gedung
                 </div>
             </div>
         </div>
@@ -150,7 +146,7 @@
             <!-- Lakukan Pengecekan Key -->
             <?php $key = array_search(1, array_column($grupE, 'position')); ?>
             <?php if (!empty($key) || $key === 0) : ?>
-                <a class="seat-shadow seat-vertical" draggable="true" ondragstart="drag(event)" ondrop="drop(event)" ondragover="allowDrop(event)" id="<?= rand(1 * 200, 1 * 399); ?>" grup="E" position="1">
+                <a class="seat-shadow text-dark seat-vertical" draggable="true" ondragstart="drag(event)" ondrop="drop(event)" ondragover="allowDrop(event)" id="<?= rand(1 * 200, 1 * 399); ?>" grup="E" position="1">
                     <?= $grupE[$key]['model_code'] . " | " . $grupE[$key]['license_plate']; ?>
                 </a>
             <?php else : ?>
@@ -215,40 +211,113 @@
         </nav>
 
 
-
-        <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-fullscreen">
+        <!-- Detail Modal -->
+        <div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-fullscreen-md-down">
                 <div class="modal-content">
                     <div class="modal-header boder-0">
                         <h5 class="modal-title border-0" id="exampleModalLabel">Seat Detail</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="modal-body border-0">
-                        <div>
-                            <input type="hidden" class="form-control" id="grup" name="grup" disabled readonly>
-                            <input type="hidden" class="form-control" id="posisi" name="posisi" disabled readonly>
+                    <form method="POST" action="/parkir/tambah_parkir">
+                        <div class="modal-body border-0">
+                            <div>
+                                <input type="hidden" class="form-control" id="detailGrup" name="grup" readonly>
+                                <input type="hidden" class="form-control" id="detailPosisi" name="posisi" readonly>
+                                <input type="hidden" class="form-control" id="detailLokasi" name="lokasi" value="DEPAN" readonly>
+                                <input type="hidden" class="form-control" id="detailID" name="id" readonly>
+                            </div>
+                            <div class="mb-3">
+                                <label for="nopol" class="form-label">Nomor Polisi</label>
+                                <input type="text" class="form-control" id="detailNopol" name="nopol" disabled readonly>
+                            </div>
+                            <div class="mb-3">
+                                <label for="model" class="form-label">Model Kendaraan</label>
+                                <select name="model" id="detailModel" class="form-control" disabled>
+                                    <?php foreach ($model as $row) : ?>
+                                        <option value="<?= $row['model_code']; ?>"><?= $row['model']; ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="status" class="form-label">Status</label>
+                                <select name="status" id="detailStatus" class="form-control" disabled>
+                                    <option value="Menunggu Perbaikan">Menunggu Perbaikan</option>
+                                    <option value="Menunggu Sparepart">Menunggu Sparepart</option>
+                                    <option value="Proses Pengerjaan">Proses Pengerjaan</option>
+                                    <option value="Menunggu Pengambilan">Menunggu Pengambilan</option>
+                                    <option value="Menunggu Pengantaran">Menunggu Pengantaran</option>
+                                    <option value="Internal">Internal</option>
+                                </select>
+                            </div>
                         </div>
-                        <form>
+                        <div class="modal-footer border-0">
+                            <button type="button" class="btn btn-delete btn-danger d-flex align-items-center">
+                                <span class="material-icons">
+                                    do_disturb_alt
+                                </span>
+                            </button>
+                            <button type="button" class="btn btn-success d-flex align-items-center btn-edit">
+                                <span class="material-icons">
+                                    flip
+                                </span>
+                            </button>
+                            <button type="submit" class="btn btn-primary d-flex align-items-center d-none btn-save">
+                                <span class="material-icons">
+                                    save_as
+                                </span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Add Modal -->
+        <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-fullscreen-md-down">
+                <div class="modal-content">
+                    <div class="modal-header boder-0">
+                        <h5 class="modal-title border-0" id="exampleModalLabel">Seat Detail</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form method="POST" action="/parkir/tambah_parkir">
+                        <div class="modal-body border-0">
+                            <div>
+                                <input type="hidden" class="form-control" id="grup" name="grup" readonly>
+                                <input type="hidden" class="form-control" id="posisi" name="posisi" readonly>
+                                <input type="hidden" class="form-control" id="lokasi" name="lokasi" value="DEPAN" readonly>
+                            </div>
                             <div class="mb-2">
                                 <label for="nopol" class="form-label">Nomor Polisi</label>
-                                <input type="text" class="form-control" id="nopol">
+                                <input type="text" class="form-control" id="nopol" name="nopol" autocomplete="off">
                             </div>
                             <div class="mb-3">
                                 <label for="model" class="form-label">Model Kendaraan</label>
                                 <select name="model" id="model" class="form-control">
-                                    <option value="AVZ">AVANZA</option>
-                                    <option value="FTR">FORTUNER</option>
-                                    <option value="HLX">HILUX</option>
-                                    <option value="INV">INNOVA</option>
-                                    <option value="RZE">RAIZE</option>
+                                    <?php foreach ($model as $row) : ?>
+                                        <option value="<?= $row['model_code']; ?>"><?= $row['model']; ?></option>
+                                    <?php endforeach; ?>
                                 </select>
                             </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer border-0">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Update Perubahan</button>
-                    </div>
+                            <div class="mb-3">
+                                <label for="status" class="form-label">Status</label>
+                                <select name="status" id="status" class="form-control">
+                                    <option value="Menunggu Perbaikan">Menunggu Perbaikan</option>
+                                    <option value="Menunggu Sparepart">Menunggu Sparepart</option>
+                                    <option value="Proses Pengerjaan">Proses Pengerjaan</option>
+                                    <option value="Menunggu Pengambilan">Menunggu Pengambilan</option>
+                                    <option value="Menunggu Pengantaran">Menunggu Pengantaran</option>
+                                    <option value="Internal">Internal</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="modal-footer border-0">
+                            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-secondary">Save</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -266,8 +335,15 @@
 <?= $this->section('script'); ?>
 <script>
     $(document).ready(function() {
+
+        const formField = ['detailID', 'detailNopol', 'detailModel', 'detailStatus'];
+        const arrayField = ['id', 'license_plate', 'model_code', 'status'];
+
         $('.seat-vertical, .seat-horizontal').click(function(e) {
             e.preventDefault();
+
+            //----- Ambil HTML
+            var html = $(this).html();
 
             //----- Ambil grup dan posisi
             var grup = $(this).attr('grup');
@@ -275,13 +351,69 @@
 
             $("#grup").val(grup);
             $("#posisi").val(position);
+            $("#detailGrup").val(grup);
+            $("#detailPosisi").val(position);
 
-            var html = $(this).html();
             if (!html) {
+                $("#addModal").modal('show');
+            } else {
+                formField.forEach(element => {
+                    $(`#${element}`).prop('disabled', true);
+                });
 
+                $(".btn-save").addClass("d-none");
+                $("#detailModal").modal('show');
+
+                $.ajax({
+                    type: "POST",
+                    url: "/parkir/get_detail",
+                    data: {
+                        grup: grup,
+                        posisi: position
+                    },
+                    dataType: "json",
+                    success: function(response) {
+                        const data = response.data;
+                        formField.forEach((element, index) => {
+                            $(`#${element}`).val(data[arrayField[index]]);
+                        });
+                    }
+                });
             }
+        });
 
-            $("#addModal").modal('show');
+        $('.btn-edit').click(function(e) {
+            e.preventDefault();
+
+            $(".btn-save").removeClass("d-none");
+            formField.forEach(element => {
+                $(`#${element}`).prop('disabled', false);
+                $(`#${element}`).prop('readonly', false);
+            });
+        });
+
+        $('.btn-delete').click(function(e) {
+            e.preventDefault();
+
+            //----- Ambil grup dan posisi
+            var grup = $("#detailGrup").val();
+            var position = $("#detailPosisi").val();
+
+            var confirmation = confirm("Hapus data ini ?");
+            if (confirmation) {
+                $.ajax({
+                    type: "POST",
+                    url: "/parkir/delete",
+                    data: {
+                        grup: grup,
+                        posisi: position
+                    },
+                    dataType: "json",
+                    success: function(response) {
+                        location.reload();
+                    }
+                });
+            }
         });
     });
 
@@ -297,9 +429,15 @@
         var posisi = ev.target.getAttribute('position');
         var id = ev.target.id;
 
-        ev.dataTransfer.setData("grup", String(group));
-        ev.dataTransfer.setData("posisi", String(posisi));
-        ev.dataTransfer.setData("id", String(id));
+        var html = $(`#${id}`).html();
+        if (html) {
+            ev.dataTransfer.setData("grup", String(group));
+            ev.dataTransfer.setData("posisi", String(posisi));
+            ev.dataTransfer.setData("id", String(id));
+        } else {
+            alert("Seat Masih Kosong");
+        }
+
     }
 
     function drop(ev) {

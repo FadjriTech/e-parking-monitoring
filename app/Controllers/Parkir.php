@@ -34,18 +34,32 @@ class Parkir extends BaseController
             }
         }
 
+        $listModel = $this->parkir->_getListModel();
         $data  = [
             'grupA' => $grupA,
             'grupB' => $grupB,
             'grupC' => $grupC,
             'grupD' => $grupD,
             'grupE' => $grupE,
-            'grupF' => $grupF
+            'grupF' => $grupF,
+            'model' => $listModel
         ];
 
         return view('pages/main', $data);
     }
 
+    public function get_detail()
+    {
+        if ($this->request->isAJAX()) {
+            if (isset($_POST['grup']) && isset($_POST['posisi'])) {
+                $data   = $this->parkir->_getParkirDetail($_POST['posisi'], $_POST['grup']);
+                return json_encode(array(
+                    'data'  => $data,
+                    'code'  => 200
+                ));
+            }
+        }
+    }
 
     public function update_posisi()
     {
@@ -77,6 +91,59 @@ class Parkir extends BaseController
                 'model_code' => $dataAwal['model_code'],
                 'license_plate' => $dataAwal['license_plate'],
             ));
+        }
+    }
+
+    public function tambah_parkir()
+    {
+        if (!$this->validate([
+            'nopol' => 'required',
+            'model' => 'required'
+        ])) return $this->validator->listErrors();
+
+        $grup    = $_POST['grup'];
+        $posisi  = $_POST['posisi'];
+        $nopol   = $_POST['nopol'];
+        $model   = $_POST['model'];
+        $status  = $_POST['status'];
+        $lokasi  = $_POST['lokasi'];
+
+        $data    = [
+            'grup'          => $grup,
+            'position'      => $posisi,
+            'model_code'    => $model,
+            'license_plate' => $nopol,
+            'status'        => $status,
+            'lokasi'        => $lokasi
+        ];
+
+        if (isset($_POST['id'])) {
+            $data['id'] = $_POST['id'];
+        }
+
+        $insert = $this->parkir->save($data);
+        if ($insert) {
+            if ($lokasi == "DEPAN") {
+                return redirect()->to(base_url());
+            }
+        }
+    }
+
+    public function delete_parkir()
+    {
+        if ($this->request->isAJAX()) {
+            if (isset($_POST['posisi']) && isset($_POST['grup'])) {
+                $posisi = $_POST['posisi'];
+                $grup   = $_POST['grup'];
+
+                $delete = $this->parkir->_deleteParkir($posisi, $grup);
+                if ($delete) {
+                    return json_encode(array(
+                        'message' => 'Berhasil di hapus',
+                        'code'    => 200
+                    ));
+                }
+            }
         }
     }
 }

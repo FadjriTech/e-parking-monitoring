@@ -8,24 +8,47 @@ class ParkirModel extends Model
 {
     protected $DBGroup          = 'default';
     protected $table            = 'tb_parking';
-    protected $primaryKey       = 'id';
     protected $allowedFields    = ['grup', 'position', 'model_code', 'license_plate', 'status', 'lokasi', 'created_at', 'updated_at'];
     protected $useTimestamps    = true;
-    protected $builder;
 
     public function __construct()
     {
         $db      = \Config\Database::connect();
-        $this->builder = $db->table($this->table);
+        $builder = $db->table($this->table);
+    }
+
+    public function _getListModel()
+    {
+        $db      = \Config\Database::connect();
+        $builder = $db->table("tb_model_kendaraan");
+        return $builder->select('*')->get()->getResultArray();
     }
 
     public function _getAllParkirByLocation($location)
     {
-        return $this->builder->select('*')->where('lokasi', $location)->orderBy('grup')->orderBy('position')->get()->getResultArray();
+        $db      = \Config\Database::connect();
+        $builder = $db->table($this->table);
+        return $builder->select('*')->where('lokasi', $location)->orderBy('grup')->orderBy('position')->get()->getResultArray();
     }
 
     public function _getListParkirGrup($grup)
     {
-        return $this->builder->select('*')->where('grup', $grup)->orderBy('grup')->orderBy('position')->get()->getResultArray();
+        $db      = \Config\Database::connect();
+        $builder = $db->table($this->table);
+        return $builder->select('*')->where('grup', $grup)->orderBy('grup')->orderBy('position')->get()->getResultArray();
+    }
+
+    public function _getParkirDetail($posisi, $grup)
+    {
+        $db      = \Config\Database::connect();
+        $builder = $db->table("tb_model_kendaraan");
+        return $builder->select('*')->join('tb_parking', 'tb_parking.model_code = tb_model_kendaraan.model_code', 'LEFT')->where('grup', $grup)->where('position', $posisi)->get()->getFirstRow();
+    }
+
+    public function _deleteParkir($posisi, $grup)
+    {
+        $db      = \Config\Database::connect();
+        $builder = $db->table($this->table);
+        return $builder->where('position', $posisi)->where('grup', $grup)->delete();
     }
 }
