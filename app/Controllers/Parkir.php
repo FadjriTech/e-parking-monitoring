@@ -36,17 +36,61 @@ class Parkir extends BaseController
 
         $listModel = $this->parkir->_getListModel();
         $data  = [
-            'grupA' => $grupA,
-            'grupB' => $grupB,
-            'grupC' => $grupC,
-            'grupD' => $grupD,
-            'grupE' => $grupE,
-            'grupF' => $grupF,
-            'model' => $listModel
+            'grupA'  => $grupA,
+            'grupB'  => $grupB,
+            'grupC'  => $grupC,
+            'grupD'  => $grupD,
+            'grupE'  => $grupE,
+            'grupF'  => $grupF,
+            'model'  => $listModel,
+            'lokasi' => 'DEPAN'
         ];
 
         return view('pages/main', $data);
     }
+
+    public function stall_bp()
+    {
+        $parkirGroups  = range('G', 'J');
+        $parkir = $this->parkir->_getAllParkirByLocation("STALL_BP");
+
+        $grupG = array();
+        $grupH = array();
+        $grupI = array();
+        $grupJ = array();
+
+        foreach ($parkirGroups as $grup) {
+            $keys = array_keys(array_combine(array_keys($parkir), array_column($parkir, 'grup')), $grup);
+            foreach ($keys as $data) {
+                array_push(${"grup" . $grup}, $parkir[$data]);
+            }
+        }
+
+        $listModel = $this->parkir->_getListModel();
+        $data = [
+            'lokasi' => 'BP',
+            'grupG'  => $grupG,
+            'grupH'  => $grupH,
+            'grupI'  => $grupI,
+            'grupJ'  => $grupJ,
+            'model'  => $listModel
+        ];
+        return view('pages/stall_bp', $data);
+    }
+
+    public function stall_gr()
+    {
+
+        $data = [
+            'lokasi' => 'GR'
+        ];
+        return view('pages/stall_gr', $data);
+    }
+
+
+
+
+    //------ Non pages function
 
     public function get_detail()
     {
@@ -125,6 +169,8 @@ class Parkir extends BaseController
         if ($insert) {
             if ($lokasi == "DEPAN") {
                 return redirect()->to(base_url());
+            } else if ($lokasi == "STALL_BP") {
+                return redirect()->to(base_url() . '/parkir/stall_bp');
             }
         }
     }

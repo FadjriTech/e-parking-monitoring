@@ -186,8 +186,8 @@ section {
 /* -------------- SCROLLBAR ---------------- */
 /* width */
 ::-webkit-scrollbar {
-    height: 8px;
-    width: 10px;
+    height: 4px;
+    width: 4px;
   }
   
   /* Track */
@@ -260,6 +260,10 @@ section {
 .legend-empty {
     background-color: var(--base-color);
 }
+.legend-internal {
+    background-color: rgb(208, 84, 43);
+}
+
 
 
 /*---------- BOTTOM NAVIGATION ---------------*/

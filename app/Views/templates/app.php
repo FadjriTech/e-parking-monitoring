@@ -9,7 +9,13 @@
 
     <!-- Bootstrap -->
 
-    <link rel="stylesheet" href="/css/parkir_depan/style.css">
+    <?php if ($lokasi == 'DEPAN') : ?>
+        <link rel="stylesheet" href="/css/parkir_depan/style.css">
+    <?php elseif ($lokasi == "BP") : ?>
+        <link rel="stylesheet" href="/css/stall/bp/style.css">
+    <?php else : ?>
+        <link rel="stylesheet" href="/css/stall/gr/style.css">
+    <?php endif; ?>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
 
     <!-- Material Icons -->

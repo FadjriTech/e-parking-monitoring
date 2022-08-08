@@ -1,10 +1,9 @@
 <?= $this->extend('templates/app'); ?>
 
 <?= $this->section('content'); ?>
-
 <section>
     <div class="header">
-        <h4>Area Parkir Depan</h4>
+        <h4>Area Stall BP</h4>
     </div>
     <main class="denah">
         <!--------- Legend  ---------->
@@ -28,183 +27,123 @@
         <div class="kantor shadow">
             Gedung Akastra
         </div>
+        <div class="row">
+            <div class="col-lg-3 col-md-3">
 
-        <!-------- GRUP A ------->
-        <div class="seat-row">
-            <?php for ($i = 1; $i <= 9; $i++) : ?>
-                <!-- Lakukan Pengecekan Key -->
-                <?php $key = array_search($i, array_column($grupA, 'position')); ?>
-                <?php if (!empty($key) || $key === 0) : ?>
-                    <a class="seat seat-vertical text-white" draggable="true" ondragstart="drag(event)" ondrop="drop(event)" ondragover="allowDrop(event)" id="<?= rand($i * 200, $i * 399); ?>" grup="A" position="<?= $i; ?>">
-                        <?= $grupA[$key]['model_code'] . " | " . $grupA[$key]['license_plate']; ?>
+                <br><br><br>
+                <div class="d-flex gap-2 justify-content-end mb-2">
+                    <div class="d-flex flex-column gap-2">
+                        <?php for ($i = 1; $i <= 7; $i++) : ?>
+                            <!-- Lakukan Pengecekan Key -->
+                            <?php $key = array_search($i, array_column($grupJ, 'position')); ?>
+                            <?php if (!empty($key) || $key === 0) : ?>
+                                <a class="seat-shadow seat-vertical text-dark" draggable="true" ondragstart="drag(event)" ondrop="drop(event)" ondragover="allowDrop(event)" id="<?= rand($i * 200, $i * 399); ?>" grup="J" position="<?= $i; ?>">
+                                    <?= $grupJ[$key]['model_code'] . " | " . $grupJ[$key]['license_plate']; ?>
+                                </a>
+                            <?php else : ?>
+                                <a class="seat-shadow seat-vertical text-dark" draggable="true" ondragstart="drag(event)" ondrop="drop(event)" ondragover="allowDrop(event)" id="<?= rand($i * 200, $i * 399); ?>" grup="J" position="<?= $i; ?>"></a>
+                            <?php endif; ?>
+                        <?php endfor; ?>
+                    </div>
+                    <div class="d-flex flex-column gap-2">
+                        <?php for ($i = 8; $i <= 16; $i++) : ?>
+                            <!-- Lakukan Pengecekan Key -->
+                            <?php $key = array_search($i, array_column($grupJ, 'position')); ?>
+                            <?php if (!empty($key) || $key === 0) : ?>
+                                <a class="seat-shadow seat-vertical text-dark" draggable="true" ondragstart="drag(event)" ondrop="drop(event)" ondragover="allowDrop(event)" id="<?= rand($i * 200, $i * 399); ?>" grup="J" position="<?= $i; ?>">
+                                    <?= $grupJ[$key]['model_code'] . " | " . $grupJ[$key]['license_plate']; ?>
+                                </a>
+                            <?php else : ?>
+                                <a class="seat-shadow seat-vertical text-dark" draggable="true" ondragstart="drag(event)" ondrop="drop(event)" ondragover="allowDrop(event)" id="<?= rand($i * 200, $i * 399); ?>" grup="J" position="<?= $i; ?>"></a>
+                            <?php endif; ?>
+                        <?php endfor; ?>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-9 col-md-8">
+                <br><br><br><br><br>
+                <br><br><br><br><br>
+                <br><br><br><br><br>
+                <br><br><br><br><br>
+                <!-------------- Area Sparepart BP ------------->
+                <div class="seat-row">
+                    <a class="pos seat-vertical">
+                        Spare Part
                     </a>
-                <?php else : ?>
-                    <a class="seat seat-vertical text-white" draggable="true" ondragstart="drag(event)" ondrop="drop(event)" ondragover="allowDrop(event)" id="<?= rand($i * 200, $i * 399); ?>" grup="A" position="<?= $i; ?>"></a>
-                <?php endif; ?>
-            <?php endfor; ?>
-        </div>
+                    <?php for ($i = 1; $i <= 3; $i++) : ?>
+                        <!-- Lakukan Pengecekan Key -->
+                        <?php $key = array_search($i, array_column($grupG, 'position')); ?>
+                        <?php if (!empty($key) || $key === 0) : ?>
+                            <a class="seat seat-vertical text-white" draggable="true" ondragstart="drag(event)" ondrop="drop(event)" ondragover="allowDrop(event)" id="<?= rand($i * 200, $i * 399); ?>" grup="G" position="<?= $i; ?>">
+                                <?= $grupG[$key]['model_code'] . " | " . $grupG[$key]['license_plate']; ?>
+                            </a>
+                        <?php else : ?>
+                            <a class="seat seat-vertical text-white" draggable="true" ondragstart="drag(event)" ondrop="drop(event)" ondragover="allowDrop(event)" id="<?= rand($i * 200, $i * 399); ?>" grup="G" position="<?= $i; ?>"></a>
+                        <?php endif; ?>
+                    <?php endfor; ?>
+                </div>
 
-        <!---------------- Jalan Utama ------------------->
-        <!--------- GRUP B -------->
-        <div class="seat-row">
-            <?php for ($i = 1; $i <= 5; $i++) : ?>
-                <!-- Lakukan Pengecekan Key -->
-                <?php $key = array_search($i, array_column($grupB, 'position')); ?>
-                <?php if (!empty($key) || $key === 0) : ?>
-                    <a class="seat-shadow seat-horizontal" draggable="true" ondragstart="drag(event)" ondrop="drop(event)" ondragover="allowDrop(event)" id="<?= rand($i * 200, $i * 399); ?>" grup="B" position="<?= $i; ?>">
-                        <?= $grupB[$key]['model_code'] . " | " . $grupB[$key]['license_plate']; ?>
+                <!---------------- Jalan Utama ------------------->
+                <div class="seat-row">
+                    <?php for ($i = 1; $i <= 9; $i++) : ?>
+                        <?php if ($i != 2) : ?>
+                            <!-- Lakukan Pengecekan Key -->
+                            <?php $key = array_search($i, array_column($grupH, 'position')); ?>
+                            <?php if (!empty($key) || $key === 0) : ?>
+                                <a class="seat-shadow seat-horizontal text-dark" draggable="true" ondragstart="drag(event)" ondrop="drop(event)" ondragover="allowDrop(event)" id="<?= rand($i * 200, $i * 399); ?>" grup="H" position="<?= $i; ?>">
+                                    <?= $grupH[$key]['model_code'] . " | " . $grupH[$key]['license_plate']; ?>
+                                </a>
+                            <?php else : ?>
+                                <a class="seat-shadow seat-horizontal text-dark" draggable="true" ondragstart="drag(event)" ondrop="drop(event)" ondragover="allowDrop(event)" id="<?= rand($i * 200, $i * 399); ?>" grup="H" position="<?= $i; ?>"></a>
+                            <?php endif; ?>
+                        <?php else : ?>
+                            <div class="seat-empty seat-horizontal"></div>
+                        <?php endif; ?>
+                    <?php endfor; ?>
+                </div>
+                <div class="seat-row">
+                    <?php for ($i = 10; $i <= 18; $i++) : ?>
+                        <!-- Lakukan Pengecekan Key -->
+                        <?php $key = array_search($i, array_column($grupH, 'position')); ?>
+                        <?php if (!empty($key) || $key === 0) : ?>
+                            <a class="seat-shadow seat-horizontal text-dark" draggable="true" ondragstart="drag(event)" ondrop="drop(event)" ondragover="allowDrop(event)" id="<?= rand($i * 200, $i * 399); ?>" grup="H" position="<?= $i; ?>">
+                                <?= $grupH[$key]['model_code'] . " | " . $grupH[$key]['license_plate']; ?>
+                            </a>
+                        <?php else : ?>
+                            <a class="seat-shadow seat-horizontal text-dark" draggable="true" ondragstart="drag(event)" ondrop="drop(event)" ondragover="allowDrop(event)" id="<?= rand($i * 200, $i * 399); ?>" grup="H" position="<?= $i; ?>"></a>
+                        <?php endif; ?>
+                    <?php endfor; ?>
+                </div>
+
+
+                <!---------------- Area Gudang Bahan    -------------->
+                <div class="seat-row">
+                    <div class="seat-horizontal-gap"></div>
+                    <div class="seat-horizontal-gap"></div>
+                    <div class="seat-horizontal-gap"></div>
+                    <a class="pos seat-vertical"></a>
+                    <a class="pos seat-vertical">
+                        Gudang Alat
                     </a>
-                <?php else : ?>
-                    <a class="seat-shadow seat-horizontal" draggable="true" ondragstart="drag(event)" ondrop="drop(event)" ondragover="allowDrop(event)" id="<?= rand($i * 200, $i * 399); ?>" grup="B" position="<?= $i; ?>"></a>
-                <?php endif; ?>
-            <?php endfor; ?>
-        </div>
-        <div class="seat-row">
-            <?php for ($i = 6; $i <= 10; $i++) : ?>
-                <!-- Lakukan Pengecekan Key -->
-                <?php $key = array_search($i, array_column($grupB, 'position')); ?>
-                <?php if (!empty($key) || $key === 0) : ?>
-                    <a class="seat-shadow seat-horizontal" draggable="true" ondragstart="drag(event)" ondrop="drop(event)" ondragover="allowDrop(event)" id="<?= rand(200, 500); ?>" grup="B" position="<?= $i; ?>">
-                        <?= $grupB[$key]['model_code'] . " | " . $grupB[$key]['license_plate']; ?>
+                    <a class="pos seat-vertical">
+                        Gudang Bahan
                     </a>
-                <?php else : ?>
-                    <a class="seat-shadow seat-horizontal" draggable="true" ondragstart="drag(event)" ondrop="drop(event)" ondragover="allowDrop(event)" id="<?= rand(200, 500); ?>" grup="B" position="<?= $i; ?>"></a>
-                <?php endif; ?>
-            <?php endfor; ?>
-        </div>
+                    <div class="seat-horizontal-gap"></div>
+                    <?php for ($i = 1; $i <= 8; $i++) : ?>
+                        <!-- Lakukan Pengecekan Key -->
+                        <?php $key = array_search($i, array_column($grupI, 'position')); ?>
+                        <?php if (!empty($key) || $key === 0) : ?>
+                            <a class="seat seat-vertical text-white" draggable="true" ondragstart="drag(event)" ondrop="drop(event)" ondragover="allowDrop(event)" id="<?= rand($i * 200, $i * 399); ?>" grup="I" position="<?= $i; ?>">
+                                <?= $grupI[$key]['model_code'] . " | " . $grupI[$key]['license_plate']; ?>
+                            </a>
+                        <?php else : ?>
+                            <a class="seat seat-vertical text-white" draggable="true" ondragstart="drag(event)" ondrop="drop(event)" ondragover="allowDrop(event)" id="<?= rand($i * 200, $i * 399); ?>" grup="I" position="<?= $i; ?>"></a>
+                        <?php endif; ?>
+                    <?php endfor; ?>
+                </div>
 
-
-
-        <br>
-        <!---------------- Area Pos Satpam    -------------->
-        <!------------ GRUP C ----------------------------->
-        <div class="seat-row">
-            <?php for ($i = 1; $i <= 5; $i++) : ?>
-                <!-- Lakukan Pengecekan Key -->
-                <?php $key = array_search($i, array_column($grupC, 'position')); ?>
-                <?php if (!empty($key) || $key === 0) : ?>
-                    <a class="seat seat-vertical text-white" draggable="true" ondragstart="drag(event)" ondrop="drop(event)" ondragover="allowDrop(event)" id="<?= rand($i * 200, $i * 399); ?>" grup="C" position="<?= $i; ?>">
-                        <?= $grupC[$key]['model_code'] . " | " . $grupC[$key]['license_plate']; ?>
-                    </a>
-                <?php else : ?>
-                    <a class="seat seat-vertical text-white" draggable="true" ondragstart="drag(event)" ondrop="drop(event)" ondragover="allowDrop(event)" id="<?= rand($i * 200, $i * 399); ?>" grup="C" position="<?= $i; ?>"></a>
-                <?php endif; ?>
-            <?php endfor; ?>
-
-            <div class="pos seat-vertical">
-                POS
             </div>
         </div>
-
-        <div class="seat-row">
-            <?php for ($i = 6; $i <= 9; $i++) : ?>
-                <!-- Lakukan Pengecekan Key -->
-                <?php $key = array_search($i, array_column($grupC, 'position')); ?>
-                <?php if (!empty($key) || $key === 0) : ?>
-                    <a class="seat seat-vertical text-white" draggable="true" ondragstart="drag(event)" ondrop="drop(event)" ondragover="allowDrop(event)" id="<?= rand($i * 200, $i * 399); ?>" grup="C" position="<?= $i; ?>">
-                        <?= $grupC[$key]['model_code'] . " | " . $grupC[$key]['license_plate']; ?>
-                    </a>
-                <?php else : ?>
-                    <a class="seat seat-vertical text-white" draggable="true" ondragstart="drag(event)" ondrop="drop(event)" ondragover="allowDrop(event)" id="<?= rand($i * 200, $i * 399); ?>" grup="C" position="<?= $i; ?>"></a>
-                <?php endif; ?>
-            <?php endfor; ?>
-            <div class="seat-vertical opacity-0"></div>
-            <div class="seat-vertical opacity-0"></div>
-        </div>
-
-
-
-        <!----------------- GRUP D ---------------------->
-        <div class="seat-row">
-            <!-- Lakukan Pengecekan Key -->
-            <?php $key = array_search(1, array_column($grupD, 'position')); ?>
-            <?php if (!empty($key) || $key === 0) : ?>
-                <a class="seat-shadow seat-horizontal" draggable="true" ondragstart="drag(event)" ondrop="drop(event)" ondragover="allowDrop(event)" id="<?= rand(1 * 200, 1 * 399); ?>" grup="D" position="<?= 1; ?>">
-                    <?= $grupD[$key]['model_code'] . " | " . $grupD[$key]['license_plate']; ?>
-                </a>
-            <?php else : ?>
-                <a class="seat-shadow seat-horizontal" draggable="true" ondragstart="drag(event)" ondrop="drop(event)" ondragover="allowDrop(event)" id="<?= rand(1 * 200, 1 * 399); ?>" grup="D" position="<?= 1; ?>"></a>
-            <?php endif; ?>
-        </div>
-        <div class="seat-row">
-            <?php for ($i = 2; $i <= 5; $i++) : ?>
-                <!-- Lakukan Pengecekan Key -->
-                <?php $key = array_search($i, array_column($grupD, 'position')); ?>
-                <?php if (!empty($key) || $key === 0) : ?>
-                    <a class="seat-shadow seat-horizontal" draggable="true" ondragstart="drag(event)" ondrop="drop(event)" ondragover="allowDrop(event)" id="<?= rand($i * 200, $i * 399); ?>" grup="D" position="<?= $i; ?>">
-                        <?= $grupD[$key]['model_code'] . " | " . $grupD[$key]['license_plate']; ?>
-                    </a>
-                <?php else : ?>
-                    <a class="seat-shadow seat-horizontal" draggable="true" ondragstart="drag(event)" ondrop="drop(event)" ondragover="allowDrop(event)" id="<?= rand($i * 200, $i * 399); ?>" grup="D" position="<?= $i; ?>"></a>
-                <?php endif; ?>
-            <?php endfor; ?>
-        </div>
-
-
-        <!--------------- GRUP E ------------------------>
-        <div class="seat-row">
-            <!-- Lakukan Pengecekan Key -->
-            <?php for ($i = 1; $i <= 2; $i++) : ?>
-                <?php $key = array_search($i, array_column($grupE, 'position')); ?>
-                <?php if (!empty($key) || $key === 0) : ?>
-                    <a class="seat-shadow text-dark seat-vertical" draggable="true" ondragstart="drag(event)" ondrop="drop(event)" ondragover="allowDrop(event)" id="<?= rand($i * 200, $i * 399); ?>" grup="E" position="<?= $i; ?>">
-                        <?= $grupE[$key]['model_code'] . " | " . $grupE[$key]['license_plate']; ?>
-                    </a>
-                <?php else : ?>
-                    <a class="seat-shadow seat-vertical text-dark" draggable="true" ondragstart="drag(event)" ondrop="drop(event)" ondragover="allowDrop(event)" id="<?= rand($i * 200, $i * 399); ?>" grup="E" position="<?= $i; ?>"></a>
-                <?php endif; ?>
-            <?php endfor; ?>
-            <?php for ($i = 3; $i <= 7; $i++) : ?>
-                <!-- Lakukan Pengecekan Key -->
-                <?php $key = array_search($i, array_column($grupE, 'position')); ?>
-                <?php if (!empty($key) || $key === 0) : ?>
-                    <a class="seat seat-vertical" draggable="true" ondragstart="drag(event)" ondrop="drop(event)" ondragover="allowDrop(event)" id="<?= rand($i * 200, $i * 399); ?>" grup="E" position="<?= $i; ?>">
-                        <?= $grupE[$key]['model_code'] . " | " . $grupE[$key]['license_plate']; ?>
-                    </a>
-                <?php else : ?>
-                    <a class="seat seat-vertical" draggable="true" ondragstart="drag(event)" ondrop="drop(event)" ondragover="allowDrop(event)" id="<?= rand($i * 200, $i * 399); ?>" grup="E" position="<?= $i; ?>"></a>
-                <?php endif; ?>
-            <?php endfor; ?>
-        </div>
-
-        <!------------- GRUP F -------------------------->
-        <div class="seat-row">
-            <?php for ($i = 1; $i <= 4; $i++) : ?>
-                <!-- Lakukan Pengecekan Key -->
-                <?php $key = array_search($i, array_column($grupF, 'position')); ?>
-                <?php if (!empty($key) || $key === 0) : ?>
-                    <a class="seat-shadow seat-horizontal text-dark" draggable="true" ondragstart="drag(event)" ondrop="drop(event)" ondragover="allowDrop(event)" id="<?= rand($i * 200, $i * 399); ?>" grup="F" position="<?= $i; ?>">
-                        <?= $grupF[$key]['model_code'] . " | " . $grupF[$key]['license_plate']; ?>
-                    </a>
-                <?php else : ?>
-                    <a class="seat-shadow seat-horizontal text-dark" draggable="true" ondragstart="drag(event)" ondrop="drop(event)" ondragover="allowDrop(event)" id="<?= rand($i * 200, $i * 399); ?>" grup="F" position="<?= $i; ?>"></a>
-                <?php endif; ?>
-            <?php endfor; ?>
-        </div>
-        <div class="seat-row">
-            <?php for ($i = 5; $i <= 11; $i++) : ?>
-                <!-- Lakukan Pengecekan Key -->
-                <?php $key = array_search($i, array_column($grupF, 'position')); ?>
-                <?php if (!empty($key) || $key === 0) : ?>
-                    <a class="seat seat-vertical" draggable="true" ondragstart="drag(event)" ondrop="drop(event)" ondragover="allowDrop(event)" id="<?= rand($i * 200, $i * 399); ?>" grup="F" position="<?= $i; ?>">
-                        <?= $grupF[$key]['model_code'] . " | " . $grupF[$key]['license_plate']; ?>
-                    </a>
-                <?php else : ?>
-                    <a class="seat seat-vertical" draggable="true" ondragstart="drag(event)" ondrop="drop(event)" ondragover="allowDrop(event)" id="<?= rand($i * 200, $i * 399); ?>" grup="F" position="<?= $i; ?>"></a>
-                <?php endif; ?>
-            <?php endfor; ?>
-            <div class="seat seat-vertical opacity-0"></div>
-        </div>
-
-        <!----------- Bottom Nav ---------->
-        <nav class="bottom-nav justify-content-center">
-            <a href="/parkir/stall_bp" class="success-button">
-                Next
-                <span class="material-icons">
-                    navigate_next
-                </span>
-            </a>
-        </nav>
 
 
         <!-- Detail Modal -->
@@ -220,7 +159,7 @@
                             <div>
                                 <input type="hidden" class="form-control" id="detailGrup" name="grup" readonly>
                                 <input type="hidden" class="form-control" id="detailPosisi" name="posisi" readonly>
-                                <input type="hidden" class="form-control" id="detailLokasi" name="lokasi" value="DEPAN" readonly>
+                                <input type="hidden" class="form-control" id="detailLokasi" name="lokasi" value="STALL_BP" readonly>
                                 <input type="hidden" class="form-control" id="detailID" name="id" readonly>
                             </div>
                             <div class="mb-3">
@@ -283,7 +222,7 @@
                             <div>
                                 <input type="hidden" class="form-control" id="grup" name="grup" readonly>
                                 <input type="hidden" class="form-control" id="posisi" name="posisi" readonly>
-                                <input type="hidden" class="form-control" id="lokasi" name="lokasi" value="DEPAN" readonly>
+                                <input type="hidden" class="form-control" id="lokasi" name="lokasi" value="STALL_BP" readonly>
                             </div>
                             <div class="mb-2">
                                 <label for="nopol" class="form-label">Nomor Polisi</label>
@@ -318,16 +257,26 @@
             </div>
         </div>
 
+        <!----------- Bottom Nav ---------->
+        <nav class="bottom-nav">
+            <a href="/" class="success-button">
+                <span class="material-icons">
+                    chevron_left
+                </span>
+                Prev
+            </a>
+            <a href="/parkir/stall_gr" class="success-button">
+                Next
+                <span class="material-icons">
+                    navigate_next
+                </span>
+            </a>
+        </nav>
     </main>
 </section>
-
-<script>
-</script>
-
 <?= $this->endSection(); ?>
 
 
-<!-- SCRIPT -->
 <?= $this->section('script'); ?>
 <script>
     $(document).ready(function() {
@@ -412,6 +361,7 @@
             }
         });
     });
+
 
 
 

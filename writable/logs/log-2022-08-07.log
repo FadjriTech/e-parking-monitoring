@@ -413,3 +413,14 @@ in APPPATH\Controllers\Parkir.php on line 88.
  4 SYSTEMPATH\CodeIgniter.php(349): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
  5 FCPATH\index.php(55): CodeIgniter\CodeIgniter->run()
  6 SYSTEMPATH\Commands\Server\rewrite.php(43): require_once('FCPATH\\index.php')
+CRITICAL - 2022-08-07 23:44:41 --> syntax error, unexpected 'if' (T_IF), expecting ':'
+in APPPATH\Views\templates\app.php on line 14.
+ 1 SYSTEMPATH\View\View.php(216): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 2 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->render('templates/app', [], true)
+ 3 SYSTEMPATH\Common.php(1135): CodeIgniter\View\View->render('pages/stall_bp', [], true)
+ 4 APPPATH\Controllers\Parkir.php(57): view('pages/stall_bp', [...])
+ 5 SYSTEMPATH\CodeIgniter.php(896): App\Controllers\Parkir->stall_bp()
+ 6 SYSTEMPATH\CodeIgniter.php(466): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Parkir))
+ 7 SYSTEMPATH\CodeIgniter.php(349): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 FCPATH\index.php(55): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Commands\Server\rewrite.php(43): require_once('FCPATH\\index.php')

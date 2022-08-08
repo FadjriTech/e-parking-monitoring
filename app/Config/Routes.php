@@ -39,6 +39,10 @@ $routes->set404Override();
 $routes->get('/', 'Parkir::index');
 
 $routes->group('parkir', function ($routes) {
+    $routes->get('stall_bp', 'Parkir::stall_bp');
+    $routes->get('stall_gr', 'Parkir::stall_gr');
+
+    //----- Non Pages Routes
     $routes->post('update_posisi', 'Parkir::update_posisi');
     $routes->post('tambah_parkir', 'Parkir::tambah_parkir');
     $routes->post('delete', 'Parkir::delete_parkir');
