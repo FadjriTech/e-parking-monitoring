@@ -39,6 +39,7 @@ $routes->set404Override();
 $routes->get('/', 'Parkir::index');
 
 $routes->group('parkir', function ($routes) {
+    $routes->get('depan', 'Parkir::depan');
     $routes->get('stall_bp', 'Parkir::stall_bp');
     $routes->get('stall_gr', 'Parkir::stall_gr');
 

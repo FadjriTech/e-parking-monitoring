@@ -51,4 +51,19 @@ class ParkirModel extends Model
         $builder = $db->table($this->table);
         return $builder->where('position', $posisi)->where('grup', $grup)->delete();
     }
+
+    public function _getCapacity()
+    {
+        return $this->query("SELECT (SELECT SUM(capacity) FROM tb_grup_parking WHERE lokasi = 'DEPAN') as parkir_depan, 
+        (SELECT SUM(capacity) FROM tb_grup_parking WHERE lokasi = 'STALL_BP') as stall_bp,
+        (SELECT SUM(capacity) FROM tb_grup_parking WHERE lokasi = 'STALL_GR') as stall_gr")->getRowArray();
+    }
+
+    public function _getParkirExist()
+    {
+        $db      = \Config\Database::connect();
+        $builder = $db->table($this->table);
+        $builder->select("SUM(CASE WHEN lokasi = 'DEPAN' THEN id != 0 END) as parkir_depan, SUM(CASE WHEN lokasi = 'STALL_BP' THEN id != 0 END) as stall_bp, SUM(CASE WHEN lokasi = 'STALL_GR' THEN id != 0 END) as stall_gr");
+        return $builder->get()->getRowArray();
+    }
 }

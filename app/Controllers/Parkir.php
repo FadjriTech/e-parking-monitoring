@@ -17,6 +17,19 @@ class Parkir extends BaseController
 
     public function index()
     {
+        $capacity     = $this->parkir->_getCapacity();
+        $parkirExist  = $this->parkir->_getParkirExist();
+
+        $data = [
+            'lokasi'    => '',
+            'capacity'  => $capacity,
+            'exist'     => $parkirExist
+        ];
+        return view('pages/main', $data);
+    }
+
+    public function depan()
+    {
         $parkirGroups  = range('A', 'F');
         $parkir = $this->parkir->_getAllParkirByLocation("DEPAN");
 
@@ -46,7 +59,7 @@ class Parkir extends BaseController
             'lokasi' => 'DEPAN'
         ];
 
-        return view('pages/main', $data);
+        return view('pages/depan', $data);
     }
 
     public function stall_bp()
@@ -80,9 +93,27 @@ class Parkir extends BaseController
 
     public function stall_gr()
     {
+        $parkirGroups  = range('K', 'M');
+        $parkir = $this->parkir->_getAllParkirByLocation("STALL_GR");
 
+        $grupK = array();
+        $grupL = array();
+        $grupM = array();
+
+        foreach ($parkirGroups as $grup) {
+            $keys = array_keys(array_combine(array_keys($parkir), array_column($parkir, 'grup')), $grup);
+            foreach ($keys as $data) {
+                array_push(${"grup" . $grup}, $parkir[$data]);
+            }
+        }
+
+        $listModel = $this->parkir->_getListModel();
         $data = [
-            'lokasi' => 'GR'
+            'lokasi' => 'GR',
+            'grupK'  => $grupK,
+            'grupL'  => $grupL,
+            'grupM'  => $grupM,
+            'model'  => $listModel
         ];
         return view('pages/stall_gr', $data);
     }
@@ -168,9 +199,11 @@ class Parkir extends BaseController
         $insert = $this->parkir->save($data);
         if ($insert) {
             if ($lokasi == "DEPAN") {
-                return redirect()->to(base_url());
+                return redirect()->to(base_url() . '/parkir/depan');
             } else if ($lokasi == "STALL_BP") {
                 return redirect()->to(base_url() . '/parkir/stall_bp');
+            } else {
+                return redirect()->to(base_url() . '/parkir/stall_gr');
             }
         }
     }

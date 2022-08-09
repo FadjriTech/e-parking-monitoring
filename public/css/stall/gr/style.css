@@ -128,6 +128,7 @@ section {
 
 .seat-shadow {
     border: 2px dashed var(--base-color);
+    word-break: break-word;
     background-color: white;
     border-radius: 10px;
 }

@@ -29,9 +29,8 @@
         </div>
         <div class="row">
             <div class="col-lg-3 col-md-3">
-
                 <br><br><br>
-                <div class="d-flex gap-2 justify-content-end mb-2">
+                <div class="d-flex gap-2 justify-content-center mb-2">
                     <div class="d-flex flex-column gap-2">
                         <?php for ($i = 1; $i <= 7; $i++) : ?>
                             <!-- Lakukan Pengecekan Key -->
@@ -118,9 +117,6 @@
 
                 <!---------------- Area Gudang Bahan    -------------->
                 <div class="seat-row">
-                    <div class="seat-horizontal-gap"></div>
-                    <div class="seat-horizontal-gap"></div>
-                    <div class="seat-horizontal-gap"></div>
                     <a class="pos seat-vertical"></a>
                     <a class="pos seat-vertical">
                         Gudang Alat
@@ -140,6 +136,8 @@
                             <a class="seat seat-vertical text-white" draggable="true" ondragstart="drag(event)" ondrop="drop(event)" ondragover="allowDrop(event)" id="<?= rand($i * 200, $i * 399); ?>" grup="I" position="<?= $i; ?>"></a>
                         <?php endif; ?>
                     <?php endfor; ?>
+
+
                 </div>
 
             </div>
@@ -259,7 +257,7 @@
 
         <!----------- Bottom Nav ---------->
         <nav class="bottom-nav">
-            <a href="/" class="success-button">
+            <a href="/parkir/depan" class="success-button">
                 <span class="material-icons">
                     chevron_left
                 </span>
