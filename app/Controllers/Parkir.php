@@ -19,11 +19,24 @@ class Parkir extends BaseController
     {
         $capacity     = $this->parkir->_getCapacity();
         $parkirExist  = $this->parkir->_getParkirExist();
+        $status       = array();
+
+        foreach ($capacity as $key => $element) {
+            $sisa = $element - $parkirExist[$key];
+            if ($sisa >= 10) {
+                $status[$key] = 'free';
+            } else if ($sisa <= 10 && $sisa > 0) {
+                $status[$key] = 'almost full';
+            } else if ($sisa == 0) {
+                $status[$key] = 'full';
+            }
+        }
 
         $data = [
             'lokasi'    => '',
             'capacity'  => $capacity,
-            'exist'     => $parkirExist
+            'exist'     => $parkirExist,
+            'status'    => $status
         ];
         return view('pages/main', $data);
     }
@@ -118,6 +131,50 @@ class Parkir extends BaseController
         return view('pages/stall_gr', $data);
     }
 
+    public function login()
+    {
+        $data = [
+            'lokasi' => ''
+        ];
+        return view('pages/login', $data);
+    }
+
+    public function authentication()
+    {
+        $email = $_POST['email'];
+        $pass  = $_POST['password'];
+
+        $user  = $this->parkir->_getUserByEmail($email);
+        if (!$user) {
+            return json_encode(array(
+                'message'  => 'Email tidak ditemukan',
+                'code'     => 404
+            ));
+        } else {
+            if ($pass != $user['password']) {
+                return json_encode(array(
+                    'message'  => 'Password tidak Match',
+                    'code'     => 401
+                ));
+            } else {
+
+
+                $session = session();
+                $user    = [
+                    'logged_in' => true,
+                    'email'     => $email
+                ];
+
+                $session->set('user', $user);
+
+                return json_encode(array(
+                    'message'  => 'Login Success',
+                    'code'     => 200
+                ));
+            }
+        }
+    }
+
 
 
 
@@ -176,12 +233,13 @@ class Parkir extends BaseController
             'model' => 'required'
         ])) return $this->validator->listErrors();
 
-        $grup    = $_POST['grup'];
-        $posisi  = $_POST['posisi'];
-        $nopol   = $_POST['nopol'];
-        $model   = $_POST['model'];
-        $status  = $_POST['status'];
-        $lokasi  = $_POST['lokasi'];
+        $grup      = $_POST['grup'];
+        $posisi    = $_POST['posisi'];
+        $nopol     = $_POST['nopol'];
+        $model     = $_POST['model'];
+        $status    = $_POST['status'];
+        $category  = $_POST['pekerjaan'];
+        $lokasi    = $_POST['lokasi'];
 
         $data    = [
             'grup'          => $grup,
@@ -189,7 +247,8 @@ class Parkir extends BaseController
             'model_code'    => $model,
             'license_plate' => $nopol,
             'status'        => $status,
-            'lokasi'        => $lokasi
+            'lokasi'        => $lokasi,
+            'category'      => $category
         ];
 
         if (isset($_POST['id'])) {

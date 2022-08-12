@@ -37,6 +37,8 @@ $routes->set404Override();
 // route since we don't have to scan directories.
 
 $routes->get('/', 'Parkir::index');
+$routes->get('login', 'Parkir::login');
+$routes->post('authentication', 'Parkir::authentication');
 
 $routes->group('parkir', function ($routes) {
     $routes->get('depan', 'Parkir::depan');

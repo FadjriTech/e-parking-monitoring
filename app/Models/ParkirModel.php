@@ -8,7 +8,7 @@ class ParkirModel extends Model
 {
     protected $DBGroup          = 'default';
     protected $table            = 'tb_parking';
-    protected $allowedFields    = ['grup', 'position', 'model_code', 'license_plate', 'status', 'lokasi', 'created_at', 'updated_at'];
+    protected $allowedFields    = ['grup', 'position', 'model_code', 'license_plate', 'category', 'status', 'lokasi', 'created_at', 'updated_at'];
     protected $useTimestamps    = true;
 
     public function __construct()
@@ -64,6 +64,14 @@ class ParkirModel extends Model
         $db      = \Config\Database::connect();
         $builder = $db->table($this->table);
         $builder->select("SUM(CASE WHEN lokasi = 'DEPAN' THEN id != 0 END) as parkir_depan, SUM(CASE WHEN lokasi = 'STALL_BP' THEN id != 0 END) as stall_bp, SUM(CASE WHEN lokasi = 'STALL_GR' THEN id != 0 END) as stall_gr");
+        return $builder->get()->getRowArray();
+    }
+
+    public function _getUserByEmail($email)
+    {
+        $db      = \Config\Database::connect();
+        $builder = $db->table("tb_user");
+        $builder->select('*')->where('email', $email);
         return $builder->get()->getRowArray();
     }
 }

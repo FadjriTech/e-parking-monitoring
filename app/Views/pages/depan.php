@@ -1,469 +1,246 @@
-<?= $this->extend('templates/app'); ?>
+<!doctype html>
+<html lang="en">
 
-<?= $this->section('content'); ?>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Parkir | Depan</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/parkir/depan/style.css">
 
-<section>
-    <div class="header">
-        <h4>Area Parkir Depan</h4>
-    </div>
-    <main class="denah">
-        <!--------- Legend  ---------->
-        <div class="legend-wrap">
-            <div class="legend-wrap-desc">
-                <div class="desc-wrap">
-                    <div class="legend legend-shadow"></div>
-                    Parkir Bayangan
-                </div>
-                <div class="desc-wrap">
-                    <div class="legend legend-empty"></div>
-                    Parkir Seat
-                </div>
-                <div class="desc-wrap">
-                    <div class="legend legend-internal"></div>
+    <!-- Material Icons -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
+    <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+
+    <!-- Interact.JS -->
+    <script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
+
+    <!-- JQUERY -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+
+    <section class="main-section">
+        <h1 class="headline">Area Parkir</h1>
+        <div class="main-area" id="main-area">
+            <div class="legend">
+                <h6 class="text-lato">Keterangan</h6>
+                <div class="legend-wrap">
+                    <div class="legend-orange"></div>
                     Gedung
+                    <div class="legend-blue"></div>
+                    Parkiran GR
+                    <div class="legend-yellow"></div>
+                    Parkiran BP
+                    <div class="legend-dash"></div>
+                    Parkiran Bayangan
+                </div>
+            </div>
+            <div class="container mt-5">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="d-flex w-100 parkir-wrap justify-content-between">
+
+                            <div class="gedung-wrap">
+                                <img src="/assets/gedung-akastra.png" class="gedung">
+                            </div>
+
+                            <!-- Area Parkir Depan -->
+                            <div class="d-flex flex-column justify-content-between align-items-center" style="padding-right: 20px;">
+
+                                <!-- Parkiran GR -->
+                                <div class="d-flex gap-1 w-100 justify-content-end">
+                                    <?php for ($i = 1; $i <= 9; $i++) : ?>
+                                        <a class="seat-blue seat-vertical text-white"></a>
+                                    <?php endfor; ?>
+                                </div>
+                                <!-- Batas Parkiran GR -->
+
+                                <!-- Jalan Parkiran Bayangan GR -->
+                                <div class="d-flex-column gap-1 w-100 justify-content-end">
+                                    <?php for ($i = 1; $i <= 2; $i++) : ?>
+                                        <div class="d-flex gap-2 my-2">
+                                            <?php for ($o = 1; $o <= 5; $o++) : ?>
+                                                <a class="seat seat-horizontal text-dark" id="<?= rand($i * time(), 10 * time()); ?>"></a>
+                                            <?php endfor; ?>
+                                        </div>
+                                    <?php endfor; ?>
+                                </div>
+                                <!-- Batas Jalan Parkiran Bayangan GR -->
+
+                                <!-- Parkiran Dekat Satpam -->
+                                <div class="d-flex flex-column gap-1 w-100">
+                                    <?php for ($i = 1; $i <= 2; $i++) : ?>
+                                        <div class="d-flex gap-1 justify-content-end">
+                                            <?php for ($o = 1; $o <= 5; $o++) : ?>
+                                                <?php $seat = 'seat-blue text-white'; ?>
+                                                <?php if ($o == 1) $seat = 'seat text-dark'; ?>
+                                                <a class="<?= $seat; ?> seat-vertical" id="<?= rand($i * time(), 10 * time()); ?>"></a>
+                                            <?php endfor; ?>
+                                            <div class="security-office">
+                                                <?= ($i == 1) ? '<span class="material-symbols-outlined">lock</span> Pos Satpam' : "Parkir Motor"; ?>
+                                            </div>
+                                        </div>
+                                    <?php endfor; ?>
+                                </div>
+                                <!-- Batas Parkiran Dekat Satpam -->
+
+
+                                <div class="d-flex flex-column mt-3 w-100">
+                                    <?php for ($i = 1; $i <= 2; $i++) : ?>
+                                        <?php $maximum = 3;
+                                        ($i == 2) ? $maximum = 2 : ""; ?>
+                                        <div class="d-flex mt-2 gap-1 justify-content-end w-80">
+                                            <?php for ($o = 1; $o <= $maximum; $o++) : ?>
+                                                <a class="seat seat-horizontal" id="<?= rand($i * time(), 10 * time()); ?>"></a>
+                                            <?php endfor; ?>
+                                            <div class="parkiran-motor-2">
+                                                Parkir Motor
+                                            </div>
+                                        </div>
+                                    <?php endfor; ?>
+                                </div>
+                                <div class="d-flex mt-2 gap-1 justify-content-end w-100">
+                                    <p class="text-label-vertical-reverse">- Area Parkir BP -</p>
+                                    <a class="seat seat-vertical"></a>
+                                    <a class="seat seat-vertical"></a>
+                                    <a class="seat-yellow seat-vertical"></a>
+                                    <a class="seat-yellow seat-vertical"></a>
+                                    <a class="seat-yellow seat-vertical"></a>
+                                    <a class="seat-yellow seat-vertical">
+                                        AV | BMUIKS <br> GR
+                                    </a>
+                                    <a class="seat-yellow seat-vertical"></a>
+                                </div>
+                                <div class="d-flex mt-2 gap-1 justify-content-end w-100">
+                                    <a class="seat seat-horizontal"></a>
+                                    <a class="seat seat-horizontal"></a>
+                                    <a class="seat seat-horizontal"></a>
+                                    <a class="seat seat-horizontal"></a>
+                                </div>
+                                <div class="d-flex mt-2 gap-1 justify-content-end w-100">
+                                    <a class="seat seat-horizontal"></a>
+                                    <a class="seat seat-horizontal"></a>
+                                    <a class="seat seat-horizontal"></a>
+                                </div>
+                                <div class="d-flex mt-2 gap-1 justify-content-end w-100 px-4 mb-5">
+                                    <a class="seat-yellow seat-vertical"></a>
+                                    <a class="seat-yellow seat-vertical"></a>
+                                    <a class="seat-yellow seat-vertical"></a>
+                                    <a class="seat-yellow seat-vertical"></a>
+                                    <a class="seat-yellow seat-vertical"></a>
+                                    <a class="seat-yellow seat-vertical"></a>
+                                    <a class="seat-yellow seat-vertical"></a>
+                                    <a class="seat-yellow seat-vertical"></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <div class="kantor shadow">
-            Gedung Akastra
-        </div>
-
-        <!-------- GRUP A ------->
-        <div class="seat-row">
-            <?php for ($i = 1; $i <= 9; $i++) : ?>
-                <!-- Lakukan Pengecekan Key -->
-                <?php $key = array_search($i, array_column($grupA, 'position')); ?>
-                <?php if (!empty($key) || $key === 0) : ?>
-                    <a class="seat seat-vertical text-white" draggable="true" ondragstart="drag(event)" ondrop="drop(event)" ondragover="allowDrop(event)" id="<?= rand($i * 200, $i * 399); ?>" grup="A" position="<?= $i; ?>">
-                        <?= $grupA[$key]['model_code'] . " | " . $grupA[$key]['license_plate']; ?>
-                    </a>
-                <?php else : ?>
-                    <a class="seat seat-vertical text-white" draggable="true" ondragstart="drag(event)" ondrop="drop(event)" ondragover="allowDrop(event)" id="<?= rand($i * 200, $i * 399); ?>" grup="A" position="<?= $i; ?>"></a>
-                <?php endif; ?>
-            <?php endfor; ?>
-        </div>
-
-        <!---------------- Jalan Utama ------------------->
-        <!--------- GRUP B -------->
-        <div class="seat-row">
-            <?php for ($i = 1; $i <= 5; $i++) : ?>
-                <!-- Lakukan Pengecekan Key -->
-                <?php $key = array_search($i, array_column($grupB, 'position')); ?>
-                <?php if (!empty($key) || $key === 0) : ?>
-                    <a class="seat-shadow seat-horizontal" draggable="true" ondragstart="drag(event)" ondrop="drop(event)" ondragover="allowDrop(event)" id="<?= rand($i * 200, $i * 399); ?>" grup="B" position="<?= $i; ?>">
-                        <?= $grupB[$key]['model_code'] . " | " . $grupB[$key]['license_plate']; ?>
-                    </a>
-                <?php else : ?>
-                    <a class="seat-shadow seat-horizontal" draggable="true" ondragstart="drag(event)" ondrop="drop(event)" ondragover="allowDrop(event)" id="<?= rand($i * 200, $i * 399); ?>" grup="B" position="<?= $i; ?>"></a>
-                <?php endif; ?>
-            <?php endfor; ?>
-        </div>
-        <div class="seat-row">
-            <?php for ($i = 6; $i <= 10; $i++) : ?>
-                <!-- Lakukan Pengecekan Key -->
-                <?php $key = array_search($i, array_column($grupB, 'position')); ?>
-                <?php if (!empty($key) || $key === 0) : ?>
-                    <a class="seat-shadow seat-horizontal" draggable="true" ondragstart="drag(event)" ondrop="drop(event)" ondragover="allowDrop(event)" id="<?= rand(200, 500); ?>" grup="B" position="<?= $i; ?>">
-                        <?= $grupB[$key]['model_code'] . " | " . $grupB[$key]['license_plate']; ?>
-                    </a>
-                <?php else : ?>
-                    <a class="seat-shadow seat-horizontal" draggable="true" ondragstart="drag(event)" ondrop="drop(event)" ondragover="allowDrop(event)" id="<?= rand(200, 500); ?>" grup="B" position="<?= $i; ?>"></a>
-                <?php endif; ?>
-            <?php endfor; ?>
-        </div>
-
-
-
-        <br>
-        <!---------------- Area Pos Satpam    -------------->
-        <!------------ GRUP C ----------------------------->
-        <div class="seat-row">
-            <?php for ($i = 1; $i <= 5; $i++) : ?>
-                <!-- Lakukan Pengecekan Key -->
-                <?php $key = array_search($i, array_column($grupC, 'position')); ?>
-                <?php if (!empty($key) || $key === 0) : ?>
-                    <a class="seat seat-vertical text-white" draggable="true" ondragstart="drag(event)" ondrop="drop(event)" ondragover="allowDrop(event)" id="<?= rand($i * 200, $i * 399); ?>" grup="C" position="<?= $i; ?>">
-                        <?= $grupC[$key]['model_code'] . " | " . $grupC[$key]['license_plate']; ?>
-                    </a>
-                <?php else : ?>
-                    <a class="seat seat-vertical text-white" draggable="true" ondragstart="drag(event)" ondrop="drop(event)" ondragover="allowDrop(event)" id="<?= rand($i * 200, $i * 399); ?>" grup="C" position="<?= $i; ?>"></a>
-                <?php endif; ?>
-            <?php endfor; ?>
-
-            <div class="pos seat-vertical">
-                POS
-            </div>
-        </div>
-
-        <div class="seat-row">
-            <?php for ($i = 6; $i <= 9; $i++) : ?>
-                <!-- Lakukan Pengecekan Key -->
-                <?php $key = array_search($i, array_column($grupC, 'position')); ?>
-                <?php if (!empty($key) || $key === 0) : ?>
-                    <a class="seat seat-vertical text-white" draggable="true" ondragstart="drag(event)" ondrop="drop(event)" ondragover="allowDrop(event)" id="<?= rand($i * 200, $i * 399); ?>" grup="C" position="<?= $i; ?>">
-                        <?= $grupC[$key]['model_code'] . " | " . $grupC[$key]['license_plate']; ?>
-                    </a>
-                <?php else : ?>
-                    <a class="seat seat-vertical text-white" draggable="true" ondragstart="drag(event)" ondrop="drop(event)" ondragover="allowDrop(event)" id="<?= rand($i * 200, $i * 399); ?>" grup="C" position="<?= $i; ?>"></a>
-                <?php endif; ?>
-            <?php endfor; ?>
-            <div class="seat-vertical opacity-0"></div>
-            <div class="seat-vertical opacity-0"></div>
-        </div>
-
-
-
-        <!----------------- GRUP D ---------------------->
-        <div class="seat-row">
-            <!-- Lakukan Pengecekan Key -->
-            <?php $key = array_search(1, array_column($grupD, 'position')); ?>
-            <?php if (!empty($key) || $key === 0) : ?>
-                <a class="seat-shadow seat-horizontal" draggable="true" ondragstart="drag(event)" ondrop="drop(event)" ondragover="allowDrop(event)" id="<?= rand(1 * 200, 1 * 399); ?>" grup="D" position="<?= 1; ?>">
-                    <?= $grupD[$key]['model_code'] . " | " . $grupD[$key]['license_plate']; ?>
-                </a>
-            <?php else : ?>
-                <a class="seat-shadow seat-horizontal" draggable="true" ondragstart="drag(event)" ondrop="drop(event)" ondragover="allowDrop(event)" id="<?= rand(1 * 200, 1 * 399); ?>" grup="D" position="<?= 1; ?>"></a>
-            <?php endif; ?>
-        </div>
-        <div class="seat-row">
-            <?php for ($i = 2; $i <= 5; $i++) : ?>
-                <!-- Lakukan Pengecekan Key -->
-                <?php $key = array_search($i, array_column($grupD, 'position')); ?>
-                <?php if (!empty($key) || $key === 0) : ?>
-                    <a class="seat-shadow seat-horizontal" draggable="true" ondragstart="drag(event)" ondrop="drop(event)" ondragover="allowDrop(event)" id="<?= rand($i * 200, $i * 399); ?>" grup="D" position="<?= $i; ?>">
-                        <?= $grupD[$key]['model_code'] . " | " . $grupD[$key]['license_plate']; ?>
-                    </a>
-                <?php else : ?>
-                    <a class="seat-shadow seat-horizontal" draggable="true" ondragstart="drag(event)" ondrop="drop(event)" ondragover="allowDrop(event)" id="<?= rand($i * 200, $i * 399); ?>" grup="D" position="<?= $i; ?>"></a>
-                <?php endif; ?>
-            <?php endfor; ?>
-        </div>
-
-
-        <!--------------- GRUP E ------------------------>
-        <div class="seat-row">
-            <!-- Lakukan Pengecekan Key -->
-            <?php for ($i = 1; $i <= 2; $i++) : ?>
-                <?php $key = array_search($i, array_column($grupE, 'position')); ?>
-                <?php if (!empty($key) || $key === 0) : ?>
-                    <a class="seat-shadow text-dark seat-vertical" draggable="true" ondragstart="drag(event)" ondrop="drop(event)" ondragover="allowDrop(event)" id="<?= rand($i * 200, $i * 399); ?>" grup="E" position="<?= $i; ?>">
-                        <?= $grupE[$key]['model_code'] . " | " . $grupE[$key]['license_plate']; ?>
-                    </a>
-                <?php else : ?>
-                    <a class="seat-shadow seat-vertical text-dark" draggable="true" ondragstart="drag(event)" ondrop="drop(event)" ondragover="allowDrop(event)" id="<?= rand($i * 200, $i * 399); ?>" grup="E" position="<?= $i; ?>"></a>
-                <?php endif; ?>
-            <?php endfor; ?>
-            <?php for ($i = 3; $i <= 7; $i++) : ?>
-                <!-- Lakukan Pengecekan Key -->
-                <?php $key = array_search($i, array_column($grupE, 'position')); ?>
-                <?php if (!empty($key) || $key === 0) : ?>
-                    <a class="seat seat-vertical" draggable="true" ondragstart="drag(event)" ondrop="drop(event)" ondragover="allowDrop(event)" id="<?= rand($i * 200, $i * 399); ?>" grup="E" position="<?= $i; ?>">
-                        <?= $grupE[$key]['model_code'] . " | " . $grupE[$key]['license_plate']; ?>
-                    </a>
-                <?php else : ?>
-                    <a class="seat seat-vertical" draggable="true" ondragstart="drag(event)" ondrop="drop(event)" ondragover="allowDrop(event)" id="<?= rand($i * 200, $i * 399); ?>" grup="E" position="<?= $i; ?>"></a>
-                <?php endif; ?>
-            <?php endfor; ?>
-        </div>
-
-        <!------------- GRUP F -------------------------->
-        <div class="seat-row">
-            <?php for ($i = 1; $i <= 4; $i++) : ?>
-                <!-- Lakukan Pengecekan Key -->
-                <?php $key = array_search($i, array_column($grupF, 'position')); ?>
-                <?php if (!empty($key) || $key === 0) : ?>
-                    <a class="seat-shadow seat-horizontal text-dark" draggable="true" ondragstart="drag(event)" ondrop="drop(event)" ondragover="allowDrop(event)" id="<?= rand($i * 200, $i * 399); ?>" grup="F" position="<?= $i; ?>">
-                        <?= $grupF[$key]['model_code'] . " | " . $grupF[$key]['license_plate']; ?>
-                    </a>
-                <?php else : ?>
-                    <a class="seat-shadow seat-horizontal text-dark" draggable="true" ondragstart="drag(event)" ondrop="drop(event)" ondragover="allowDrop(event)" id="<?= rand($i * 200, $i * 399); ?>" grup="F" position="<?= $i; ?>"></a>
-                <?php endif; ?>
-            <?php endfor; ?>
-        </div>
-        <div class="seat-row">
-            <?php for ($i = 5; $i <= 11; $i++) : ?>
-                <!-- Lakukan Pengecekan Key -->
-                <?php $key = array_search($i, array_column($grupF, 'position')); ?>
-                <?php if (!empty($key) || $key === 0) : ?>
-                    <a class="seat seat-vertical" draggable="true" ondragstart="drag(event)" ondrop="drop(event)" ondragover="allowDrop(event)" id="<?= rand($i * 200, $i * 399); ?>" grup="F" position="<?= $i; ?>">
-                        <?= $grupF[$key]['model_code'] . " | " . $grupF[$key]['license_plate']; ?>
-                    </a>
-                <?php else : ?>
-                    <a class="seat seat-vertical" draggable="true" ondragstart="drag(event)" ondrop="drop(event)" ondragover="allowDrop(event)" id="<?= rand($i * 200, $i * 399); ?>" grup="F" position="<?= $i; ?>"></a>
-                <?php endif; ?>
-            <?php endfor; ?>
-            <div class="seat seat-vertical opacity-0"></div>
-        </div>
-
-        <!----------- Bottom Nav ---------->
-        <nav class="bottom-nav justify-content-center">
-            <a href="/parkir/stall_bp" class="success-button">
+        <nav class="bottom-nav">
+            <a class="cancel-button">
+                Back
+            </a>
+            <a class="next-button">
                 Next
-                <span class="material-icons">
-                    navigate_next
-                </span>
             </a>
         </nav>
+    </section>
 
 
-        <!-- Detail Modal -->
-        <div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-fullscreen-md-down">
-                <div class="modal-content">
-                    <div class="modal-header boder-0">
-                        <h5 class="modal-title border-0" id="exampleModalLabel">Seat Detail</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <form method="POST" action="/parkir/tambah_parkir">
-                        <div class="modal-body border-0">
-                            <div>
-                                <input type="hidden" class="form-control" id="detailGrup" name="grup" readonly>
-                                <input type="hidden" class="form-control" id="detailPosisi" name="posisi" readonly>
-                                <input type="hidden" class="form-control" id="detailLokasi" name="lokasi" value="DEPAN" readonly>
-                                <input type="hidden" class="form-control" id="detailID" name="id" readonly>
-                            </div>
-                            <div class="mb-3">
-                                <label for="nopol" class="form-label">Nomor Polisi</label>
-                                <input type="text" class="form-control" id="detailNopol" name="nopol" disabled readonly>
-                            </div>
-                            <div class="mb-3">
-                                <label for="model" class="form-label">Model Kendaraan</label>
-                                <select name="model" id="detailModel" class="form-control" disabled>
-                                    <?php foreach ($model as $row) : ?>
-                                        <option value="<?= $row['model_code']; ?>"><?= $row['model']; ?></option>
-                                    <?php endforeach; ?>
-                                </select>
-                            </div>
-                            <div class="mb-3">
-                                <label for="status" class="form-label">Status</label>
-                                <select name="status" id="detailStatus" class="form-control" disabled>
-                                    <option value="Menunggu Perbaikan">Menunggu Perbaikan</option>
-                                    <option value="Menunggu Sparepart">Menunggu Sparepart</option>
-                                    <option value="Proses Pengerjaan">Proses Pengerjaan</option>
-                                    <option value="Menunggu Pengambilan">Menunggu Pengambilan</option>
-                                    <option value="Menunggu Pengantaran">Menunggu Pengantaran</option>
-                                    <option value="Internal">Internal</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="modal-footer border-0">
-                            <button type="button" class="btn btn-delete btn-danger d-flex align-items-center">
-                                <span class="material-icons">
-                                    do_disturb_alt
-                                </span>
-                            </button>
-                            <button type="button" class="btn btn-success d-flex align-items-center btn-edit">
-                                <span class="material-icons">
-                                    flip
-                                </span>
-                            </button>
-                            <button type="submit" class="btn btn-primary d-flex align-items-center d-none btn-save">
-                                <span class="material-icons">
-                                    save_as
-                                </span>
-                            </button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
 
-
-        <!-- Add Modal -->
-        <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-fullscreen-md-down">
-                <div class="modal-content">
-                    <div class="modal-header boder-0">
-                        <h5 class="modal-title border-0" id="exampleModalLabel">Seat Detail</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <form method="POST" action="/parkir/tambah_parkir">
-                        <div class="modal-body border-0">
-                            <div>
-                                <input type="hidden" class="form-control" id="grup" name="grup" readonly>
-                                <input type="hidden" class="form-control" id="posisi" name="posisi" readonly>
-                                <input type="hidden" class="form-control" id="lokasi" name="lokasi" value="DEPAN" readonly>
-                            </div>
-                            <div class="mb-2">
-                                <label for="nopol" class="form-label">Nomor Polisi</label>
-                                <input type="text" class="form-control" id="nopol" name="nopol" autocomplete="off">
-                            </div>
-                            <div class="mb-3">
-                                <label for="model" class="form-label">Model Kendaraan</label>
-                                <select name="model" id="model" class="form-control">
-                                    <?php foreach ($model as $row) : ?>
-                                        <option value="<?= $row['model_code']; ?>"><?= $row['model']; ?></option>
-                                    <?php endforeach; ?>
-                                </select>
-                            </div>
-                            <div class="mb-3">
-                                <label for="status" class="form-label">Status</label>
-                                <select name="status" id="status" class="form-control">
-                                    <option value="Menunggu Perbaikan">Menunggu Perbaikan</option>
-                                    <option value="Menunggu Sparepart">Menunggu Sparepart</option>
-                                    <option value="Proses Pengerjaan">Proses Pengerjaan</option>
-                                    <option value="Menunggu Pengambilan">Menunggu Pengambilan</option>
-                                    <option value="Menunggu Pengantaran">Menunggu Pengantaran</option>
-                                    <option value="Internal">Internal</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="modal-footer border-0">
-                            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-secondary">Save</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </main>
-</section>
-
-<?= $this->endSection(); ?>
-
-
-<!-- SCRIPT -->
-<?= $this->section('script'); ?>
-<script>
-    $(document).ready(function() {
-
-        const formField = ['detailID', 'detailNopol', 'detailModel', 'detailStatus'];
-        const arrayField = ['id', 'license_plate', 'model_code', 'status'];
-
-        $('.seat-vertical, .seat-horizontal').click(function(e) {
-            e.preventDefault();
-
-            //----- Ambil HTML
-            var html = $(this).html();
-
-            //----- Ambil grup dan posisi
-            var grup = $(this).attr('grup');
-            var position = $(this).attr('position');
-
-            $("#grup").val(grup);
-            $("#posisi").val(position);
-            $("#detailGrup").val(grup);
-            $("#detailPosisi").val(position);
-
-            if (!html) {
-                $("#addModal").modal('show');
-            } else {
-                formField.forEach(element => {
-                    $(`#${element}`).prop('disabled', true);
-                });
-
-                $(".btn-save").addClass("d-none");
-                $("#detailModal").modal('show');
-
-                $.ajax({
-                    type: "POST",
-                    url: "/parkir/get_detail",
-                    data: {
-                        grup: grup,
-                        posisi: position
-                    },
-                    dataType: "json",
-                    success: function(response) {
-                        const data = response.data;
-                        formField.forEach((element, index) => {
-                            $(`#${element}`).val(data[arrayField[index]]);
-                        });
-                    }
-                });
-            }
-        });
-
-        $('.btn-edit').click(function(e) {
-            e.preventDefault();
-
-            $(".btn-save").removeClass("d-none");
-            formField.forEach(element => {
-                $(`#${element}`).prop('disabled', false);
-                $(`#${element}`).prop('readonly', false);
-            });
-        });
-
-        $('.btn-delete').click(function(e) {
-            e.preventDefault();
-
-            //----- Ambil grup dan posisi
-            var grup = $("#detailGrup").val();
-            var position = $("#detailPosisi").val();
-
-            var confirmation = confirm("Hapus data ini ?");
-            if (confirmation) {
-                $.ajax({
-                    type: "POST",
-                    url: "/parkir/delete",
-                    data: {
-                        grup: grup,
-                        posisi: position
-                    },
-                    dataType: "json",
-                    success: function(response) {
-                        location.reload();
-                    }
-                });
-            }
-        });
-    });
-
-
-
-    //-------------- DRAG & DROP COLUMN
-    function allowDrop(ev) {
-        ev.preventDefault();
-    }
-
-    function drag(ev) {
-        var group = ev.target.getAttribute('grup');
-        var posisi = ev.target.getAttribute('position');
-        var id = ev.target.id;
-
-        var html = $(`#${id}`).html();
-        if (html) {
-            ev.dataTransfer.setData("grup", String(group));
-            ev.dataTransfer.setData("posisi", String(posisi));
-            ev.dataTransfer.setData("id", String(id));
-        } else {
-            alert("Seat Masih Kosong");
+    <script>
+        var drag_pos = {
+            x: 0,
+            y: 0
         }
 
-    }
+        interact('.seat-vertical').dropzone({
+            ondropactivate: function(event) {
+                event.target.classList.add('drop-active')
+                console.log(event.target);
+            },
+            ondragenter: function(event) {
+                var dropId = event.target.id
+                $(`#${dropId}`).addClass('drop');
+            },
+            ondragleave: function(event) {
+                var dropId = event.target.id
+                $(`#${dropId}`).removeClass('drop');
+            },
+            ondrop: function(event) {
+                var dropId = event.target.id;
+                var dragId = event.relatedTarget.id;
+                var html = $(`#${dragId}`).html();
+                if (!html) {
+                    alert("Parkiran kosong");
+                } else {
+                    $(`#${dropId}`).html(html);
+                    $(`#${dragId}`).html('');
+                }
 
-    function drop(ev) {
-        ev.preventDefault();
-        var grup = ev.dataTransfer.getData("grup", grup);
-        var posisi = ev.dataTransfer.getData("posisi", posisi);
-        var prevId = ev.dataTransfer.getData("id", posisi);
+                var dropId = event.target.id
+                $(`#${dropId}`).removeClass('drop');
+                console.log(dropId, dragId);
+            },
+            ondropdeactivate: function(event) {}
+        })
 
-        var newGrup = ev.target.getAttribute('grup');
-        var newPosisi = ev.target.getAttribute('position');
-        var newId = ev.target.id;
 
-        if ($(`#${newId}`).html() == '') {
-            $.ajax({
-                type: "POST",
-                url: "/parkir/update_posisi",
-                data: {
-                    grup: grup,
-                    posisi: posisi,
-                    newGrup: newGrup,
-                    newPosisi: newPosisi
-                },
-                dataType: "json",
-                success: function(response) {
-                    $(`#${prevId}`).html("");
-                    $(`#${newId}`).html(response.model_code + ' | ' + response.license_plate);
-                },
-                error: function() {
-                    location.reload();
+        //---- Dragging function
+        interact('.seat-vertical')
+            .draggable({
+                inertia: true,
+                modifiers: [
+                    interact.modifiers.restrictRect({
+                        // restriction: 'parent',
+                        endOnly: true
+                    })
+                ],
+                autoScroll: false,
+                listeners: {
+                    move: dragging,
+                    end: dragged
                 }
             });
-        } else {
-            alert("data sudah terisi");
+
+        function dragMoveListener(event) {
+            var target = event.target,
+                // keep the dragged position in the data-x/data-y attributes
+                x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
+                y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
+
+            // translate the element
+            target.style.webkitTransform =
+                target.style.transform =
+                'translate(' + x + 'px, ' + y + 'px)';
+
+            // update the posiion attributes
+            target.setAttribute('data-x', x);
+            target.setAttribute('data-y', y);
         }
-    }
-</script>
-<?= $this->endSection(); ?>
+
+        function dragging(e) {
+            drag_pos.x += e.dx;
+            drag_pos.y += e.dy;
+            $("#main-area").css('overflow', 'hidden');
+            e.target.style.transform = 'translate(' + drag_pos.x + 'px, ' + drag_pos.y + 'px)';
+        }
+
+        function dragged(e) {
+            drag_pos.x = 0;
+            drag_pos.y = 0;
+            $("#main-area").css('overflow', 'auto');
+            e.target.style.transform = 'translate(0px, 0px)';
+        }
+    </script>
+</body>
+
+</html>

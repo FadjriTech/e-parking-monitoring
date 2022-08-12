@@ -1,55 +1,75 @@
-<?= $this->extend('templates/app'); ?>
+<!doctype html>
+<html lang="en">
 
-<?= $this->section('content'); ?>
-<section>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-4 col-sm-12 mb-2">
-                <div class="card">
-                    <a href="/parkir/depan" class="btn">
-                        <div class="card-body">
-                            <h5 class="card-title text-roboto">AREA DEPAN</h5>
-                            <h6 class="card-subtitle mb-3 text-muted">Tersisa 5</h6>
-                            <div class="card-text text-center d-flex gap-2 justify-content-center">
-                                <p class="bg-secondary text-white rounded px-2 py-2">Vehicle <br> <?= $exist['parkir_depan']; ?></p>
-                                <p class="bg-success text-white d-flex align-items-center rounded px-2">Capacity <br><?= $capacity['parkir_depan']; ?></p>
-                                <p class="bg-danger text-white d-flex align-items-center rounded px-2">Empty <br><?= $capacity['parkir_depan'] - $exist['parkir_depan']; ?></p>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>E Parking | Main</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/main/style.css">
+</head>
+
+<body>
+
+    <section class="main-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 mb-5 text-white text-center text-oleo">
+                    <h1 class="card-title">
+                        Parking Mobile Akastra
+                    </h1>
+                </div>
+                <div class="col-12 text-center">
+                    <div class="box-wrap">
+                        <div class="white-box">
+                            <h3 class="mb-3 text-lato fw-bold">Capacity</h3>
+                            <div class="blue-box">
+                                166
                             </div>
                         </div>
-                    </a>
+                        <div class="white-box">
+                            <h3 class="mb-3 text-lato fw-bold">Usage</h3>
+                            <div class="blue-box">
+                                6
+                            </div>
+                        </div>
+                        <div class="white-box">
+                            <h3 class="mb-3 text-lato fw-bold">Remaining</h3>
+                            <div class="blue-box">
+                                160
+                            </div>
+                        </div>
+                    </div>
+                    <div class="button-wrap mt-4">
+                        <a class="btn-next text-lato">Next</a>
+                    </div>
                 </div>
             </div>
-            <div class="col-md-4 col-sm-12 mb-2">
-                <div class="card">
-                    <a href="/parkir/stall_bp" class="btn">
-                        <div class="card-body">
-                            <h5 class="card-title text-roboto">STALL BP</h5>
-                            <h6 class="card-subtitle mb-3 text-muted">Tersisa 5</h6>
-                            <div class="card-text text-center d-flex gap-2 justify-content-center">
-                                <p class="bg-secondary text-white rounded px-2 py-2">Vehicle <br> <?= $exist['stall_bp']; ?></p>
-                                <p class="bg-success text-white d-flex align-items-center rounded px-2">Capacity <br><?= $capacity['stall_bp']; ?></p>
-                                <p class="bg-danger text-white d-flex align-items-center rounded px-2">Empty <br><?= $capacity['stall_bp'] - $exist['stall_bp']; ?></p>
-                            </div>
-                        </div>
-                    </a>
+            <div class="toast-wrapper gap-2 d-flex flex-column">
+                <div class="toast bg-success text-white show">
+                    <div class="toast-body justify-content-between d-flex text-lato">
+                        Area Parkir Depan Sudah Agak Penuh
+                        <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+                    </div>
                 </div>
-            </div>
-            <div class="col-md-4 col-sm-12 mb-2">
-                <div class="card">
-                    <a href="/parkir/stall_gr" class="btn">
-                        <div class="card-body">
-                            <h5 class="card-title text-roboto">STALL GR</h5>
-                            <h6 class="card-subtitle mb-3 text-muted">Tersisa 5</h6>
-                            <div class="card-text text-center d-flex gap-2 justify-content-center">
-                                <p class="bg-secondary text-white rounded px-2 py-2">Vehicle <br> <?= $exist['stall_gr']; ?></p>
-                                <p class="bg-success text-white d-flex align-items-center rounded px-2">Capacity <br><?= $capacity['stall_gr']; ?></p>
-                                <p class="bg-danger text-white d-flex align-items-center rounded px-2">Empty <br><?= $capacity['stall_gr'] - $exist['stall_gr']; ?></p>
-                            </div>
-                        </div>
-                    </a>
+                <div class="toast bg-warning show">
+                    <div class="toast-body justify-content-between d-flex text-lato">
+                        Area Parkir Depan Sudah Agak Penuh
+                        <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+                    </div>
+                </div>
+                <div class="toast bg-danger text-white show">
+                    <div class="toast-body justify-content-between d-flex text-lato">
+                        Kendaraan BP Sudah Terlalu Banyak
+                        <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
-<?= $this->endSection(); ?>
+    </section>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+</body>
+
+</html>
