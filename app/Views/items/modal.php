@@ -13,6 +13,7 @@
                     <input type="hidden" name="parking[position]" id="parking-position" class="form-control mb-2" readonly>
                     <input type="hidden" name="id" id="parking-id" class="form-control mb-2" readonly>
                     <input type="hidden" id="seat-id" class="form-control mb-2" readonly>
+                    <input type="text" id="parking-name" name="parking[jenis_parkir]" class="form-control mb-2" readonly>
                     <!-- End Hidden Key Input -->
 
                     <div class="mb-3">
@@ -56,7 +57,13 @@
                     </div>
                 </div>
                 <div class="modal-footer border-0">
-                    <button type="submit" class="btn btn-primary d-flex align-items-center justify-content-center gap-2">
+                    <button type="button" class="btn btn-danger btn-delete d-none shadow d-flex align-items-center justify-content-center gap-2">
+                        Hapus
+                        <span class="material-icons">
+                            remove_circle
+                        </span>
+                    </button>
+                    <button type="submit" class="btn btn-primary shadow btn-submit d-flex align-items-center justify-content-center gap-2">
                         Simpan
                         <span class="material-icons">
                             save

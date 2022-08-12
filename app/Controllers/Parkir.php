@@ -192,10 +192,18 @@ class Parkir extends BaseController
         if ($this->request->isAJAX()) {
             if (isset($_POST['grup']) && isset($_POST['posisi'])) {
                 $data   = $this->parkir->_getParkirDetail($_POST['posisi'], $_POST['grup']);
-                return json_encode(array(
-                    'data'  => $data,
-                    'code'  => 200
-                ));
+                if ($data) {
+                    return json_encode(array(
+                        'data'      => $data,
+                        'code'      => 200,
+                        'message'   => "Berhasil mendapatkan data"
+                    ));
+                } else {
+                    return json_encode(array(
+                        'code'      => 404,
+                        'message'   => 'Data tidak ditemukan'
+                    ));
+                }
             }
         }
     }
@@ -238,7 +246,9 @@ class Parkir extends BaseController
         $data = $_POST['parking'];
 
         if (isset($_POST['id'])) {
-            $data['id'] = $_POST['id'];
+            if ($_POST['id']) {
+                $data['id'] = $_POST['id'];
+            }
         }
 
         $save = $this->parkir->save($data);
@@ -268,6 +278,11 @@ class Parkir extends BaseController
                     return json_encode(array(
                         'message' => 'Berhasil di hapus',
                         'code'    => 200
+                    ));
+                } else {
+                    return json_encode(array(
+                        'message' => 'Sistem Error',
+                        'code'    => 500
                     ));
                 }
             }

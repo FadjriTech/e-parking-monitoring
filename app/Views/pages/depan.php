@@ -56,10 +56,10 @@
                             <div class="d-flex flex-column justify-content-between align-items-center" style="padding-right: 20px;">
 
                                 <!-- Parkiran GR  AKA Grup A-->
-                                <div class="d-flex gap-1 w-100 justify-content-end">
+                                <div class="d-flex gap-1 w-100 justify-content-end" style="padding-right: 100px">
                                     <?php for ($position = 1; $position <= 9; $position++) : ?>
                                         <?php $key = $controller->cari_parkir($grupA, $position); ?>
-                                        <a class="seat-blue seat-vertical text-white" grup="A" id="<?= rand($position * time(), 10 * time()); ?>" position="<?= $position; ?>">
+                                        <a class="seat-blue seat-vertical text-white" grup="A" id="<?= rand($position * time(), 10 * time()); ?>" position="<?= $position; ?>" parking-name="Parkiran GR">
                                             <?= (!empty($key) || $key === 0) ? $grupA[$key]['model_code'] . " | " . $grupA[$key]['license_plate'] . "<br>" . $grupA[$key]['category'] : "" ?>
                                         </a>
                                     <?php endfor; ?>
@@ -71,18 +71,18 @@
                                     <?php for ($i = 1; $i <= 2; $i++) : ?>
                                         <?php
                                         $positionStart     = 1;
-                                        $positionEnd       = 5;
+                                        $positionEnd       = 6;
 
                                         if ($i == 2) {
-                                            $positionStart = 6;
-                                            $positionEnd   = 10;
+                                            $positionStart = 7;
+                                            $positionEnd   = 12;
                                         }
                                         ?>
 
                                         <div class="d-flex gap-2 my-2">
                                             <?php for ($position = $positionStart; $position <= $positionEnd; $position++) : ?>
                                                 <?php $key = $controller->cari_parkir($grupB, $position); ?>
-                                                <a class="seat seat-horizontal text-dark" grup="B" id="<?= rand($i * time(), 10 * time()); ?>" position="<?= $position; ?>">
+                                                <a class="seat seat-horizontal text-dark" grup="B" id="<?= rand($i * time(), 10 * time()); ?>" position="<?= $position; ?>" parking-name="Parkiran Bayangan GR">
                                                     <?= (!empty($key) || $key === 0) ? $grupB[$key]['model_code'] . " | " . $grupB[$key]['license_plate'] . "<br>" . $grupB[$key]['category'] : "" ?>
                                                 </a>
                                             <?php endfor; ?>
@@ -108,16 +108,23 @@
                                         <div class="d-flex gap-1 justify-content-end">
                                             <?php for ($position = $positionStart; $position <= $positionEnd; $position++) : ?>
                                                 <?php $key = $controller->cari_parkir($grupC, $position); ?>
-                                                <?php $seat = 'seat-blue text-white'; ?>
-                                                <?php if ($position == 1 || $position == 6) $seat = 'seat text-dark'; ?>
-                                                <a class="<?= $seat; ?> seat-vertical" id="<?= rand($i * time(), 10 * time()); ?>" grup="C" position="<?= $position; ?>">
-                                                    <?= (!empty($key) || $key === 0) ? $grupB[$key]['model_code'] . " | " . $grupB[$key]['license_plate'] . "<br>" . $grupB[$key]['category'] : "" ?>
+                                                <?php $seat = 'seat-blue text-white';
+                                                $name = 'Parkiran GR'; ?>
+
+                                                <?php if ($position == 1 || $position == 6) {
+                                                    $seat = 'seat text-dark';
+                                                    $name = 'Parkiran Bayangan GR';
+                                                } else {
+                                                    $name = 'Parkiran GR';
+                                                }; ?>
+                                                <a class="<?= $seat; ?> seat-vertical" id="<?= rand($i * time(), 10 * time()); ?>" grup="C" position="<?= $position; ?>" parking-name="<?= $name; ?>">
+                                                    <?= (!empty($key) || $key === 0) ? $grupC[$key]['model_code'] . " | " . $grupC[$key]['license_plate'] . "<br>" . $grupC[$key]['category'] : "" ?>
                                                 </a>
                                             <?php endfor; ?>
 
                                             <!-- Area Satpam & Parkiran -->
                                             <div class="security-office">
-                                                <?= ($i == 1) ? '<span class="material-symbols-outlined">lock</span> Pos Satpam' : "Parkir Motor"; ?>
+                                                <?= ($i == 1) ? 'Pos Satpam' : "Parkir Motor"; ?>
                                             </div>
                                         </div>
                                     <?php endfor; ?>
@@ -126,30 +133,36 @@
 
 
                                 <!-- Parkiran Bayangan BP AKA Grup D -->
-                                <div class="d-flex flex-column mt-3 w-100">
-                                    <?php for ($i = 1; $i <= 2; $i++) : ?>
+                                <div class="d-flex w-100 justify-content-end gap-1">
+                                    <?php $key = $controller->cari_parkir($grupD, 1); ?>
+                                    <a class="seat seat-vertical mt-2 me-2" position="1" grup="D" id="<?= rand(1 * time(), 10 * time()); ?>" parking-name="Parkiran Bayangan BP">
+                                        <?= (!empty($key) || $key === 0) ? $grupD[$key]['model_code'] . " | " . $grupD[$key]['license_plate'] . "<br>" . $grupD[$key]['category'] : "" ?>
+                                    </a>
+                                    <div class="d-flex flex-column">
+                                        <?php for ($i = 1; $i <= 2; $i++) : ?>
 
-                                        <?php
-                                        $positionStart     = 1;
-                                        $positionEnd       = 3;
+                                            <?php
+                                            $positionStart     = 2;
+                                            $positionEnd       = 3;
 
-                                        if ($i == 2) {
-                                            $positionStart = 4;
-                                            $positionEnd   = 5;
-                                        }
-                                        ?>
-                                        <div class="d-flex mt-2 gap-1 justify-content-end w-80">
-                                            <?php for ($position = $positionStart; $position <= $positionEnd; $position++) : ?>
-                                                <?php $key = $controller->cari_parkir($grupD, $position); ?>
-                                                <a class="seat seat-horizontal" grup="D" position="<?= $position; ?>" id="<?= rand($i * time(), 10 * time()); ?>">
-                                                    <?= (!empty($key) || $key === 0) ? $grupD[$key]['model_code'] . " | " . $grupD[$key]['license_plate'] . "<br>" . $grupD[$key]['category'] : "" ?>
-                                                </a>
-                                            <?php endfor; ?>
-                                            <div class="parkiran-motor-2">
-                                                Parkir Motor
+                                            if ($i == 2) {
+                                                $positionStart = 4;
+                                                $positionEnd   = 5;
+                                            }
+                                            ?>
+                                            <div class="d-flex mt-1 gap-1 justify-content-end">
+                                                <?php for ($position = $positionStart; $position <= $positionEnd; $position++) : ?>
+                                                    <?php $key = $controller->cari_parkir($grupD, $position); ?>
+                                                    <a class="seat seat-horizontal" grup="D" position="<?= $position; ?>" id="<?= rand($i * time(), 10 * time()); ?>" parking-name="Parkiran Bayangan BP">
+                                                        <?= (!empty($key) || $key === 0) ? $grupD[$key]['model_code'] . " | " . $grupD[$key]['license_plate'] . "<br>" . $grupD[$key]['category'] : "" ?>
+                                                    </a>
+                                                <?php endfor; ?>
+                                                <div class="parkiran-motor-2">
+                                                    Parkir Motor
+                                                </div>
                                             </div>
-                                        </div>
-                                    <?php endfor; ?>
+                                        <?php endfor; ?>
+                                    </div>
                                 </div>
                                 <!-- Batas Parkiran Bayangan BP -->
 
@@ -158,10 +171,14 @@
                                     <p class="text-label-vertical-reverse">- Area Parkir BP -</p>
                                     <?php for ($position = 1; $position <= 7; $position++) : ?>
                                         <?php $seat = 'seat-yellow text-white';
-                                        if ($position >= 1 && $position <= 2) $seat = 'seat text-dark';
+                                        $name = 'Parkiran BP';
+                                        if ($position >= 1 && $position <= 2) {
+                                            $seat = 'seat text-dark';
+                                            $name = 'Parkiran Bayangan BP';
+                                        };
                                         ?>
                                         <?php $key = $controller->cari_parkir($grupE, $position); ?>
-                                        <a class="<?= $seat; ?> seat-vertical" grup="E" position="<?= $position; ?>" id="<?= rand($position * time(), 10 * time()); ?>">
+                                        <a class="<?= $seat; ?> seat-vertical" grup="E" position="<?= $position; ?>" id="<?= rand($position * time(), 10 * time()); ?>" parking-name="<?= $name; ?>">
                                             <?= (!empty($key) || $key === 0) ? $grupE[$key]['model_code'] . " | " . $grupE[$key]['license_plate'] . "<br>" . $grupE[$key]['category'] : "" ?>
                                         </a>
                                     <?php endfor; ?>
@@ -170,33 +187,40 @@
 
 
                                 <!-- Parkiran Bayangan BP AKA Grup F-->
-                                <?php for ($i = 1; $i <= 2; $i++) : ?>
-                                    <?php
-                                    $positionStart     = 1;
-                                    $positionEnd       = 4;
+                                <div class="d-flex w-100 justify-content-end">
+                                    <?php $key = $controller->cari_parkir($grupF, 1); ?>
+                                    <a class="seat seat-vertical mt-1 me-3" grup="F" position="1" id="<?= rand($position * time(), 10 * time()); ?>" parking-name="Parkiran Bayangan BP">
+                                        <?= (!empty($key) || $key === 0) ? $grupF[$key]['model_code'] . " | " . $grupF[$key]['license_plate'] . "<br>" . $grupF[$key]['category'] : "" ?>
+                                    </a>
+                                    <div class="d-flex flex-column">
+                                        <?php for ($i = 1; $i <= 2; $i++) : ?>
+                                            <?php
+                                            $positionStart     = 2;
+                                            $positionEnd       = 4;
 
-                                    if ($i == 2) {
-                                        $positionStart = 5;
-                                        $positionEnd   = 7;
-                                    }
-                                    ?>
-                                    <div class="d-flex mt-2 gap-1 justify-content-end w-100">
-                                        <?php for ($position = $positionStart; $position <= $positionEnd; $position++) : ?>
-                                            <?php $key = $controller->cari_parkir($grupF, $position); ?>
-                                            <a class="seat seat-horizontal text-dark" grup="F" position="<?= $position; ?>" id="<?= rand($position * time(), 10 * time()); ?>">
-                                                <?= (!empty($key) || $key === 0) ? $grupF[$key]['model_code'] . " | " . $grupF[$key]['license_plate'] . "<br>" . $grupF[$key]['category'] : "" ?>
-                                            </a>
+                                            if ($i == 2) {
+                                                $positionStart = 5;
+                                                $positionEnd   = 7;
+                                            }
+                                            ?>
+                                            <div class="d-flex mt-1 gap-1">
+                                                <?php for ($position = $positionStart; $position <= $positionEnd; $position++) : ?>
+                                                    <?php $key = $controller->cari_parkir($grupF, $position); ?>
+                                                    <a class="seat seat-horizontal text-dark" grup="F" position="<?= $position; ?>" id="<?= rand($position * time(), 10 * time()); ?>" parking-name="Parkiran Bayangan BP">
+                                                        <?= (!empty($key) || $key === 0) ? $grupF[$key]['model_code'] . " | " . $grupF[$key]['license_plate'] . "<br>" . $grupF[$key]['category'] : "" ?>
+                                                    </a>
+                                                <?php endfor; ?>
+                                            </div>
                                         <?php endfor; ?>
                                     </div>
-                                <?php endfor; ?>
+                                </div>
                                 <!-- Batas Parkiran Bayangan BP -->
-
 
                                 <!-- Parkiran Pojok BP -->
                                 <div class="d-flex mt-2 gap-1 justify-content-end w-100 px-4 mb-5">
                                     <?php for ($position = 8; $position <= 15; $position++) : ?>
                                         <?php $key = $controller->cari_parkir($grupF, $position); ?>
-                                        <a class="seat-yellow seat-vertical text-white" grup="F" position="<?= $position; ?>" id="<?= rand($position * time(), 10 * time()); ?>">
+                                        <a class="seat-yellow seat-vertical text-white" grup="F" position="<?= $position; ?>" id="<?= rand($position * time(), 10 * time()); ?>" parking-name="Parkiran BP">
                                             <?= (!empty($key) || $key === 0) ? $grupF[$key]['model_code'] . " | " . $grupF[$key]['license_plate'] . "<br>" . $grupF[$key]['category'] : "" ?>
                                         </a>
                                     <?php endfor; ?>
@@ -211,6 +235,10 @@
 
         <?= $this->include('items/modal'); ?>
 
+
+        <div class="empty"></div>
+        <div class="wrapper"></div>
+
         <nav class="bottom-nav">
             <a class="cancel-button">
                 Back
@@ -224,92 +252,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
     <script src="/js/index.js"></script>
-
-    <script>
-        // var drag_pos = {
-        //     x: 0,
-        //     y: 0
-        // }
-
-        // interact('.seat-vertical').dropzone({
-        //     ondropactivate: function(event) {
-        //         event.target.classList.add('drop-active')
-        //         console.log(event.target);
-        //     },
-        //     ondragenter: function(event) {
-        //         var dropId = event.target.id
-        //         $(`#${dropId}`).addClass('drop');
-        //     },
-        //     ondragleave: function(event) {
-        //         var dropId = event.target.id
-        //         $(`#${dropId}`).removeClass('drop');
-        //     },
-        //     ondrop: function(event) {
-        //         var dropId = event.target.id;
-        //         var dragId = event.relatedTarget.id;
-        //         var html = $(`#${dragId}`).html();
-        //         if (!html) {
-        //             alert("Parkiran kosong");
-        //         } else {
-        //             $(`#${dropId}`).html(html);
-        //             $(`#${dragId}`).html('');
-        //         }
-
-        //         var dropId = event.target.id
-        //         $(`#${dropId}`).removeClass('drop');
-        //         console.log(dropId, dragId);
-        //     },
-        //     ondropdeactivate: function(event) {}
-        // })
-
-
-        // //---- Dragging function
-        // interact('.seat-vertical')
-        //     .draggable({
-        //         inertia: true,
-        //         modifiers: [
-        //             interact.modifiers.restrictRect({
-        //                 // restriction: 'parent',
-        //                 endOnly: true
-        //             })
-        //         ],
-        //         autoScroll: false,
-        //         listeners: {
-        //             move: dragging,
-        //             end: dragged
-        //         }
-        //     });
-
-        // function dragMoveListener(event) {
-        //     var target = event.target,
-        //         // keep the dragged position in the data-x/data-y attributes
-        //         x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
-        //         y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
-
-        //     // translate the element
-        //     target.style.webkitTransform =
-        //         target.style.transform =
-        //         'translate(' + x + 'px, ' + y + 'px)';
-
-        //     // update the posiion attributes
-        //     target.setAttribute('data-x', x);
-        //     target.setAttribute('data-y', y);
-        // }
-
-        // function dragging(e) {
-        //     drag_pos.x += e.dx;
-        //     drag_pos.y += e.dy;
-        //     $("#main-area").css('overflow', 'hidden');
-        //     e.target.style.transform = 'translate(' + drag_pos.x + 'px, ' + drag_pos.y + 'px)';
-        // }
-
-        // function dragged(e) {
-        //     drag_pos.x = 0;
-        //     drag_pos.y = 0;
-        //     $("#main-area").css('overflow', 'auto');
-        //     e.target.style.transform = 'translate(0px, 0px)';
-        // }
-    </script>
+    <script src="/js/drag.js"></script>
 </body>
 
 </html>
