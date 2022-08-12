@@ -1,3 +1,6 @@
+
+
+//------ Modal Click
 $(document).on('click', '.seat-vertical, .seat-horizontal', function () { 
     //----- Set hidden Key from attribute
     var grup     = $(this).attr('grup');
@@ -43,6 +46,7 @@ $(document).on('click', '.seat-vertical, .seat-horizontal', function () {
     });
 })
 
+//----- Button Delete
 $(document).on('click', '.btn-delete', function (event) { 
     var posisi = $("#parking-position").val();
     var grup   = $("#parking-grup").val();
@@ -79,6 +83,8 @@ $(document).on('click', '.btn-delete', function (event) {
     }
 })
 
+
+//----- Form Submit
 $(document).ready(function () {
     $('#parking-form').submit(function (e) { 
         e.preventDefault();
@@ -112,6 +118,7 @@ $(document).ready(function () {
 });
 
 
+//----- Others Model Condition
 $(document).on('change', '#parking-model', function (e) { 
     let model = $(this).val();
     if(model === "OT" || model === "MRL"){
@@ -119,5 +126,30 @@ $(document).on('change', '#parking-model', function (e) {
     } else {
         $("#other-wrap").addClass("d-none");
         $("#parking-other").val('');
+    }
+});
+
+//----- Legend
+let state = false;
+
+$('.legend').hover(function () {
+        $(this).css('opacity', 1);
+    }, function () {
+        $(this).css('opacity', 0.2);
+    }
+);
+
+$('.legend').click(function (e) { 
+    e.preventDefault();
+    if(state == false){
+        state = true;
+    } else {
+        state = false;
+    }
+
+    if(state){
+        $(this).css('opacity', 1);
+    } else {
+        $(this).css('opacity', 0.2);
     }
 });

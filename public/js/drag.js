@@ -24,3 +24,62 @@ $(".seat-vertical").on("touchend",function(event){
     $(this).css('top','');
     $(this).css('left', '');
 });
+
+
+
+ //-------------- DRAG & DROP COLUMN
+ function allowDrop(ev) {
+    ev.preventDefault();
+}
+
+function drag(ev) {
+    var group = ev.target.getAttribute('grup');
+    var posisi = ev.target.getAttribute('position');
+    var id = ev.target.id;
+
+    var html = $(`#${id}`).html();
+    if (html) {
+        ev.dataTransfer.setData("grup", String(group));
+        ev.dataTransfer.setData("posisi", String(posisi));
+        ev.dataTransfer.setData("id", String(id));
+    } else {
+        alert("Seat Masih Kosong");
+    }
+
+}
+
+function drop(ev) {
+    ev.preventDefault();
+    var grup = ev.dataTransfer.getData("grup", grup);
+    var posisi = ev.dataTransfer.getData("posisi", posisi);
+    var prevId = ev.dataTransfer.getData("id", posisi);
+
+    var newGrup = ev.target.getAttribute('grup');
+    var newPosisi = ev.target.getAttribute('position');
+    var newId = ev.target.id;
+
+    var html = String($(`#${newId}`).html()).trim().replace(/^\s+|\s+$/gm,'');
+
+    if (html == '') {
+        $.ajax({
+            type: "POST",
+            url: "/parkir/update_posisi",
+            data: {
+                grup: grup,
+                posisi: posisi,
+                newGrup: newGrup,
+                newPosisi: newPosisi
+            },
+            dataType: "json",
+            success: function(response) {
+                $(`#${prevId}`).html("");
+                $(`#${newId}`).html(response.model_code + ' | ' + response.license_plate + ' <br> ' + response.category);
+            },
+            error: function() {
+                location.reload();
+            }
+        });
+    } else {
+        alert("data sudah terisi");
+    }
+}

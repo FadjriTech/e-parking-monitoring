@@ -237,6 +237,7 @@ class Parkir extends BaseController
             return json_encode(array(
                 'model_code' => $dataAwal['model_code'],
                 'license_plate' => $dataAwal['license_plate'],
+                'category'      => $dataAwal['category']
             ));
         }
     }
