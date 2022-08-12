@@ -62,17 +62,24 @@ class Parkir extends BaseController
 
         $listModel = $this->parkir->_getListModel();
         $data  = [
-            'grupA'  => $grupA,
-            'grupB'  => $grupB,
-            'grupC'  => $grupC,
-            'grupD'  => $grupD,
-            'grupE'  => $grupE,
-            'grupF'  => $grupF,
-            'model'  => $listModel,
-            'lokasi' => 'DEPAN'
+            'grupA'         => $grupA,
+            'grupB'         => $grupB,
+            'grupC'         => $grupC,
+            'grupD'         => $grupD,
+            'grupE'         => $grupE,
+            'grupF'         => $grupF,
+            'model'         => $listModel,
+            'lokasi'        => 'DEPAN',
+            'controller'    => $this
         ];
-
         return view('pages/depan', $data);
+    }
+
+
+    public function cari_parkir(array $array, int $position)
+    {
+        $key = array_search($position, array_column($array, 'position'));
+        return $key;
     }
 
     public function stall_bp()
@@ -228,42 +235,24 @@ class Parkir extends BaseController
 
     public function tambah_parkir()
     {
-        if (!$this->validate([
-            'nopol' => 'required',
-            'model' => 'required'
-        ])) return $this->validator->listErrors();
-
-        $grup      = $_POST['grup'];
-        $posisi    = $_POST['posisi'];
-        $nopol     = $_POST['nopol'];
-        $model     = $_POST['model'];
-        $status    = $_POST['status'];
-        $category  = $_POST['pekerjaan'];
-        $lokasi    = $_POST['lokasi'];
-
-        $data    = [
-            'grup'          => $grup,
-            'position'      => $posisi,
-            'model_code'    => $model,
-            'license_plate' => $nopol,
-            'status'        => $status,
-            'lokasi'        => $lokasi,
-            'category'      => $category
-        ];
+        $data = $_POST['parking'];
 
         if (isset($_POST['id'])) {
             $data['id'] = $_POST['id'];
         }
 
-        $insert = $this->parkir->save($data);
-        if ($insert) {
-            if ($lokasi == "DEPAN") {
-                return redirect()->to(base_url() . '/parkir/depan');
-            } else if ($lokasi == "STALL_BP") {
-                return redirect()->to(base_url() . '/parkir/stall_bp');
-            } else {
-                return redirect()->to(base_url() . '/parkir/stall_gr');
-            }
+        $save = $this->parkir->save($data);
+        if ($save) {
+            return json_encode(array(
+                'code'      => 200,
+                'message'   => "Data berhasil di simpan!",
+                'data'      => $data
+            ));
+        } else {
+            return json_encode(array(
+                'code'      => 500,
+                'message'   => "Database Error!"
+            ));
         }
     }
 
