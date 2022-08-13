@@ -1,7 +1,7 @@
 
 
 //------ Modal Click
-$(document).on('click', '.seat-vertical, .seat-horizontal, .seat-vertical-short', function () { 
+$(document).on('click', '.seat-vertical, .seat-horizontal, .seat-vertical-short, .seat-horizontal-wide, .seat-horizontal-oven, .seat-vertical-wide', function () { 
     //----- Set hidden Key from attribute
     var grup     = $(this).attr('grup');
     var position = $(this).attr('position');

@@ -84,13 +84,16 @@ class Parkir extends BaseController
 
     public function stall_bp()
     {
-        $parkirGroups  = range('I', 'L');
+        $parkirGroups  = range('I', 'O');
         $parkir = $this->parkir->_getAllParkirByLocation("STALL_BP");
 
         $grupI = array();
         $grupJ = array();
         $grupK = array();
         $grupL = array();
+        $grupM = array();
+        $grupN = array();
+        $grupO = array();
 
         foreach ($parkirGroups as $grup) {
             $keys = array_keys(array_combine(array_keys($parkir), array_column($parkir, 'grup')), $grup);
@@ -111,7 +114,11 @@ class Parkir extends BaseController
             'grupJ'             => $grupJ,
             'grupK'             => $grupK,
             'grupL'             => $grupL,
+            'grupM'             => $grupM,
+            'grupN'             => $grupN,
+            'grupO'             => $grupO,
             'model'             => $listModel,
+            'controller'        => $this,
             'ovenLeftLabels'    => $ovenLeftLabels,
             'ovenRightLabels'   => $ovenRightLabels
         ];

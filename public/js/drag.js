@@ -28,10 +28,10 @@ $(".seat-vertical").on("touchend",function(event){
 
 
  //-------------- DRAG & DROP COLUMN
-$('.seat-vertical, .seat-horizontal, .seat-vertical-short').attr('draggable', "true");
-$('.seat-vertical, .seat-horizontal, .seat-vertical-short').attr('ondragstart', "drag(event)");
-$('.seat-vertical, .seat-horizontal, .seat-vertical-short').attr('ondrop', "drop(event)");
-$('.seat-vertical, .seat-horizontal, .seat-vertical-short').attr('ondragover', "allowDrop(event)");
+$('.seat-vertical, .seat-horizontal, .seat-vertical-short, .seat-horizontal-wide, .seat-vertical-wide, .seat-horizontal-oven').attr('draggable', "true");
+$('.seat-vertical, .seat-horizontal, .seat-vertical-short, .seat-horizontal-wide, .seat-vertical-wide, .seat-horizontal-oven').attr('ondragstart', "drag(event)");
+$('.seat-vertical, .seat-horizontal, .seat-vertical-short, .seat-horizontal-wide, .seat-vertical-wide, .seat-horizontal-oven').attr('ondrop', "drop(event)");
+$('.seat-vertical, .seat-horizontal, .seat-vertical-short, .seat-horizontal-wide, .seat-vertical-wide, .seat-horizontal-oven').attr('ondragover', "allowDrop(event)");
 
 
 function allowDrop(ev) {
