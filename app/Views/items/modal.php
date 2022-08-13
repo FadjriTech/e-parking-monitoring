@@ -3,7 +3,7 @@
         <div class="modal-content">
             <form action="/parkir/tambah_parkir" method="POST" id="parking-form">
                 <div class="modal-header border-0">
-                    <h5 class="modal-title" id="staticBackdropLabel">Tambah Kendaraan</h5>
+                    <h5 class="modal-title" id="staticBackdropLabel">Vehicle Info</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body border-0">
@@ -13,7 +13,7 @@
                     <input type="hidden" name="parking[position]" id="parking-position" class="form-control mb-2" readonly>
                     <input type="hidden" name="id" id="parking-id" class="form-control mb-2" readonly>
                     <input type="hidden" id="seat-id" class="form-control mb-2" readonly>
-                    <input type="text" id="parking-name" name="parking[jenis_parkir]" class="form-control mb-2" readonly>
+                    <input type="hidden" id="parking-name" name="parking[jenis_parkir]" class="form-control mb-2" readonly>
                     <!-- End Hidden Key Input -->
 
                     <div class="mb-3">

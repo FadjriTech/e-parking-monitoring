@@ -1,12 +1,13 @@
 
 
 //------ Modal Click
-$(document).on('click', '.seat-vertical, .seat-horizontal', function () { 
+$(document).on('click', '.seat-vertical, .seat-horizontal, .seat-vertical-short', function () { 
     //----- Set hidden Key from attribute
     var grup     = $(this).attr('grup');
     var position = $(this).attr('position');
     var seatId   = $(this).attr('id');
     var parking  = $(this).attr('parking-name');
+    var html     = $(this).html().trim();
     
     $("#parking-form").trigger("reset");
 
@@ -29,7 +30,6 @@ $(document).on('click', '.seat-vertical, .seat-horizontal', function () {
             if(response.code === 200){
                 const label = ['parking-id','parking-license-plate', 'parking-model', 'parking-other', 'parking-status', 'parking-job'];
                 const field = ['id','license_plate', 'model_code', 'others', 'status', 'category'];
-
                 const detail = response.data;
                 if(detail != null){
                     $("#parking-id").prop('disabled', false);
@@ -104,7 +104,10 @@ $(document).ready(function () {
             success: function (response) {
                 if(response.code == 200){
                     var data = response.data;
-                    var html = `${data.model_code} | ${data.license_plate} <br> ${data.category}`;
+                    var html = `${data.model_code} | ${data.license_plate}`;
+                    if(data.category != 'Tidak Servis'){
+                        html += ` <br> ${data.category}`;
+                    }
 
                     $("#addModal").modal('hide');
                     $(`#${seatId}`).html(html);

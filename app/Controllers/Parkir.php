@@ -84,13 +84,13 @@ class Parkir extends BaseController
 
     public function stall_bp()
     {
-        $parkirGroups  = range('G', 'J');
+        $parkirGroups  = range('I', 'L');
         $parkir = $this->parkir->_getAllParkirByLocation("STALL_BP");
 
-        $grupG = array();
-        $grupH = array();
         $grupI = array();
         $grupJ = array();
+        $grupK = array();
+        $grupL = array();
 
         foreach ($parkirGroups as $grup) {
             $keys = array_keys(array_combine(array_keys($parkir), array_column($parkir, 'grup')), $grup);
@@ -100,25 +100,31 @@ class Parkir extends BaseController
         }
 
         $listModel = $this->parkir->_getListModel();
+
+
+        $ovenLeftLabels   = ['Final Check', 'Poles Pemasangan', 'Stall Poles', 'Stall Poles'];
+        $ovenRightLabels  = ['Perbaikan Panel', 'Stall Dempul', 'Stall Dempul', 'Stall Backup'];
+
         $data = [
-            'lokasi' => 'BP',
-            'grupG'  => $grupG,
-            'grupH'  => $grupH,
-            'grupI'  => $grupI,
-            'grupJ'  => $grupJ,
-            'model'  => $listModel
+            'lokasi'            => 'STALL_BP',
+            'grupI'             => $grupI,
+            'grupJ'             => $grupJ,
+            'grupK'             => $grupK,
+            'grupL'             => $grupL,
+            'model'             => $listModel,
+            'ovenLeftLabels'    => $ovenLeftLabels,
+            'ovenRightLabels'   => $ovenRightLabels
         ];
-        return view('pages/stall_bp', $data);
+        return view('pages/bp', $data);
     }
 
     public function stall_gr()
     {
-        $parkirGroups  = range('K', 'M');
+        $parkirGroups  = range('G', 'H');
         $parkir = $this->parkir->_getAllParkirByLocation("STALL_GR");
 
-        $grupK = array();
-        $grupL = array();
-        $grupM = array();
+        $grupG = array();
+        $grupH = array();
 
         foreach ($parkirGroups as $grup) {
             $keys = array_keys(array_combine(array_keys($parkir), array_column($parkir, 'grup')), $grup);
@@ -127,15 +133,19 @@ class Parkir extends BaseController
             }
         }
 
+        //----- Stall Labels
+        $labels = ['CUCI', 'STP', 'STP', 'SBE', 'GR/SBE', 'AC', 'SBE', 'GR', 'SBI/GR', 'GR/SBE', 'GR/SBE', 'GR', 'SBE', 'QS', 'SPR', 'DG'];
+
         $listModel = $this->parkir->_getListModel();
         $data = [
-            'lokasi' => 'GR',
-            'grupK'  => $grupK,
-            'grupL'  => $grupL,
-            'grupM'  => $grupM,
-            'model'  => $listModel
+            'lokasi'        => 'STALL_GR',
+            'grupG'         => $grupG,
+            'grupH'         => $grupH,
+            'labels'        => $labels,
+            'controller'    => $this,
+            'model'         => $listModel
         ];
-        return view('pages/stall_gr', $data);
+        return view('pages/gr', $data);
     }
 
     public function login()

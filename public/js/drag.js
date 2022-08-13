@@ -28,7 +28,13 @@ $(".seat-vertical").on("touchend",function(event){
 
 
  //-------------- DRAG & DROP COLUMN
- function allowDrop(ev) {
+$('.seat-vertical, .seat-horizontal, .seat-vertical-short').attr('draggable', "true");
+$('.seat-vertical, .seat-horizontal, .seat-vertical-short').attr('ondragstart', "drag(event)");
+$('.seat-vertical, .seat-horizontal, .seat-vertical-short').attr('ondrop', "drop(event)");
+$('.seat-vertical, .seat-horizontal, .seat-vertical-short').attr('ondragover', "allowDrop(event)");
+
+
+function allowDrop(ev) {
     ev.preventDefault();
 }
 
