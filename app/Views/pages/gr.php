@@ -47,7 +47,7 @@
                                             <p class="label-seat-vertical w-100">STALL PENERIMAAN</p>
                                         </div>
                                         <div class="d-flex gap-1 justify-content-end me-2">
-                                            <?php for ($position = 17; $position <= 22; $position++) : ?>
+                                            <?php for ($position = 17; $position <= 21; $position++) : ?>
                                                 <?php $key = $controller->cari_parkir($grupG, $position); ?>
                                                 <a class="seat-green seat-vertical-short" position="<?= $position; ?>" parking-name="Stall GR" grup="G" id="<?= rand($position * time(), 100 * time()); ?>">
                                                     <?= (!empty($key) || $key === 0) ? $grupG[$key]['model_code'] . " | " . $grupG[$key]['license_plate'] . "<br>" . $grupG[$key]['category'] : "" ?>

@@ -38,6 +38,7 @@
                                         <?= (!empty($key) || $key === 0) ? $grupA[$key]['model_code'] . " | " . $grupA[$key]['license_plate'] . "<br>" . $grupA[$key]['category'] : "" ?>
                                     </a>
                                 <?php endfor; ?>
+                                <div class="garis-vertical"></div>
                             </div>
                             <!-- Batas Parkiran GR -->
 
@@ -118,11 +119,11 @@
 
                                         <?php
                                         $positionStart     = 2;
-                                        $positionEnd       = 3;
+                                        $positionEnd       = 4;
 
                                         if ($i == 2) {
-                                            $positionStart = 4;
-                                            $positionEnd   = 5;
+                                            $positionStart = 5;
+                                            $positionEnd   = 7;
                                         }
                                         ?>
                                         <div class="d-flex mt-1 gap-1 justify-content-end">
@@ -132,9 +133,6 @@
                                                     <?= (!empty($key) || $key === 0) ? $grupD[$key]['model_code'] . " | " . $grupD[$key]['license_plate'] . "<br>" . $grupD[$key]['category'] : "" ?>
                                                 </a>
                                             <?php endfor; ?>
-                                            <div class="parkiran-motor-2">
-                                                Parkir Motor
-                                            </div>
                                         </div>
                                     <?php endfor; ?>
                                 </div>

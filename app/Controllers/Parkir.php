@@ -4,45 +4,59 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use App\Models\HistoryModel;
+use App\Models\KapasitasModel;
 use App\Models\ParkirModel;
 use PDO;
 
 class Parkir extends BaseController
 {
     protected $parkir;
-    protected $history;
+    protected $kapasitas;
 
     public function __construct()
     {
-        $this->parkir  = new ParkirModel();
-        $this->history = new HistoryModel();
+        $this->parkir    = new ParkirModel();
+        $this->kapasitas = new KapasitasModel();
         date_default_timezone_set('Asia/Jakarta');
     }
 
     public function index()
     {
-        $capacity     = $this->parkir->_getCapacity();
-        $parkirExist  = $this->parkir->_getParkirExist();
-        $status       = array();
+        $date             = date('Y-m-d');
+        $prevDate         = date('Y-m-d', strtotime('- 1 days'));
+        $kapasitas        = $this->kapasitas->select('SUM(capacity) as kapasitas')->get()->getFirstRow()->kapasitas;
+        $parkirExist      = $this->parkir->select('COUNT(id) as exist')->where('created_at', $date)->get()->getRowArray()['exist'];
+        $prevDateParkirExist  = $this->parkir->select('grup, position, model_code, others, license_plate, category, status, lokasi, jenis_parkir')->where('created_at', $prevDate)->get()->getResultArray();
 
-        foreach ($capacity as $key => $element) {
-            $sisa = $element - $parkirExist[$key];
-            if ($sisa >= 10) {
-                $status[$key] = 'free';
-            } else if ($sisa <= 10 && $sisa > 0) {
-                $status[$key] = 'almost full';
-            } else if ($sisa == 0) {
-                $status[$key] = 'full';
+
+        $GRVehicle        = $this->parkir->select('*')->where('category', 'GR')->where('created_at', $date)->get()->getResultArray();
+        $BPVehicle        = $this->parkir->select('*')->where('category', 'BP')->where('created_at', $date)->get()->getResultArray();
+        $GRCapacity       = $this->kapasitas->select('SUM(capacity) as capacity')->where('lokasi', 'Stall GR')->orWhere('lokasi', 'Parkiran Bayangan GR')->orWhere('lokasi', 'Parkiran GR')->get()->getRowArray()['capacity'];
+        $BPCapacity       = $this->kapasitas->select('SUM(capacity) as capacity')->where('lokasi', 'Stall BP')->orWhere('lokasi', 'Parkiran Bayangan BP')->orWhere('lokasi', 'Parkiran BP')->get()->getRowArray()['capacity'];
+
+        if (!$parkirExist) {
+            if ($prevDateParkirExist) {
+                $this->parkir->insertBatch($prevDateParkirExist); //---- Masukan Data Kemarin
             }
         }
+        if (($prevDateParkirExist && $parkirExist) || !$prevDateParkirExist) {
 
-        $data = [
-            'lokasi'    => '',
-            'capacity'  => $capacity,
-            'exist'     => $parkirExist,
-            'status'    => $status
-        ];
-        return view('pages/main', $data);
+            $remaining = $kapasitas - $parkirExist;
+
+            $data = [
+                'lokasi'     => '',
+                'capacity'   => $kapasitas,
+                'usage'      => $parkirExist,
+                'remaining'  => $remaining,
+                'GR'         => sizeof($GRVehicle),
+                'BP'         => sizeof($BPVehicle),
+                'GRCapacity' => $GRCapacity,
+                'BPCapacity' => $BPCapacity,
+            ];
+            return view('pages/main', $data);
+        } else {
+            return redirect()->to('/');
+        }
     }
 
     public function depan()
@@ -265,7 +279,9 @@ class Parkir extends BaseController
 
     public function tambah_parkir()
     {
-        $data = $_POST['parking'];
+        $data  = $_POST['parking'];
+        $nopol = strtoupper($_POST['license_plate']);
+        $data['license_plate'] = $nopol;
 
         if (isset($_POST['id'])) {
             if ($_POST['id']) {
@@ -310,6 +326,24 @@ class Parkir extends BaseController
                     ));
                 }
             }
+        }
+    }
+
+    public function search_car()
+    {
+        $keyword = $_POST['keyword'];
+        $result  = $this->parkir->select('*')->join('tb_model_kendaraan', 'tb_parking.model_code = tb_model_kendaraan.model_code')->like('license_plate', $keyword)->limit(4)->get()->getResultArray();
+        if ($result) {
+            return json_encode(array(
+                'code'    => 200,
+                'message' => 'Berhasil Mendapatkan Data Kendaraan',
+                'result'  => $result
+            ));
+        } else {
+            return json_encode(array(
+                'code'   => 404,
+                'message' => 'Data Kendaraan tidak ditemukan'
+            ));
         }
     }
 }

@@ -58,7 +58,6 @@ class ParkirModel extends Model
         (SELECT SUM(capacity) FROM tb_grup_parking WHERE lokasi = 'STALL_BP') as stall_bp,
         (SELECT SUM(capacity) FROM tb_grup_parking WHERE lokasi = 'STALL_GR') as stall_gr")->getRowArray();
     }
-
     public function _getParkirExist()
     {
         $db      = \Config\Database::connect();

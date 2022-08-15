@@ -18,7 +18,7 @@
 
                     <div class="mb-3">
                         <label for="parking-license-plate" class="form-label">Nomor Polisi</label>
-                        <input type="text" name="parking[license_plate]" id="parking-license-plate" class="form-control" placeholder="Ketikan Nomor Polisi" required>
+                        <input type="text" name="license_plate" id="parking-license-plate" class="form-control text-uppercase" placeholder="Ketikan Nomor Polisi" required>
                     </div>
                     <div class="mb-3">
                         <label for="parking-model" class="form-label">Model Kendaraan</label>

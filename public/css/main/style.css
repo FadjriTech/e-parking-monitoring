@@ -60,7 +60,12 @@ html, body {
     min-height: 100%;
     display: flex;
     justify-content: center;
-    align-items: center;
+    margin-top: 10%;
+}
+
+.no-decoration {
+    text-decoration: none;
+    border-radius: 5px;
 }
 
 
@@ -148,4 +153,24 @@ html, body {
     .white-box {
         width: 100%;
     }
+}
+
+/* ----- Search Bar ----- */
+.form-group {
+    border-radius: 5px;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+.btn-search {
+    display: flex;
+    align-items: center;
+    border: 0;
+    background-color: #165d7d;
+    color: white;
+    padding: 0px 20px;
+}
+
+.btn-search div {
+    height: 15px;
+    width: 15px;
 }

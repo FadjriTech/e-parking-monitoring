@@ -50,6 +50,7 @@ $routes->group('parkir', function ($routes) {
     $routes->post('tambah_parkir', 'Parkir::tambah_parkir');
     $routes->post('delete', 'Parkir::delete_parkir');
     $routes->post('get_detail', 'Parkir::get_detail');
+    $routes->post('search_car', 'Parkir::search_car');
 });
 
 /*
