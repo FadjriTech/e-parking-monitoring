@@ -14,6 +14,10 @@ html, body {
     background-color: var(--base-color);
 }
 
+.basic-color {
+    background-color: var(--base-color);
+}
+
 .text-oleo {
     font-family: 'Oleo Script Swash Caps', cursive;
 }
@@ -60,7 +64,7 @@ html, body {
     min-height: 100%;
     display: flex;
     justify-content: center;
-    margin-top: 10%;
+    padding-top: 10%;
 }
 
 .no-decoration {

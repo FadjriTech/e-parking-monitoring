@@ -15,29 +15,37 @@
 </head>
 
 <body>
-
     <section class="main-section">
-        <div class="container">
+
+        <a class="btn btn-danger position-absolute top-0 start-0 mt-3 ms-3 shadow" href="/logout">
+            <span class="material-icons">
+                logout
+            </span>
+        </a>
+
+        <button class="btn btn-success position-absolute top-0 end-0 mt-3 me-3 shadow btn-history">
+            <span class="material-icons">
+                history
+            </span>
+        </button>
+        <div class="container mt-5">
             <div class="row justify-content-center">
                 <div class="col-12 mb-2 text-white text-center text-oleo">
                     <h1 class="card-title">
                         Parking Mobile Akastra
                     </h1>
                 </div>
-                <div class="col-6 mb-5 gap-2 d-flex flex-column">
+                <div class="col-lg-6 col-md-12 mb-5 gap-2 d-flex flex-column">
                     <form action="/parkir/search_car" method="POST" id="search-form">
                         <div class="form-group d-flex bg-white">
-                            <input type="text" name="keyword" class="form-control align-self-center rounded-xl border-0 text-lato bg-transparent" placeholder="Cari Kendaraan">
-                            <button type="submit" class="btn-search">
+                            <input type="text" name="keyword" autocomplete="off" class="form-control align-self-center rounded-xl border-0 text-lato bg-transparent" placeholder="Cari Kendaraan">
+                            <button type="submit" class="btn-search border-0">
                                 <span class="material-icons">
                                     search
                                 </span>
                             </button>
                         </div>
                         <ul class="list-group mt-2" id="list-wrap">
-                            <!-- <a href="" class="no-decoration">
-                                <li class="list-group-item">B887ASD</li>
-                            </a> -->
                         </ul>
                     </form>
                     <?php if (session()->getFlashdata('pesan')) : ?>
@@ -135,6 +143,22 @@
     </section>
 
 
+    <div class="modal fade" id="historyModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content modal-lg">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title" id="staticBackdropLabel">Parking History</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body border-0">
+                    <ul class="list-group" id="history-list">
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     <script>
         $(document).ready(function() {
             $("#search-form").submit(function(e) {
@@ -173,6 +197,33 @@
                 });
             });
         });
+
+
+        $(document).on('click', '.btn-history', function() {
+            $("#historyModal").modal('show');
+
+            $.ajax({
+                type: "GET",
+                url: "/parkir/get_history",
+                dataType: "json",
+                success: function(response) {
+                    const data = response.data;
+                    var html = '';
+                    data.forEach(element => {
+                        html += `<a href="/parkir/depan/${element.created_at}" class="no-decoration">`;
+                        html += `   <li class="list-group-item d-flex justify-content-between mb-1 align-items-center">`;
+                        html += `       <div class="text-lato">${element.created_at}</div>`;
+                        html += `       <button class="btn btn-success border-0 shadow d-flex align-items-center gap-2">`;
+                        html += `           <span class="material-icons">radio_button_checked</span> Lihat`;
+                        html += `       </button>`;
+                        html += `   </li>`;
+                        html += `</a>`;
+                    });
+
+                    $("#history-list").html(html);
+                }
+            });
+        })
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>

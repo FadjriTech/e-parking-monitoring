@@ -24,11 +24,11 @@ class ParkirModel extends Model
         return $builder->select('*')->get()->getResultArray();
     }
 
-    public function _getAllParkirByLocation($location)
+    public function _getAllParkirByLocation($location, $date)
     {
         $db      = \Config\Database::connect();
         $builder = $db->table($this->table);
-        return $builder->select('*')->where('lokasi', $location)->orderBy('grup')->orderBy('position')->get()->getResultArray();
+        return $builder->select('*')->where('lokasi', $location)->orderBy('grup')->orderBy('position')->where('created_at', $date)->get()->getResultArray();
     }
 
     public function _getListParkirGrup($grup)
@@ -38,18 +38,18 @@ class ParkirModel extends Model
         return $builder->select('*')->where('grup', $grup)->orderBy('grup')->orderBy('position')->get()->getResultArray();
     }
 
-    public function _getParkirDetail($posisi, $grup)
+    public function _getParkirDetail($posisi, $grup, $date)
     {
         $db      = \Config\Database::connect();
         $builder = $db->table("tb_model_kendaraan");
-        return $builder->select('*')->join('tb_parking', 'tb_parking.model_code = tb_model_kendaraan.model_code', 'LEFT')->where('grup', $grup)->where('position', $posisi)->get()->getFirstRow();
+        return $builder->select('*')->join('tb_parking', 'tb_parking.model_code = tb_model_kendaraan.model_code', 'LEFT')->where('grup', $grup)->where('position', $posisi)->where('created_at', $date)->get()->getFirstRow();
     }
 
-    public function _deleteParkir($posisi, $grup)
+    public function _deleteParkir($posisi, $grup, $date)
     {
         $db      = \Config\Database::connect();
         $builder = $db->table($this->table);
-        return $builder->where('position', $posisi)->where('grup', $grup)->delete();
+        return $builder->where('position', $posisi)->where('grup', $grup)->where('created_at', $date)->delete();
     }
 
     public function _getCapacity()

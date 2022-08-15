@@ -59,10 +59,19 @@ class Parkir extends BaseController
         }
     }
 
-    public function depan()
+    public function cari_parkir(array $array, int $position)
     {
+        $key = array_search($position, array_column($array, 'position'));
+        return $key;
+    }
+
+    public function depan($date = null)
+    {
+        if (!isset($date)) {
+            $date          = date('Y-m-d');
+        }
         $parkirGroups  = range('A', 'F');
-        $parkir = $this->parkir->_getAllParkirByLocation("DEPAN");
+        $parkir = $this->parkir->_getAllParkirByLocation("DEPAN", $date);
 
         $grupA = array();
         $grupB = array();
@@ -88,22 +97,19 @@ class Parkir extends BaseController
             'grupF'         => $grupF,
             'model'         => $listModel,
             'lokasi'        => 'DEPAN',
-            'controller'    => $this
+            'controller'    => $this,
+            'date'          => $date
         ];
         return view('pages/depan', $data);
     }
 
-
-    public function cari_parkir(array $array, int $position)
+    public function stall_bp($date = null)
     {
-        $key = array_search($position, array_column($array, 'position'));
-        return $key;
-    }
-
-    public function stall_bp()
-    {
+        if (!isset($date)) {
+            $date          = date('Y-m-d');
+        }
         $parkirGroups  = range('I', 'O');
-        $parkir = $this->parkir->_getAllParkirByLocation("STALL_BP");
+        $parkir = $this->parkir->_getAllParkirByLocation("STALL_BP", $date);
 
         $grupI = array();
         $grupJ = array();
@@ -138,15 +144,19 @@ class Parkir extends BaseController
             'model'             => $listModel,
             'controller'        => $this,
             'ovenLeftLabels'    => $ovenLeftLabels,
-            'ovenRightLabels'   => $ovenRightLabels
+            'ovenRightLabels'   => $ovenRightLabels,
+            'date'              => $date
         ];
         return view('pages/bp', $data);
     }
 
-    public function stall_gr()
+    public function stall_gr($date = null)
     {
+        if (!isset($date)) {
+            $date          = date('Y-m-d');
+        }
         $parkirGroups  = range('G', 'H');
-        $parkir = $this->parkir->_getAllParkirByLocation("STALL_GR");
+        $parkir = $this->parkir->_getAllParkirByLocation("STALL_GR", $date);
 
         $grupG = array();
         $grupH = array();
@@ -168,7 +178,8 @@ class Parkir extends BaseController
             'grupH'         => $grupH,
             'labels'        => $labels,
             'controller'    => $this,
-            'model'         => $listModel
+            'model'         => $listModel,
+            'date'          => $date
         ];
         return view('pages/gr', $data);
     }
@@ -217,6 +228,12 @@ class Parkir extends BaseController
         }
     }
 
+    public function logout()
+    {
+        session()->destroy();
+        return redirect()->to('/login');
+    }
+
 
 
 
@@ -224,9 +241,10 @@ class Parkir extends BaseController
 
     public function get_detail()
     {
+        $date = date('Y-m-d');
         if ($this->request->isAJAX()) {
             if (isset($_POST['grup']) && isset($_POST['posisi'])) {
-                $data   = $this->parkir->_getParkirDetail($_POST['posisi'], $_POST['grup']);
+                $data   = $this->parkir->_getParkirDetail($_POST['posisi'], $_POST['grup'], $date);
                 if ($data) {
                     return json_encode(array(
                         'data'      => $data,
@@ -249,6 +267,7 @@ class Parkir extends BaseController
         $posisi    = '';
         $newGrup   = '';
         $newPosisi = '';
+        $date      = date('Y-m-d');
 
         if (isset($_POST['grup'])) {
             $grup = $_POST['grup'];
@@ -267,7 +286,7 @@ class Parkir extends BaseController
         }
 
         $dataAwal = $this->parkir->select('*')->where('grup', $grup)->where('position', $posisi)->get()->getRowArray();
-        $update   = $this->parkir->set('position', $newPosisi)->set('grup', $newGrup)->where('id', $dataAwal['id'])->update();
+        $update   = $this->parkir->set('position', $newPosisi)->set('grup', $newGrup)->where('id', $dataAwal['id'])->where('created_at', $date)->update();
         if ($update) {
             return json_encode(array(
                 'model_code' => $dataAwal['model_code'],
@@ -313,7 +332,7 @@ class Parkir extends BaseController
                 $grup   = $_POST['grup'];
                 $date   = date('Y-m-d');
 
-                $delete = $this->parkir->_deleteParkir($posisi, $grup);
+                $delete = $this->parkir->_deleteParkir($posisi, $grup, $date);
                 if ($delete) {
                     return json_encode(array(
                         'message' => 'Berhasil di hapus',
@@ -343,6 +362,17 @@ class Parkir extends BaseController
             return json_encode(array(
                 'code'   => 404,
                 'message' => 'Data Kendaraan tidak ditemukan'
+            ));
+        }
+    }
+
+    public function get_history()
+    {
+        $data = $this->parkir->select('*')->groupBy('created_at')->orderBy('created_at', 'desc')->get()->getResultArray();
+        if ($data) {
+            return json_encode(array(
+                'code'  => 200,
+                'data'  => $data
             ));
         }
     }

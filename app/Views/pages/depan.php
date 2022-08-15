@@ -214,7 +214,13 @@
     <div class="empty"></div>
     <div class="wrapper"></div>
 
-    <nav class="bottom-nav justify-content-center">
+    <nav class="bottom-nav justify-content-between">
+        <a href="/" class="next-button d-flex">
+            <span class="material-icons">
+                navigate_before
+            </span>
+            Summary
+        </a>
         <a href="/parkir/stall_gr" class="next-button d-flex">
             Stall GR
             <span class="material-icons">

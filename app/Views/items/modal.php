@@ -59,20 +59,22 @@
                         </select>
                     </div>
                 </div>
-                <div class="modal-footer border-0">
-                    <button type="button" class="btn btn-danger btn-delete d-none shadow d-flex align-items-center justify-content-center gap-2">
-                        Hapus
-                        <span class="material-icons">
-                            remove_circle
-                        </span>
-                    </button>
-                    <button type="submit" class="btn btn-primary shadow btn-submit d-flex align-items-center justify-content-center gap-2">
-                        Simpan
-                        <span class="material-icons">
-                            save
-                        </span>
-                    </button>
-                </div>
+                <?php if ($date == date('Y-m-d')) : ?>
+                    <div class="modal-footer border-0">
+                        <button type="button" class="btn btn-danger btn-delete d-none shadow d-flex align-items-center justify-content-center gap-2">
+                            Hapus
+                            <span class="material-icons">
+                                remove_circle
+                            </span>
+                        </button>
+                        <button type="submit" class="btn btn-primary shadow btn-submit d-flex align-items-center justify-content-center gap-2">
+                            Simpan
+                            <span class="material-icons">
+                                save
+                            </span>
+                        </button>
+                    </div>
+                <?php endif; ?>
             </form>
         </div>
     </div>

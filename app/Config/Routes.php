@@ -36,16 +36,22 @@ $routes->set404Override();
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
 
-$routes->get('/', 'Parkir::index');
+$routes->get('/', 'Parkir::index', ['filter' => 'login']);
 $routes->get('login', 'Parkir::login');
+$routes->get('logout', 'Parkir::logout');
 $routes->post('authentication', 'Parkir::authentication');
 
-$routes->group('parkir', function ($routes) {
+$routes->group('parkir', ['filter' => 'login'], function ($routes) {
     $routes->get('depan', 'Parkir::depan');
     $routes->get('stall_bp', 'Parkir::stall_bp');
     $routes->get('stall_gr', 'Parkir::stall_gr');
 
+    $routes->get('depan/(:segment)', 'Parkir::depan/$1');
+    $routes->get('stall_bp/(:segment)', 'Parkir::stall_bp/$1');
+    $routes->get('stall_gr/(:segment)', 'Parkir::stall_gr/$1');
+
     //----- Non Pages Routes
+    $routes->get('get_history', 'Parkir::get_history');
     $routes->post('update_posisi', 'Parkir::update_posisi');
     $routes->post('tambah_parkir', 'Parkir::tambah_parkir');
     $routes->post('delete', 'Parkir::delete_parkir');
