@@ -37,13 +37,16 @@
                         <label for="parking-status" class="form-label">Status Kendaraan</label>
                         <select name="parking[status]" id="parking-status" class="form-control" required>
                             <option value="">Pilih Status Kendaraan</option>
-                            <option>Menunggu Perbaikan GR</option>
-                            <option>Menunggu Perbaikan BP</option>
-                            <option>Proses Pengerjaan</option>
-                            <option>Menunggu Pengambilan</option>
-                            <option>Menunggu Storing</option>
-                            <option>Tamu</option>
-                            <option>Internal</option>
+                            <option>TUNGGU PENYERAHAN</option>
+                            <option>TUNGGU SPARE PART</option>
+                            <option>TUNGGU SPK</option>
+                            <option>TUNGGU ASURANSI</option>
+                            <option>TUNGGU PERBAIKAN</option>
+                            <option>TUNGGU OPL</option>
+                            <option>TUNGGU PBT</option>
+                            <option>TUNGGU KONFIRMASI CUSTOMER</option>
+                            <option>INTERNAL</option>
+                            <option>TAMU</option>
                         </select>
                     </div>
                     <div class="mb-3">

@@ -7,7 +7,6 @@ $(document).on('click', '.seat-vertical, .seat-horizontal, .seat-vertical-short,
     var position = $(this).attr('position');
     var seatId   = $(this).attr('id');
     var parking  = $(this).attr('parking-name');
-    var html     = $(this).html().trim();
     
     $("#parking-form").trigger("reset");
 
@@ -37,9 +36,16 @@ $(document).on('click', '.seat-vertical, .seat-horizontal, .seat-vertical-short,
                     label.forEach((element,index) => {
                         $(`#${element}`).val(detail[field[index]]);
                     });
+
+                    if(detail.others){
+                        $("#other-wrap").removeClass("d-none");
+                    } else {
+                        $("#other-wrap").addClass("d-none");
+                    }
                 }
             } else {
                 $("#parking-id").prop('disabled', true);
+                $("#other-wrap").addClass("d-none");
                 $(".btn-delete").addClass('d-none');
             }
         }
@@ -112,7 +118,7 @@ $(document).ready(function () {
                     $("#addModal").modal('hide');
                     $(`#${seatId}`).html(html);
                 }
-                button.html('Hapus <span class="material-icons">save</span>');
+                button.html('Simpan <span class="material-icons">save</span>');
                 button.prop('disabled', false);
             }
         });

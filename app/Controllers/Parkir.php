@@ -3,16 +3,20 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
+use App\Models\HistoryModel;
 use App\Models\ParkirModel;
 use PDO;
 
 class Parkir extends BaseController
 {
     protected $parkir;
+    protected $history;
 
     public function __construct()
     {
-        $this->parkir = new ParkirModel();
+        $this->parkir  = new ParkirModel();
+        $this->history = new HistoryModel();
+        date_default_timezone_set('Asia/Jakarta');
     }
 
     public function index()
@@ -269,7 +273,8 @@ class Parkir extends BaseController
             }
         }
 
-        $save = $this->parkir->save($data);
+        $save           = $this->parkir->save($data);
+
         if ($save) {
             return json_encode(array(
                 'code'      => 200,
@@ -290,6 +295,7 @@ class Parkir extends BaseController
             if (isset($_POST['posisi']) && isset($_POST['grup'])) {
                 $posisi = $_POST['posisi'];
                 $grup   = $_POST['grup'];
+                $date   = date('Y-m-d');
 
                 $delete = $this->parkir->_deleteParkir($posisi, $grup);
                 if ($delete) {
