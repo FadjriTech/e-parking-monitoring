@@ -40,7 +40,6 @@ class Parkir extends BaseController
             }
         }
         if (($prevDateParkirExist && $parkirExist) || !$prevDateParkirExist) {
-
             $remaining = $kapasitas - $parkirExist;
 
             $data = [

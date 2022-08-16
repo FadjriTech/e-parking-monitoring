@@ -17,6 +17,9 @@
 <body>
     <section class="main-section">
 
+
+
+
         <a class="btn btn-danger position-absolute top-0 start-0 mt-3 ms-3 shadow" href="/logout">
             <span class="material-icons">
                 logout
@@ -29,6 +32,15 @@
             </span>
         </button>
         <div class="container mt-5">
+
+            <!-- Hidden Input -->
+            <input type="hidden" class="form-control" id="usage" value="<?= $usage; ?>">
+            <input type="hidden" class="form-control" id="capacity" value="<?= $capacity; ?>">
+            <input type="hidden" class="form-control" id="GRcapacity" value="<?= $GRCapacity; ?>">
+            <input type="hidden" class="form-control" id="BPcapacity" value="<?= $BPCapacity; ?>">
+            <input type="hidden" class="form-control" id="GRvehicle" value="<?= $GR; ?>">
+            <input type="hidden" class="form-control" id="BPvehicle" value="<?= $BP; ?>">
+
             <div class="row justify-content-center">
                 <div class="col-12 mb-2 text-white text-center text-oleo">
                     <h1 class="card-title">
@@ -55,89 +67,48 @@
                         </div>
                     <?php endif; ?>
                 </div>
-                <div class="col-12 text-center">
-                    <div class="box-wrap">
-                        <div class="white-box">
-                            <h3 class="mb-3 text-lato fw-bold">Capacity</h3>
-                            <div class="blue-box">
-                                <?= $capacity; ?>
-                            </div>
-                        </div>
-                        <div class="white-box">
-                            <h3 class="mb-3 text-lato fw-bold">Usage</h3>
-                            <div class="blue-box">
-                                <?= $usage; ?>
-                            </div>
-                        </div>
-                        <div class="white-box">
-                            <h3 class="mb-3 text-lato fw-bold">Remaining</h3>
-                            <div class="blue-box">
-                                <?= $remaining; ?>
+            </div>
+            <div class="row">
+                <div class="col-4">
+                    <div class="card">
+                        <div class="card-body border-0 shadow">
+                            <h5 class="card-text text-lato text-muted">Usage All</h5>
+                            <h2 class="card-title mb-4 text-lato fw-bold"><?= $usage; ?> / <?= $capacity; ?></h2>
+                            <div class="progress ">
+                                <div class="progress-bar" role="progressbar" aria-label="Basic example" id="overall-progress" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                             </div>
                         </div>
                     </div>
-                    <div class="button-wrap mt-4">
+                </div>
+                <div class="col-4">
+                    <div class="card">
+                        <div class="card-body border-0 shadow">
+                            <h5 class="card-text text-lato text-muted">GR Vehicle</h5>
+                            <h2 class="card-title mb-4 text-lato fw-bold"><?= $GR . ' / ' . $GRCapacity; ?></h2>
+                            <div class="progress">
+                                <div class="progress-bar" role="progressbar" aria-label="Basic example" id="gr-progress" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                            <div id="gr-list"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="card">
+                        <div class="card-body border-0 shadow">
+                            <h5 class="card-text text-lato text-muted">BP Vehicle</h5>
+                            <h2 class="card-title mb-4 text-lato fw-bold"><?= $BP . ' / ' . $BPCapacity; ?></h2>
+                            <div class="progress">
+                                <div class="progress-bar" role="progressbar" aria-label="Basic example" id="bp-progress" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                            <div id="bp-list"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="button-wrap mt-4 text-center">
                         <a class="btn-next text-lato" href="/parkir/depan">Next</a>
                     </div>
                 </div>
-            </div>
-            <div class="toast-wrapper gap-2 d-flex flex-column">
-                <?php if ($remaining > 20) : ?>
-                    <div class="toast bg-success text-white show">
-                        <div class="toast-body justify-content-between d-flex text-lato">
-                            Flow Parkir Masih Terkendali
-                            <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
-                        </div>
-                    </div>
-                <?php elseif ($remaining <= 20) : ?>
-                    <div class="toast bg-warning show">
-                        <div class="toast-body justify-content-between d-flex text-lato">
-                            Kendaraan di Area Akastra Toyota Sudah Lumayan Banyak
-                            <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
-                        </div>
-                    </div>
-                <?php elseif ($remaining <= 6) : ?>
-                    <div class="toast bg-danger text-white show">
-                        <div class="toast-body justify-content-between d-flex text-lato">
-                            Kendaraan di Area Akastra Toyota Sudah terlalu banyak
-                            <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
-                        </div>
-                    </div>
-                <?php endif; ?>
-
-                <!-- Notifikasi Untuk Divisi -->
-                <?php if (($GRCapacity - $GR) > 10 && ($GRCapacity - $GR) <= 20) : ?>
-                    <div class="toast bg-warning text-white show">
-                        <div class="toast-body justify-content-between d-flex text-lato">
-                            Kendaraan GR lumayan banyak
-                            <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
-                        </div>
-                    </div>
-                <?php elseif (($GRCapacity - $GR) <= 10) : ?>
-                    <div class="toast bg-danger text-white show">
-                        <div class="toast-body justify-content-between d-flex text-lato">
-                            Kendaraan GR Sudah cukup padat, akan menghambat flow kendaraan
-                            <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
-                        </div>
-                    </div>
-                <?php endif; ?>
-
-                <!-- Notifikasi Untuk Divisi -->
-                <?php if (($BPCapacity - $BP) > 10 && ($BPCapacity - $BP) <= 20) : ?>
-                    <div class="toast bg-warning text-white show">
-                        <div class="toast-body justify-content-between d-flex text-lato">
-                            Kendaraan BP lumayan banyak
-                            <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
-                        </div>
-                    </div>
-                <?php elseif (($BPCapacity - $BP) <= 10) : ?>
-                    <div class="toast bg-danger text-white show">
-                        <div class="toast-body justify-content-between d-flex text-lato">
-                            Kendaraan BP Sudah cukup padat, akan menghambat flow kendaraan
-                            <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
-                        </div>
-                    </div>
-                <?php endif; ?>
             </div>
         </div>
     </section>
@@ -160,6 +131,56 @@
 
 
     <script>
+        //---- Calculate Progress
+        $(document).ready(function() {
+            const GR = $("#GRvehicle").val();
+            const BP = $("#BPvehicle").val();
+            const usage = $("#usage").val();
+            const capacity = $("#capacity").val();
+            const GRcapacity = $("#GRcapacity").val();
+            const BPcapacity = $("#BPcapacity").val();
+
+
+            var overall = hitungPersentase(usage, capacity);
+            var gr = hitungPersentase(GR, GRcapacity, true);
+            var bp = hitungPersentase(BP, BPcapacity, true);
+
+            $("#overall-progress").css('width', `${overall['persentase']}%`);
+
+            $("#gr-progress").css('width', `${gr['persentase']}%`).addClass(gr['class']);
+            $("#bp-progress").css('width', `${bp['persentase']}%`).addClass(bp['class']);
+
+            if (gr['class'] === 'bg-warning') {
+                $("#gr-list").html('<div class="alert alert-warning mt-4" role="alert">Atur Booking! Kendaraan sudah cukup banyak</div>');
+            } else if (gr['class'] == 'bg-danger') {
+                $("#gr-list").html('<div class="alert alert-danger mt-4" role="alert">Stop Penerimaan! Flow kendaraan tidak terkendali</div>');
+            }
+
+            if (bp['class'] === 'bg-warning') {
+                $("#bp-list").html('<div class="alert alert-warning mt-4" role="alert">Atur Booking! Kendaraan sudah cukup banyak</div>');
+            } else if (bp['class'] == 'bg-danger') {
+                $("#bp-list").html('<div class="alert alert-danger mt-4" role="alert">Stop Penerimaan! Flow kendaraan tidak terkendali</div>');
+            }
+        });
+
+
+        const hitungPersentase = (usage, capacity, divisi = null) => {
+            const result = Array();
+            let persentase = parseInt(usage) / parseInt(capacity) * 100;
+            if (divisi) {
+                if (usage <= 42) {
+                    result['class'] = '';
+                } else if (usage > 42 && usage <= 63) {
+                    result['class'] = 'bg-warning';
+                } else {
+                    result['class'] = 'bg-danger';
+                }
+            }
+
+            result['persentase'] = parseInt(persentase);
+            return result;
+        }
+
         $(document).ready(function() {
             $("#search-form").submit(function(e) {
                 e.preventDefault();
