@@ -45,6 +45,7 @@ $routes->group('parkir', ['filter' => 'login'], function ($routes) {
     $routes->get('depan', 'Parkir::depan');
     $routes->get('stall_bp', 'Parkir::stall_bp');
     $routes->get('stall_gr', 'Parkir::stall_gr');
+    $routes->get('akm', 'Parkir::akm');
 
     $routes->get('depan/(:segment)', 'Parkir::depan/$1');
     $routes->get('stall_bp/(:segment)', 'Parkir::stall_bp/$1');

@@ -23,8 +23,10 @@
         <link rel="stylesheet" href="/css/parkir/depan/style.css">
     <?php elseif ($lokasi == 'STALL_GR') : ?>
         <link rel="stylesheet" href="/css/parkir/stall_gr/style.css">
-    <?php else : ?>
+    <?php elseif ($lokasi == 'STALL_BP') : ?>
         <link rel="stylesheet" href="/css/parkir/stall_bp/style.css">
+    <?php else : ?>
+        <link rel="stylesheet" href="/css/parkir/akm/style.css">
     <?php endif; ?>
 
 
@@ -34,7 +36,10 @@
 
     <!-- Render Section Here -->
     <?= $this->renderSection('content'); ?>
-    <?= $this->include('items/modal'); ?>
+
+    <?php if (session()->get('user')['role'] == 'editor') : ?>
+        <?= $this->include('items/modal'); ?>
+    <?php endif; ?>
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>

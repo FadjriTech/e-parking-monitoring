@@ -55,6 +55,7 @@
                             <option value="">Pilih Pekerjaan</option>
                             <option>GR</option>
                             <option>BP</option>
+                            <option>AKM</option>
                             <option class="none">Tidak Servis</option>
                         </select>
                     </div>

@@ -31,26 +31,31 @@ class Parkir extends BaseController
 
         $GRVehicle        = $this->parkir->select('*')->where('category', 'GR')->where('created_at', $date)->get()->getResultArray();
         $BPVehicle        = $this->parkir->select('*')->where('category', 'BP')->where('created_at', $date)->get()->getResultArray();
+        $AKMVehicle       = $this->parkir->select('*')->where('category', 'AKM')->where('created_at', $date)->get()->getResultArray();
         $GRCapacity       = $this->kapasitas->select('SUM(capacity) as capacity')->where('lokasi', 'Stall GR')->orWhere('lokasi', 'Parkiran Bayangan GR')->orWhere('lokasi', 'Parkiran GR')->get()->getRowArray()['capacity'];
         $BPCapacity       = $this->kapasitas->select('SUM(capacity) as capacity')->where('lokasi', 'Stall BP')->orWhere('lokasi', 'Parkiran Bayangan BP')->orWhere('lokasi', 'Parkiran BP')->get()->getRowArray()['capacity'];
+        $AKMCapacity      = $this->kapasitas->select('SUM(capacity) as capacity')->where('lokasi', 'Parkiran AKM')->orWhere('lokasi', 'Parkiran Bayangan AKM')->get()->getRowArray()['capacity'];
 
         if (!$parkirExist) {
             if ($prevDateParkirExist) {
                 $this->parkir->insertBatch($prevDateParkirExist); //---- Masukan Data Kemarin
+                $this->parkir->set('user', session()->get('user')['user'])->where('created_at', $date)->update();
             }
         }
         if (($prevDateParkirExist && $parkirExist) || !$prevDateParkirExist) {
             $remaining = $kapasitas - $parkirExist;
 
             $data = [
-                'lokasi'     => '',
-                'capacity'   => $kapasitas,
-                'usage'      => $parkirExist,
-                'remaining'  => $remaining,
-                'GR'         => sizeof($GRVehicle),
-                'BP'         => sizeof($BPVehicle),
-                'GRCapacity' => $GRCapacity,
-                'BPCapacity' => $BPCapacity,
+                'lokasi'      => '',
+                'capacity'    => $kapasitas,
+                'usage'       => $parkirExist,
+                'remaining'   => $remaining,
+                'GR'          => sizeof($GRVehicle),
+                'BP'          => sizeof($BPVehicle),
+                'AKM'         => sizeof($AKMVehicle),
+                'AKMCapacity' => $AKMCapacity,
+                'GRCapacity'  => $GRCapacity,
+                'BPCapacity'  => $BPCapacity,
             ];
             return view('pages/main', $data);
         } else {
@@ -183,6 +188,35 @@ class Parkir extends BaseController
         return view('pages/gr', $data);
     }
 
+    public function akm($date = null)
+    {
+        if (!isset($date)) {
+            $date          = date('Y-m-d');
+        }
+        $parkirGroups  = ['P'];
+        $parkir = $this->parkir->_getAllParkirByLocation("AKM", $date);
+
+        $grupP = array();
+        foreach ($parkirGroups as $grup) {
+            $keys = array_keys(array_combine(array_keys($parkir), array_column($parkir, 'grup')), $grup);
+            foreach ($keys as $data) {
+                array_push(${"grup" . $grup}, $parkir[$data]);
+            }
+        }
+
+        $listModel = $this->parkir->_getListModel();
+        $date      = date('Y-m-d');
+
+        $data = [
+            'lokasi'     => 'AKM',
+            'model'      => $listModel,
+            'date'       => $date,
+            'grupP'      => $grupP,
+            'controller' => $this
+        ];
+        return view('pages/akm', $data);
+    }
+
     public function login()
     {
         $data = [
@@ -214,7 +248,9 @@ class Parkir extends BaseController
                 $session = session();
                 $user    = [
                     'logged_in' => true,
-                    'email'     => $email
+                    'email'     => $email,
+                    'user'      => $email,
+                    'role'      => $user['role']
                 ];
 
                 $session->set('user', $user);
@@ -308,6 +344,8 @@ class Parkir extends BaseController
         }
 
         $save           = $this->parkir->save($data);
+        $date           = date('Y-m-d');
+        $this->parkir->set('user', session()->get('user')['user'])->where('created_at', $date)->update();
 
         if ($save) {
             return json_encode(array(

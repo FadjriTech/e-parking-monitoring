@@ -38,8 +38,10 @@
             <input type="hidden" class="form-control" id="capacity" value="<?= $capacity; ?>">
             <input type="hidden" class="form-control" id="GRcapacity" value="<?= $GRCapacity; ?>">
             <input type="hidden" class="form-control" id="BPcapacity" value="<?= $BPCapacity; ?>">
+            <input type="hidden" class="form-control" id="AKMcapacity" value="<?= $AKMCapacity; ?>">
             <input type="hidden" class="form-control" id="GRvehicle" value="<?= $GR; ?>">
             <input type="hidden" class="form-control" id="BPvehicle" value="<?= $BP; ?>">
+            <input type="hidden" class="form-control" id="AKMvehicle" value="<?= $AKM; ?>">
 
             <div class="row justify-content-center">
                 <div class="col-12 mb-2 text-white text-center text-oleo">
@@ -69,7 +71,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-4">
+                <div class="col-3">
                     <div class="card">
                         <div class="card-body border-0 shadow">
                             <h5 class="card-text text-lato text-muted">Usage All</h5>
@@ -80,7 +82,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-4">
+                <div class="col-3">
                     <div class="card">
                         <div class="card-body border-0 shadow">
                             <h5 class="card-text text-lato text-muted">GR Vehicle</h5>
@@ -92,7 +94,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-4">
+                <div class="col-3">
                     <div class="card">
                         <div class="card-body border-0 shadow">
                             <h5 class="card-text text-lato text-muted">BP Vehicle</h5>
@@ -101,6 +103,18 @@
                                 <div class="progress-bar" role="progressbar" aria-label="Basic example" id="bp-progress" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                             </div>
                             <div id="bp-list"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="card">
+                        <div class="card-body border-0 shadow">
+                            <h5 class="card-text text-lato text-muted">AKM Vehicle</h5>
+                            <h2 class="card-title mb-4 text-lato fw-bold"><?= $AKM . ' / ' . $AKMCapacity; ?></h2>
+                            <div class="progress">
+                                <div class="progress-bar" role="progressbar" aria-label="Basic example" id="akm-progress" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                            <div id="akm-list"></div>
                         </div>
                     </div>
                 </div>
@@ -135,20 +149,27 @@
         $(document).ready(function() {
             const GR = $("#GRvehicle").val();
             const BP = $("#BPvehicle").val();
+            const AKM = $("#AKMvehicle").val();
+
+
             const usage = $("#usage").val();
             const capacity = $("#capacity").val();
+
             const GRcapacity = $("#GRcapacity").val();
             const BPcapacity = $("#BPcapacity").val();
+            const AKMcapacity = $("#AKMcapacity").val();
 
 
             var overall = hitungPersentase(usage, capacity);
             var gr = hitungPersentase(GR, GRcapacity, true);
             var bp = hitungPersentase(BP, BPcapacity, true);
+            var akm = hitungPersentase(AKM, AKMcapacity, 'akm');
 
             $("#overall-progress").css('width', `${overall['persentase']}%`);
 
             $("#gr-progress").css('width', `${gr['persentase']}%`).addClass(gr['class']);
             $("#bp-progress").css('width', `${bp['persentase']}%`).addClass(bp['class']);
+            $("#akm-progress").css('width', `${akm['persentase']}%`).addClass(akm['class']);
 
             if (gr['class'] === 'bg-warning') {
                 $("#gr-list").html('<div class="alert alert-warning mt-4" role="alert">Atur Booking! Kendaraan sudah cukup banyak</div>');
@@ -168,12 +189,22 @@
             const result = Array();
             let persentase = parseInt(usage) / parseInt(capacity) * 100;
             if (divisi) {
-                if (usage <= 42) {
-                    result['class'] = '';
-                } else if (usage > 42 && usage <= 63) {
-                    result['class'] = 'bg-warning';
+                if (divisi == 'akm') {
+                    if (usage <= 10) {
+                        result['class'] = '';
+                    } else if (usage > 11 && usage <= 12) {
+                        result['class'] = 'bg-warning';
+                    } else {
+                        result['class'] = 'bg-danger';
+                    }
                 } else {
-                    result['class'] = 'bg-danger';
+                    if (usage <= 42) {
+                        result['class'] = '';
+                    } else if (usage > 42 && usage <= 63) {
+                        result['class'] = 'bg-warning';
+                    } else {
+                        result['class'] = 'bg-danger';
+                    }
                 }
             }
 

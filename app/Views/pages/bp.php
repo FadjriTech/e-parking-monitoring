@@ -72,7 +72,7 @@
 
                                     <!-- Area Jalan Sebelah Sparepart GR -->
                                     <div class=" d-flex gap-1">
-                                        <?php for ($grup = 1; $grup <= 2; $grup++) : ?>
+                                        <?php for ($grup = 1; $grup <= 3; $grup++) : ?>
                                             <?php
                                             $posStart = 1;
                                             $posEnd   = 7;
@@ -80,6 +80,9 @@
                                             if ($grup == 2) {
                                                 $posStart = 8;
                                                 $posEnd   = 16;
+                                            } else if ($grup == 3) {
+                                                $posStart = 17;
+                                                $posEnd = 23;
                                             }
                                             ?>
                                             <div class="d-flex gap-1 flex-column">
@@ -252,12 +255,18 @@
             </div>
         </div>
 </section>
-<nav class="bottom-nav justify-content-center">
+<nav class="bottom-nav justify-content-between">
     <a class="cancel-button d-flex align-items-center justify-content-center" href="/parkir/stall_gr">
         <span class="material-icons">
             navigate_before
         </span>
         Stall GR
+    </a>
+    <a class="next-button d-flex align-items-center justify-content-center" href="/parkir/akm">
+        AKM
+        <span class="material-icons">
+            navigate_next
+        </span>
     </a>
 </nav>
 <?= $this->endSection(); ?>
