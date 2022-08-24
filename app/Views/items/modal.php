@@ -13,7 +13,7 @@
                     <input type="hidden" name="parking[position]" id="parking-position" class="form-control mb-2" readonly>
                     <input type="hidden" name="id" id="parking-id" class="form-control mb-2" readonly>
                     <input type="hidden" id="seat-id" class="form-control mb-2" readonly>
-                    <input type="hidden" id="parking-name" name="parking[jenis_parkir]" class="form-control mb-2" readonly>
+                    <input type="text" id="parking-name" name="parking[jenis_parkir]" class="form-control mb-2" readonly>
                     <!-- End Hidden Key Input -->
 
                     <div class="mb-3">

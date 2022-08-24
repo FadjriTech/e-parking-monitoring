@@ -31,7 +31,7 @@
                 history
             </span>
         </button>
-        <div class="container mt-5">
+        <div class="container">
 
             <!-- Hidden Input -->
             <input type="hidden" class="form-control" id="usage" value="<?= $usage; ?>">
@@ -90,6 +90,34 @@
                             <div class="progress">
                                 <div class="progress-bar" role="progressbar" aria-label="Basic example" id="gr-progress" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                             </div>
+                            <?php if ($GRSummary) : ?>
+                                <div class="accordion" id="accordionExample">
+                                    <div class="accordion-item mt-3">
+                                        <h2 class="accordion-header" id="headingOne">
+                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                                Detail
+                                            </button>
+                                        </h2>
+                                        <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                            <div class="accordion-body">
+                                                <?php $max =  max(array_column($GRSummary, 'result')) ?>
+                                                <?php foreach ($GRSummary as $index => $row) : ?>
+                                                    <div class="progress-wrap-detail mt-3">
+                                                        <div class="d-flex justify-content-between">
+                                                            <p class="text-lato" style="margin: 0;"><?= $row['status']; ?></p>
+                                                            <p class="text-lato" style="margin: 0;"><?= $row['result']; ?></p>
+                                                        </div>
+                                                        <?php $width = strval((intval($row['result']) / intval($max) * 100)) . "%"; ?>
+                                                        <div class="progress mt-1" style=" height: 5px;">
+                                                            <div class="progress-bar" role="progressbar" aria-label="Basic example" style="width: <?= $width; ?>;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                                        </div>
+                                                    </div>
+                                                <?php endforeach; ?>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            <?php endif; ?>
                             <div id="gr-list"></div>
                         </div>
                     </div>
@@ -102,6 +130,34 @@
                             <div class="progress">
                                 <div class="progress-bar" role="progressbar" aria-label="Basic example" id="bp-progress" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                             </div>
+                            <?php if ($BPSummary) : ?>
+                                <div class="accordion" id="accordionExample">
+                                    <div class="accordion-item mt-3">
+                                        <h2 class="accordion-header" id="headingTwo">
+                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseOne">
+                                                Detail
+                                            </button>
+                                        </h2>
+                                        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                                            <div class="accordion-body">
+                                                <?php $max =  max(array_column($BPSummary, 'result')) ?>
+                                                <?php foreach ($BPSummary as $index => $row) : ?>
+                                                    <div class="progress-wrap-detail mt-3">
+                                                        <div class="d-flex justify-content-between">
+                                                            <p class="text-lato" style="margin: 0;"><?= $row['status']; ?></p>
+                                                            <p class="text-lato" style="margin: 0;"><?= $row['result']; ?></p>
+                                                        </div>
+                                                        <?php $width = strval((intval($row['result']) / intval($max) * 100)) . "%"; ?>
+                                                        <div class="progress mt-1" style=" height: 5px;">
+                                                            <div class="progress-bar" role="progressbar" aria-label="Basic example" style="width: <?= $width; ?>;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                                        </div>
+                                                    </div>
+                                                <?php endforeach; ?>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            <?php endif; ?>
                             <div id="bp-list"></div>
                         </div>
                     </div>
@@ -114,6 +170,34 @@
                             <div class="progress">
                                 <div class="progress-bar" role="progressbar" aria-label="Basic example" id="akm-progress" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                             </div>
+                            <?php if ($AKMSummary) : ?>
+                                <div class="accordion" id="accordionExample">
+                                    <div class="accordion-item mt-3">
+                                        <h2 class="accordion-header" id="headingTwo">
+                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="true" aria-controls="collapseOne">
+                                                Detail
+                                            </button>
+                                        </h2>
+                                        <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                                            <div class="accordion-body">
+                                                <?php $max =  max(array_column($AKMSummary, 'result')) ?>
+                                                <?php foreach ($AKMSummary as $index => $row) : ?>
+                                                    <div class="progress-wrap-detail mt-3">
+                                                        <div class="d-flex justify-content-between">
+                                                            <p class="text-lato" style="margin: 0;"><?= $row['status']; ?></p>
+                                                            <p class="text-lato" style="margin: 0;"><?= $row['result']; ?></p>
+                                                        </div>
+                                                        <?php $width = strval((intval($row['result']) / intval($max) * 100)) . "%"; ?>
+                                                        <div class="progress mt-1" style=" height: 5px;">
+                                                            <div class="progress-bar" role="progressbar" aria-label="Basic example" style="width: <?= $width; ?>;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                                        </div>
+                                                    </div>
+                                                <?php endforeach; ?>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            <?php endif; ?>
                             <div id="akm-list"></div>
                         </div>
                     </div>

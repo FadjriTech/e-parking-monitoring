@@ -52,7 +52,7 @@
                             $parkingName = "Parkiran Bayangan AKM";
                         } ?>
                         <?php $key = $controller->cari_parkir($grupP, $position); ?>
-                        <a id="<?= rand($position * 2000, time()); ?>" class="<?= $seat; ?> seat-vertical" grup="P" position="<?= $position; ?>">
+                        <a id="<?= rand($position * 2000, time()); ?>" class="<?= $seat; ?> seat-vertical" grup="P" position="<?= $position; ?>" parking-name="<?= $parkingName; ?>">
                             <?= (!empty($key) || $key === 0) ? $grupP[$key]['model_code'] . " | " . $grupP[$key]['license_plate'] . "<br>" . $grupP[$key]['category'] : "" ?>
                         </a>
                     <?php endfor; ?>

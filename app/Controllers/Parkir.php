@@ -6,6 +6,7 @@ use App\Controllers\BaseController;
 use App\Models\HistoryModel;
 use App\Models\KapasitasModel;
 use App\Models\ParkirModel;
+use Exception;
 use PDO;
 
 class Parkir extends BaseController
@@ -23,10 +24,10 @@ class Parkir extends BaseController
     public function index()
     {
         $date             = date('Y-m-d');
-        $prevDate         = date('Y-m-d', strtotime('- 1 days'));
+        $lastDate         = $this->parkir->select('created_at')->orderBy('created_at', 'desc')->get()->getFirstRow()->created_at;
         $kapasitas        = $this->kapasitas->select('SUM(capacity) as kapasitas')->get()->getFirstRow()->kapasitas;
         $parkirExist      = $this->parkir->select('COUNT(id) as exist')->where('created_at', $date)->get()->getRowArray()['exist'];
-        $prevDateParkirExist  = $this->parkir->select('grup, position, model_code, others, license_plate, category, status, lokasi, jenis_parkir')->where('created_at', $prevDate)->get()->getResultArray();
+        $prevDateParkirExist  = $this->parkir->select('grup, position, model_code, others, license_plate, category, status, lokasi, jenis_parkir')->where('created_at', $lastDate)->get()->getResultArray();
 
 
         $GRVehicle        = $this->parkir->select('*')->where('category', 'GR')->where('created_at', $date)->get()->getResultArray();
@@ -35,6 +36,33 @@ class Parkir extends BaseController
         $GRCapacity       = $this->kapasitas->select('SUM(capacity) as capacity')->where('lokasi', 'Stall GR')->orWhere('lokasi', 'Parkiran Bayangan GR')->orWhere('lokasi', 'Parkiran GR')->get()->getRowArray()['capacity'];
         $BPCapacity       = $this->kapasitas->select('SUM(capacity) as capacity')->where('lokasi', 'Stall BP')->orWhere('lokasi', 'Parkiran Bayangan BP')->orWhere('lokasi', 'Parkiran BP')->get()->getRowArray()['capacity'];
         $AKMCapacity      = $this->kapasitas->select('SUM(capacity) as capacity')->where('lokasi', 'Parkiran AKM')->orWhere('lokasi', 'Parkiran Bayangan AKM')->get()->getRowArray()['capacity'];
+
+        $GRStatus  = $this->parkir->select('status')->where('category', 'GR')->where('created_at', $date)->groupBy('status')->get()->getResultArray();
+        $GRStatusSummary = array();
+        foreach ($GRStatus as $index => $row) {
+            $GRStatusSummary[$index] = [
+                'status' => $row['status'],
+                'result' => $this->parkir->select('COUNT(id) as result ')->where('category', 'GR')->where('created_at', $date)->where('status', $row['status'])->get()->getRowArray()['result']
+            ];
+        }
+
+        $BPStatus  = $this->parkir->select('status')->where('category', 'BP')->where('created_at', $date)->groupBy('status')->get()->getResultArray();
+        $BPStatusSummary = array();
+        foreach ($BPStatus as $index => $row) {
+            $BPStatusSummary[$index] = [
+                'status' => $row['status'],
+                'result' => $this->parkir->select('COUNT(id) as result ')->where('category', 'BP')->where('created_at', $date)->where('status', $row['status'])->get()->getRowArray()['result']
+            ];
+        }
+
+        $AKMStatus  = $this->parkir->select('status')->where('category', 'AKM')->where('created_at', $date)->groupBy('status')->get()->getResultArray();
+        $AKMStatusSummary = array();
+        foreach ($AKMStatus as $index => $row) {
+            $AKMStatusSummary[$index] = [
+                'status' => $row['status'],
+                'result' => $this->parkir->select('COUNT(id) as result ')->where('category', 'AKM')->where('created_at', $date)->where('status', $row['status'])->get()->getRowArray()['result']
+            ];
+        }
 
         if (!$parkirExist) {
             if ($prevDateParkirExist) {
@@ -56,6 +84,9 @@ class Parkir extends BaseController
                 'AKMCapacity' => $AKMCapacity,
                 'GRCapacity'  => $GRCapacity,
                 'BPCapacity'  => $BPCapacity,
+                'GRSummary'   => $GRStatusSummary,
+                'BPSummary'   => $BPStatusSummary,
+                'AKMSummary'  => $AKMStatusSummary,
             ];
             return view('pages/main', $data);
         } else {
@@ -335,6 +366,28 @@ class Parkir extends BaseController
     {
         $data  = $_POST['parking'];
         $nopol = strtoupper($_POST['license_plate']);
+        $date  = date('Y-m-d');
+
+        $prevPos  = 0;
+        $prevGrup = 0;
+
+        $vehicle = $this->parkir->select('*')->where('created_at', $date)->where('license_plate', $nopol)->get()->getRowArray();
+        if ($vehicle) {
+            $prevPos  = $vehicle['position'];
+            $prevGrup = $vehicle['grup'];
+            $this->parkir->where('license_plate', $nopol)->delete();
+            $tryAgain = true;
+            do {
+                try {
+                    $delete = $this->parkir->where('license_plate', $nopol)->delete();
+                    if ($delete) {
+                        $tryAgain = false;
+                    }
+                } catch (Exception $e) {
+                    $tryAgain = true;
+                }
+            } while ($tryAgain);
+        }
         $data['license_plate'] = $nopol;
 
         if (isset($_POST['id'])) {
@@ -351,7 +404,9 @@ class Parkir extends BaseController
             return json_encode(array(
                 'code'      => 200,
                 'message'   => "Data berhasil di simpan!",
-                'data'      => $data
+                'data'      => $data,
+                'prevPos'   => $prevPos,
+                'prevGrup'  => $prevGrup
             ));
         } else {
             return json_encode(array(

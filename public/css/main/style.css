@@ -116,6 +116,11 @@ html, body {
   }
 
 
+  .progress-wrap-detail {
+    font-size: 12px;
+  }
+
+
 /* ----- Button ----- */
 .btn-next {
     background-color: white;

@@ -9,7 +9,6 @@ $(document).on('click', '.seat-vertical, .seat-horizontal, .seat-vertical-short,
     var parking  = $(this).attr('parking-name');
     
     $("#parking-form").trigger("reset");
-
     $("#parking-grup").val(grup);
     $("#parking-position").val(position);
     $("#seat-id").val(seatId);
@@ -117,6 +116,17 @@ $(document).ready(function () {
 
                     $("#addModal").modal('hide');
                     $(`#${seatId}`).html(html);
+
+
+                    var prevPos  = response.prevPos;
+                    var prevGrup = response.prevGrup;
+                    
+                    if(prevPos != 0 && prevGrup != 0){
+                        $(`[position = ${prevPos}][grup = ${prevGrup}]`).html("");
+                    }
+
+                } else if(response.code == 403) {
+                    alert("Duplikasi Data")
                 }
                 button.html('Simpan <span class="material-icons">save</span>');
                 button.prop('disabled', false);
