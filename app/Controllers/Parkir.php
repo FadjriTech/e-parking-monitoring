@@ -302,6 +302,19 @@ class Parkir extends BaseController
 
 
 
+    //--- update visit 06/09/2022
+    public function visit()
+    {
+        $date      = $_POST['date'];
+        $getParkir = $this->parkir->select('*')->where("DATE(created_at)", $date)->get()->getResultArray();
+        if (!$getParkir) {
+            session()->setFlashdata('pesan', 'Data parkir tanggal ' . $date . ' belum tersedia');
+            return redirect()->to('/');
+        } else {
+            return redirect()->to(base_url() . '/parkir/depan/' . $date);
+        }
+    }
+
 
     //------ Non pages function
 

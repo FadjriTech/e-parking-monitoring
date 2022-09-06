@@ -41,6 +41,8 @@ $routes->get('login', 'Parkir::login');
 $routes->get('logout', 'Parkir::logout');
 $routes->post('authentication', 'Parkir::authentication');
 
+$routes->post('visit', 'Parkir::visit');
+
 $routes->group('parkir', ['filter' => 'login'], function ($routes) {
     $routes->get('depan', 'Parkir::depan');
     $routes->get('stall_bp', 'Parkir::stall_bp');
@@ -50,6 +52,7 @@ $routes->group('parkir', ['filter' => 'login'], function ($routes) {
     $routes->get('depan/(:segment)', 'Parkir::depan/$1');
     $routes->get('stall_bp/(:segment)', 'Parkir::stall_bp/$1');
     $routes->get('stall_gr/(:segment)', 'Parkir::stall_gr/$1');
+    $routes->get('akm/(:segment)', 'Parkir::akm/$1');
 
     //----- Non Pages Routes
     $routes->get('get_history', 'Parkir::get_history');

@@ -64,14 +64,14 @@
                     </form>
                     <?php if (session()->getFlashdata('pesan')) : ?>
                         <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                            <strong>Oops!</strong> we can't find that vehicle
+                            <?= session()->getFlashdata('pesan'); ?>
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
                     <?php endif; ?>
                 </div>
             </div>
             <div class="row">
-                <div class="col-3">
+                <div class="col-lg-3 col-md-6 col-sm-12 mb-2">
                     <div class="card">
                         <div class="card-body border-0 shadow">
                             <h5 class="card-text text-lato text-muted">Usage All</h5>
@@ -82,7 +82,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-3">
+                <div class="col-lg-3 col-md-6 col-sm-12 mb-2">
                     <div class="card">
                         <div class="card-body border-0 shadow">
                             <h5 class="card-text text-lato text-muted">GR Vehicle</h5>
@@ -122,7 +122,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-3">
+                <div class="col-lg-3 col-md-6 col-sm-12 mb-2">
                     <div class="card">
                         <div class="card-body border-0 shadow">
                             <h5 class="card-text text-lato text-muted">BP Vehicle</h5>
@@ -162,7 +162,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-3">
+                <div class="col-lg-3 col-md-6 col-sm-12 mb-2">
                     <div class="card">
                         <div class="card-body border-0 shadow">
                             <h5 class="card-text text-lato text-muted">AKM Vehicle</h5>
@@ -220,8 +220,16 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body border-0">
-                    <ul class="list-group" id="history-list">
-                    </ul>
+                    <form action="/visit" method="POST">
+                        <div class="row justify-content-center">
+                            <div class="col-12 mb-2">
+                                <input type="date" class="form-control" name="date" required>
+                            </div>
+                            <div class="col-12 text-center">
+                                <button type="submit" class="btn btn-success">Lookup</button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -245,8 +253,8 @@
 
 
             var overall = hitungPersentase(usage, capacity);
-            var gr = hitungPersentase(GR, GRcapacity, true);
-            var bp = hitungPersentase(BP, BPcapacity, true);
+            var gr = hitungPersentase(GR, GRcapacity, 'gr');
+            var bp = hitungPersentase(BP, BPcapacity, 'bp');
             var akm = hitungPersentase(AKM, AKMcapacity, 'akm');
 
             $("#overall-progress").css('width', `${overall['persentase']}%`);
@@ -281,16 +289,26 @@
                     } else {
                         result['class'] = 'bg-danger';
                     }
-                } else {
-                    if (usage <= 42) {
+                } else if (divisi == 'bp') {
+                    if (usage <= 46) {
                         result['class'] = '';
-                    } else if (usage > 42 && usage <= 63) {
+                    } else if (usage >= 47 && usage <= 75) {
+                        result['class'] = 'bg-warning';
+                    } else {
+                        result['class'] = 'bg-danger';
+                    }
+                } else {
+                    if (usage <= 34) {
+                        result['class'] = '';
+                    } else if (usage >= 35 && usage <= 50) {
                         result['class'] = 'bg-warning';
                     } else {
                         result['class'] = 'bg-danger';
                     }
                 }
             }
+
+            console.log(divisi);
 
             result['persentase'] = parseInt(persentase);
             return result;
@@ -337,28 +355,6 @@
 
         $(document).on('click', '.btn-history', function() {
             $("#historyModal").modal('show');
-
-            $.ajax({
-                type: "GET",
-                url: "/parkir/get_history",
-                dataType: "json",
-                success: function(response) {
-                    const data = response.data;
-                    var html = '';
-                    data.forEach(element => {
-                        html += `<a href="/parkir/depan/${element.created_at}" class="no-decoration">`;
-                        html += `   <li class="list-group-item d-flex justify-content-between mb-1 align-items-center">`;
-                        html += `       <div class="text-lato">${element.created_at}</div>`;
-                        html += `       <button class="btn btn-success border-0 shadow d-flex align-items-center gap-2">`;
-                        html += `           <span class="material-icons">radio_button_checked</span> Lihat`;
-                        html += `       </button>`;
-                        html += `   </li>`;
-                        html += `</a>`;
-                    });
-
-                    $("#history-list").html(html);
-                }
-            });
         })
     </script>
 

@@ -137,18 +137,33 @@
     </div>
 
     <nav class="bottom-nav">
-        <a class="cancel-button d-flex align-items-center" href="/parkir/depan">
-            <span class="material-icons">
-                navigate_before
-            </span>
-            Area Parkiran
-        </a>
-        <a class="next-button d-flex" href="/parkir/stall_bp">
-            Stall BP
-            <span class="material-icons">
-                navigate_next
-            </span>
-        </a>
+        <?php if ($date != date('Y-m-d')) : ?>
+            <a class="cancel-button d-flex align-items-center" href="/parkir/depan/<?= $date; ?>">
+                <span class="material-icons">
+                    navigate_before
+                </span>
+                Area Parkiran
+            </a>
+            <a class="next-button d-flex" href="/parkir/stall_bp/<?= $date; ?>">
+                Stall BP
+                <span class="material-icons">
+                    navigate_next
+                </span>
+            </a>
+        <?php else : ?>
+            <a class="cancel-button d-flex align-items-center" href="/parkir/depan">
+                <span class="material-icons">
+                    navigate_before
+                </span>
+                Area Parkiran
+            </a>
+            <a class="next-button d-flex" href="/parkir/stall_bp">
+                Stall BP
+                <span class="material-icons">
+                    navigate_next
+                </span>
+            </a>
+        <?php endif; ?>
     </nav>
 </section>
 <?= $this->endSection(); ?>

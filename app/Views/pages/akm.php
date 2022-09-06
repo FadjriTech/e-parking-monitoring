@@ -67,11 +67,20 @@
     </div>
 </section>
 <nav class="bottom-nav justify-content-center">
-    <a class="cancel-button d-flex align-items-center justify-content-center" href="/parkir/stall_gr">
-        <span class="material-icons">
-            navigate_before
-        </span>
-        Stall BP
-    </a>
+    <?php if ($date != date('Y-m-d')) : ?>
+        <a class="cancel-button d-flex align-items-center justify-content-center" href="/parkir/stall_gr/<?= $date; ?>">
+            <span class="material-icons">
+                navigate_before
+            </span>
+            Stall BP
+        </a>
+    <?php else : ?>
+        <a class="cancel-button d-flex align-items-center justify-content-center" href="/parkir/stall_gr">
+            <span class="material-icons">
+                navigate_before
+            </span>
+            Stall BP
+        </a>
+    <?php endif; ?>
 </nav>
 <?= $this->endSection(); ?>

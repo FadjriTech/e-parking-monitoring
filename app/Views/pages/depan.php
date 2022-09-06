@@ -233,12 +233,21 @@
             </span>
             Summary
         </a>
-        <a href="/parkir/stall_gr" class="next-button d-flex">
-            Stall GR
-            <span class="material-icons">
-                navigate_next
-            </span>
-        </a>
+        <?php if ($date != date('Y-m-d')) : ?>
+            <a href="/parkir/stall_gr/<?= $date; ?>" class="next-button d-flex">
+                Stall GR
+                <span class="material-icons">
+                    navigate_next
+                </span>
+            </a>
+        <?php else : ?>
+            <a href="/parkir/stall_gr" class="next-button d-flex">
+                Stall GR
+                <span class="material-icons">
+                    navigate_next
+                </span>
+            </a>
+        <?php endif; ?>
     </nav>
 </section>
 <?= $this->endSection(); ?>
