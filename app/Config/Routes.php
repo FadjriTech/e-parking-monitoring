@@ -37,6 +37,7 @@ $routes->set404Override();
 // route since we don't have to scan directories.
 
 $routes->get('/', 'Parkir::index', ['filter' => 'login']);
+$routes->get('summary', 'Summary::index');
 $routes->get('login', 'Parkir::login');
 $routes->get('logout', 'Parkir::logout');
 $routes->post('authentication', 'Parkir::authentication');
@@ -62,6 +63,7 @@ $routes->group('parkir', ['filter' => 'login'], function ($routes) {
     $routes->post('get_detail', 'Parkir::get_detail');
     $routes->post('search_car', 'Parkir::search_car');
 });
+
 
 /*
  * --------------------------------------------------------------------

@@ -34,20 +34,26 @@
         <div class="container">
 
             <!-- Hidden Input -->
-            <input type="hidden" class="form-control" id="usage" value="<?= $usage; ?>">
-            <input type="hidden" class="form-control" id="capacity" value="<?= $capacity; ?>">
-            <input type="hidden" class="form-control" id="GRcapacity" value="<?= $GRCapacity; ?>">
-            <input type="hidden" class="form-control" id="BPcapacity" value="<?= $BPCapacity; ?>">
-            <input type="hidden" class="form-control" id="AKMcapacity" value="<?= $AKMCapacity; ?>">
-            <input type="hidden" class="form-control" id="GRvehicle" value="<?= $GR; ?>">
-            <input type="hidden" class="form-control" id="BPvehicle" value="<?= $BP; ?>">
-            <input type="hidden" class="form-control" id="AKMvehicle" value="<?= $AKM; ?>">
+            <input type="hidden" class="form-control" id="usage" value="<?= $exist['total']; ?>">
+            <input type="hidden" class="form-control" id="capacity" value="<?= $capacity['total']; ?>">
+            <input type="hidden" class="form-control" id="GRcapacity" value="<?= $capacity['GR']; ?>">
+            <input type="hidden" class="form-control" id="BPcapacity" value="<?= $capacity['BP']; ?>">
+            <input type="hidden" class="form-control" id="AKMcapacity" value="<?= $capacity['AKM']; ?>">
+            <input type="hidden" class="form-control" id="GRvehicle" value="<?= $exist['GR']; ?>">
+            <input type="hidden" class="form-control" id="BPvehicle" value="<?= $exist['BP']; ?>">
+            <input type="hidden" class="form-control" id="AKMvehicle" value="<?= $exist['AKM']; ?>">
 
             <div class="row justify-content-center">
                 <div class="col-12 mb-2 text-white text-center text-oleo">
                     <h1 class="card-title">
                         Parking Mobile Akastra
                     </h1>
+
+                    <?php if (isset($user)) : ?>
+                        <p class="card-subtitle fs-6 fst-italic" style="font-family: 'Poppins', sans-serif">
+                            last updated by <?= $user; ?> at <?= $date; ?>
+                        </p>
+                    <?php endif; ?>
                 </div>
                 <div class="col-lg-6 col-md-12 mb-5 gap-2 d-flex flex-column">
                     <form action="/parkir/search_car" method="POST" id="search-form">
@@ -75,7 +81,7 @@
                     <div class="card">
                         <div class="card-body border-0 shadow">
                             <h5 class="card-text text-lato text-muted">Usage All</h5>
-                            <h2 class="card-title mb-4 text-lato fw-bold"><?= $usage; ?> / <?= $capacity; ?></h2>
+                            <h2 class="card-title mb-4 text-lato fw-bold"><?= $exist['total']; ?> / <?= $capacity['total']; ?></h2>
                             <div class="progress ">
                                 <div class="progress-bar" role="progressbar" aria-label="Basic example" id="overall-progress" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                             </div>
@@ -86,7 +92,7 @@
                     <div class="card">
                         <div class="card-body border-0 shadow">
                             <h5 class="card-text text-lato text-muted">GR Vehicle</h5>
-                            <h2 class="card-title mb-4 text-lato fw-bold"><?= $GR . ' / ' . $GRCapacity; ?></h2>
+                            <h2 class="card-title mb-4 text-lato fw-bold"><?= $exist['GR'] . ' / ' . $capacity['GR']; ?></h2>
                             <div class="progress">
                                 <div class="progress-bar" role="progressbar" aria-label="Basic example" id="gr-progress" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                             </div>
@@ -126,7 +132,7 @@
                     <div class="card">
                         <div class="card-body border-0 shadow">
                             <h5 class="card-text text-lato text-muted">BP Vehicle</h5>
-                            <h2 class="card-title mb-4 text-lato fw-bold"><?= $BP . ' / ' . $BPCapacity; ?></h2>
+                            <h2 class="card-title mb-4 text-lato fw-bold"><?= $exist['BP'] . ' / ' . $capacity['BP']; ?></h2>
                             <div class="progress">
                                 <div class="progress-bar" role="progressbar" aria-label="Basic example" id="bp-progress" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                             </div>
@@ -166,7 +172,7 @@
                     <div class="card">
                         <div class="card-body border-0 shadow">
                             <h5 class="card-text text-lato text-muted">AKM Vehicle</h5>
-                            <h2 class="card-title mb-4 text-lato fw-bold"><?= $AKM . ' / ' . $AKMCapacity; ?></h2>
+                            <h2 class="card-title mb-4 text-lato fw-bold"><?= $exist['AKM'] . ' / ' . $capacity['AKM']; ?></h2>
                             <div class="progress">
                                 <div class="progress-bar" role="progressbar" aria-label="Basic example" id="akm-progress" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                             </div>
@@ -204,7 +210,7 @@
                 </div>
                 <div class="col-12">
                     <div class="button-wrap mt-4 text-center">
-                        <a class="btn-next text-lato" href="/parkir/depan">Next</a>
+                        <a class="btn-next text-lato" href="<?= $date == date('Y-m-d') ? "/parkir/depan" : "/parkir/depan/" . $date; ?>">Next</a>
                     </div>
                 </div>
             </div>
@@ -220,7 +226,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body border-0">
-                    <form action="/visit" method="POST">
+                    <form action="/summary" method="GET">
                         <div class="row justify-content-center">
                             <div class="col-12 mb-2">
                                 <input type="date" class="form-control" name="date" required>

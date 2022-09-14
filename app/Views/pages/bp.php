@@ -46,14 +46,14 @@
                                             Sparepart GR
                                         </div>
                                         <div class="d-flex gap-1 flex-column align-items-end">
-                                            <?php for ($position = 1; $position <= 9; $position++) : ?>
+                                            <?php for ($position = 1; $position <= 10; $position++) : ?>
 
                                                 <?php $seatOrientation = 'seat-horizontal-oven' ?>
 
-                                                <?php if ($position == 6 || $position == 8) {
+                                                <?php if ($position == 7 || $position == 9) {
                                                     $seatOrientation = 'seat-horizontal-wide';
                                                 } ?>
-                                                <?php if ($position == 5 || $position == 7) : ?>
+                                                <?php if ($position == 6 || $position == 8) : ?>
                                                     <div class="seat seat-horizontal-wide">
                                                         x
                                                     </div>

@@ -23,75 +23,74 @@ class Parkir extends BaseController
 
     public function index()
     {
-        $date             = date('Y-m-d');
-        $lastDate         = $this->parkir->select('created_at')->orderBy('created_at', 'desc')->get()->getFirstRow()->created_at;
-        $kapasitas        = $this->kapasitas->select('SUM(capacity) as kapasitas')->get()->getFirstRow()->kapasitas;
-        $parkirExist      = $this->parkir->select('COUNT(id) as exist')->where('created_at', $date)->get()->getRowArray()['exist'];
-        $prevDateParkirExist  = $this->parkir->select('grup, position, model_code, others, license_plate, category, status, lokasi, jenis_parkir')->where('created_at', $lastDate)->get()->getResultArray();
 
-
-        $GRVehicle        = $this->parkir->select('*')->where('category', 'GR')->where('created_at', $date)->get()->getResultArray();
-        $BPVehicle        = $this->parkir->select('*')->where('category', 'BP')->where('created_at', $date)->get()->getResultArray();
-        $AKMVehicle       = $this->parkir->select('*')->where('category', 'AKM')->where('created_at', $date)->get()->getResultArray();
-        $GRCapacity       = $this->kapasitas->select('SUM(capacity) as capacity')->where('lokasi', 'Stall GR')->orWhere('lokasi', 'Parkiran Bayangan GR')->orWhere('lokasi', 'Parkiran GR')->get()->getRowArray()['capacity'];
-        $BPCapacity       = $this->kapasitas->select('SUM(capacity) as capacity')->where('lokasi', 'Stall BP')->orWhere('lokasi', 'Parkiran Bayangan BP')->orWhere('lokasi', 'Parkiran BP')->get()->getRowArray()['capacity'];
-        $AKMCapacity      = $this->kapasitas->select('SUM(capacity) as capacity')->where('lokasi', 'Parkiran AKM')->orWhere('lokasi', 'Parkiran Bayangan AKM')->get()->getRowArray()['capacity'];
-
-        $GRStatus  = $this->parkir->select('status')->where('category', 'GR')->where('created_at', $date)->groupBy('status')->get()->getResultArray();
-        $GRStatusSummary = array();
-        foreach ($GRStatus as $index => $row) {
-            $GRStatusSummary[$index] = [
-                'status' => $row['status'],
-                'result' => $this->parkir->select('COUNT(id) as result ')->where('category', 'GR')->where('created_at', $date)->where('status', $row['status'])->get()->getRowArray()['result']
-            ];
+        $date = date('Y-m-d'); #---- set default date
+        if (isset($_GET['date'])) {
+            $date = $_GET['date'];
         }
 
-        $BPStatus  = $this->parkir->select('status')->where('category', 'BP')->where('created_at', $date)->groupBy('status')->get()->getResultArray();
-        $BPStatusSummary = array();
-        foreach ($BPStatus as $index => $row) {
-            $BPStatusSummary[$index] = [
-                'status' => $row['status'],
-                'result' => $this->parkir->select('COUNT(id) as result ')->where('category', 'BP')->where('created_at', $date)->where('status', $row['status'])->get()->getRowArray()['result']
-            ];
+
+        #---- get parkir and check is exist or not
+        $parkirNow        = $this->parkir->select('*')->where('created_at', $date)->get()->getResultArray();
+        if (!$parkirNow) {
+            $lastDateExist = $this->parkir->select('created_at')->orderBy('created_at', 'DESC')->get()->getFirstRow()->created_at;
+            $lastData      = $this->parkir->select('*')->where('created_at', $lastDateExist)->get()->getResultArray();
+
+            #---- remove timestamp column
+            $lastData = array_map(
+                function (array $elem) {
+                    unset($elem['created_at']);
+                    unset($elem['updated_at']);
+                    return $elem;
+                },
+                $lastData
+            );
+
+            #---- try insert batch if fails will retry again
+            $retry = false;
+            do {
+                try {
+                    $insertBatch   = $this->parkir->insertBatch($lastData);
+                    $insertBatch ? $retry = false : $retry = true;
+                } catch (Exception $e) {
+                    $retry = true;
+                    continue;
+                }
+
+                break;
+            } while ($retry);
         }
 
-        $AKMStatus  = $this->parkir->select('status')->where('category', 'AKM')->where('created_at', $date)->groupBy('status')->get()->getResultArray();
-        $AKMStatusSummary = array();
-        foreach ($AKMStatus as $index => $row) {
-            $AKMStatusSummary[$index] = [
-                'status' => $row['status'],
-                'result' => $this->parkir->select('COUNT(id) as result ')->where('category', 'AKM')->where('created_at', $date)->where('status', $row['status'])->get()->getRowArray()['result']
-            ];
-        }
-
-        if (!$parkirExist) {
-            if ($prevDateParkirExist) {
-                $this->parkir->insertBatch($prevDateParkirExist); //---- Masukan Data Kemarin
-                $this->parkir->set('user', session()->get('user')['user'])->where('created_at', $date)->update();
+        #---- get summary to get car status 
+        $category         = ['GR', 'BP', 'AKM'];
+        foreach ($category as $cat) {
+            $status           = $this->parkir->select('status')->where('category', $cat)->where('DATE(created_at)', $date)->groupBy('status')->get()->getResultArray();
+            foreach ($status as $index => $row) {
+                ${$cat . "Summary"}[$index] = [
+                    'status' => $row['status'],
+                    'result' => $this->parkir->select('COUNT(id) as result ')->where('category', $cat)->where('DATE(created_at)', $date)->where('status', $row['status'])->get()->getRowArray()['result']
+                ];
             }
         }
-        if (($prevDateParkirExist && $parkirExist) || !$prevDateParkirExist) {
-            $remaining = $kapasitas - $parkirExist;
 
-            $data = [
-                'lokasi'      => '',
-                'capacity'    => $kapasitas,
-                'usage'       => $parkirExist,
-                'remaining'   => $remaining,
-                'GR'          => sizeof($GRVehicle),
-                'BP'          => sizeof($BPVehicle),
-                'AKM'         => sizeof($AKMVehicle),
-                'AKMCapacity' => $AKMCapacity,
-                'GRCapacity'  => $GRCapacity,
-                'BPCapacity'  => $BPCapacity,
-                'GRSummary'   => $GRStatusSummary,
-                'BPSummary'   => $BPStatusSummary,
-                'AKMSummary'  => $AKMStatusSummary,
-            ];
-            return view('pages/main', $data);
-        } else {
-            return redirect()->to('/');
-        }
+
+        $kapasitas        = $this->kapasitas->select('SUM(capacity) as total, SUM(CASE WHEN category = "GR" THEN capacity END) as GR, SUM(CASE WHEN category = "BP" THEN capacity END) as BP, SUM(CASE WHEN category = "AKM" THEN capacity END) as AKM ')->get()->getRowArray();
+        $exist            = $this->parkir->select('COUNT(CASE WHEN category != 0 THEN id END) as total ,COUNT(CASE WHEN category = "GR" THEN id END) as GR, COUNT(CASE WHEN category = "BP" THEN id END) as BP,COUNT(CASE WHEN category = "AKM" THEN id END) as AKM')->where('DATE(created_at)', $date)->get()->getRowArray();
+
+        $user             = $this->parkir->select('user')->where('created_at', $date)->get()->getFirstRow();
+        $user ? $user = $user->user : $user = 'undefined';
+
+        $data = [
+            'lokasi'       => '',
+            'capacity'     => $kapasitas,
+            'exist'        => $exist,
+            'GRSummary'    => $GRSummary,
+            'BPSummary'    => $BPSummary,
+            'AKMSummary'   => $AKMSummary,
+            'date'         => $date,
+            'user'         => $user
+        ];
+        return view('pages/main', $data);
     }
 
     public function cari_parkir(array $array, int $position)
