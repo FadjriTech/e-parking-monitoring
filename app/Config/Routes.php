@@ -36,6 +36,7 @@ $routes->set404Override();
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
 
+$routes->get('loginWithApi/(:segment)/(:segment)', 'Parkir::loginWithApi/$1/$2');
 $routes->get('/', 'Parkir::index', ['filter' => 'login']);
 $routes->get('summary', 'Summary::index');
 $routes->get('login', 'Parkir::login');
@@ -62,6 +63,9 @@ $routes->group('parkir', ['filter' => 'login'], function ($routes) {
     $routes->post('delete', 'Parkir::delete_parkir');
     $routes->post('get_detail', 'Parkir::get_detail');
     $routes->post('search_car', 'Parkir::search_car');
+
+
+    $routes->post('update_parkir', 'Parkir::update_parkir');
 });
 
 

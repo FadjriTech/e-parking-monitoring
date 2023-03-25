@@ -7,7 +7,9 @@ $(document).on('click', '.seat-vertical, .seat-horizontal, .seat-vertical-short,
     var position = $(this).attr('position');
     var seatId   = $(this).attr('id');
     var parking  = $(this).attr('parking-name');
-    
+
+    const date   = $('#current-date').val();
+
     $("#parking-form").trigger("reset");
     $("#parking-grup").val(grup);
     $("#parking-position").val(position);
@@ -20,8 +22,9 @@ $(document).on('click', '.seat-vertical, .seat-horizontal, .seat-vertical-short,
         type: "POST",
         url: "/parkir/get_detail",
         data: {
-            grup : grup,
-            posisi : position
+            grup   : grup,
+            posisi : position,
+            date   : date
         },
         dataType: "json",
         success: function (response) {
@@ -47,7 +50,10 @@ $(document).on('click', '.seat-vertical, .seat-horizontal, .seat-vertical-short,
                 $("#other-wrap").addClass("d-none");
                 $(".btn-delete").addClass('d-none');
             }
-        }
+        },
+        error : function (err) { 
+            console.log(err);
+         }
     });
 })
 
@@ -121,8 +127,15 @@ $(document).ready(function () {
                     var prevPos  = response.prevPos;
                     var prevGrup = response.prevGrup;
                     
-                    if(prevPos != 0 && prevGrup != 0){
-                        $(`[position = ${prevPos}][grup = ${prevGrup}]`).html("");
+                    // if(prevPos != 0 && prevGrup != 0){
+                    //     $(`[position = ${prevPos}][grup = ${prevGrup}]`).html("");
+                    // }
+
+                    console.log(response);
+
+
+                    if(response.redirect) {
+                        location.href = response.redirect_url;
                     }
 
                 } else if(response.code == 403) {
@@ -130,7 +143,12 @@ $(document).ready(function () {
                 }
                 button.html('Simpan <span class="material-icons">save</span>');
                 button.prop('disabled', false);
-            }
+            },
+            error : function (err) { 
+                button.html('Simpan <span class="material-icons">save</span>');
+                button.prop('disabled', false);
+                alert("Maaf terjadi kesalahan pada aplikasi")
+             }
         });
 
     });

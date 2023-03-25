@@ -14,6 +14,33 @@ class Parkir extends BaseController
     protected $parkir;
     protected $kapasitas;
 
+
+
+    public function loginWithApi($username, $password)
+    {
+        $user  = $this->parkir->_getUserByEmail($username);
+        if (!$user) {
+            return redirect()->to(base_url());
+        } else {
+            if ($password != $user['password']) {
+                return redirect()->to(base_url());
+            } else {
+
+
+                $session = session();
+                $user    = [
+                    'logged_in' => true,
+                    'email'     => $username,
+                    'user'      => $username,
+                    'role'      => $user['role']
+                ];
+
+                $session->set('user', $user);
+                return redirect()->to(base_url());
+            }
+        }
+    }
+
     public function __construct()
     {
         $this->parkir    = new ParkirModel();
@@ -29,42 +56,22 @@ class Parkir extends BaseController
             $date = $_GET['date'];
         }
 
-
         #---- get parkir and check is exist or not
         $parkirNow        = $this->parkir->select('*')->where('created_at', $date)->get()->getResultArray();
         if (!$parkirNow) {
-            $lastDateExist = $this->parkir->select('created_at')->orderBy('created_at', 'DESC')->get()->getFirstRow()->created_at;
-            $lastData      = $this->parkir->select('*')->where('created_at', $lastDateExist)->get()->getResultArray();
-
-            #---- remove timestamp column
-            $lastData = array_map(
-                function (array $elem) {
-                    unset($elem['created_at']);
-                    unset($elem['updated_at']);
-                    return $elem;
-                },
-                $lastData
-            );
-
-            #---- try insert batch if fails will retry again
-            $retry = false;
-            do {
-                try {
-                    $insertBatch   = $this->parkir->insertBatch($lastData);
-                    $insertBatch ? $retry = false : $retry = true;
-                } catch (Exception $e) {
-                    $retry = true;
-                    continue;
-                }
-
-                break;
-            } while ($retry);
+            $lastDateExist = $this->parkir->select('created_at')->orderBy('created_at', 'DESC')->get()->getFirstRow();
+            if ($lastDateExist) {
+                $lastDateExist = $lastDateExist->created_at;
+                $parkirNow = $this->parkir->select('*')->where('created_at', $lastDateExist)->get()->getResultArray();
+                $date      = $lastDateExist;
+            }
         }
 
         #---- get summary to get car status 
         $category         = ['GR', 'BP', 'AKM'];
         foreach ($category as $cat) {
             $status           = $this->parkir->select('status')->where('category', $cat)->where('DATE(created_at)', $date)->groupBy('status')->get()->getResultArray();
+            ${$cat . "Summary"} = [];
             foreach ($status as $index => $row) {
                 ${$cat . "Summary"}[$index] = [
                     'status' => $row['status'],
@@ -75,7 +82,7 @@ class Parkir extends BaseController
 
 
         $kapasitas        = $this->kapasitas->select('SUM(capacity) as total, SUM(CASE WHEN category = "GR" THEN capacity END) as GR, SUM(CASE WHEN category = "BP" THEN capacity END) as BP, SUM(CASE WHEN category = "AKM" THEN capacity END) as AKM ')->get()->getRowArray();
-        $exist            = $this->parkir->select('COUNT(CASE WHEN category != 0 THEN id END) as total ,COUNT(CASE WHEN category = "GR" THEN id END) as GR, COUNT(CASE WHEN category = "BP" THEN id END) as BP,COUNT(CASE WHEN category = "AKM" THEN id END) as AKM')->where('DATE(created_at)', $date)->get()->getRowArray();
+        $exist            = $this->parkir->select('COUNT(license_plate) as total ,COUNT(CASE WHEN category = "GR" THEN id END) as GR, COUNT(CASE WHEN category = "BP" THEN id END) as BP,COUNT(CASE WHEN category = "AKM" THEN id END) as AKM')->where('DATE(created_at)', $date)->get()->getRowArray();
 
         $user             = $this->parkir->select('user')->where('created_at', $date)->get()->getFirstRow();
         $user ? $user = $user->user : $user = 'undefined';
@@ -319,7 +326,8 @@ class Parkir extends BaseController
 
     public function get_detail()
     {
-        $date = date('Y-m-d');
+        $date = $_POST['date'];
+        $date ? $date : $date = date('Y-m-d');
         if ($this->request->isAJAX()) {
             if (isset($_POST['grup']) && isset($_POST['posisi'])) {
                 $data   = $this->parkir->_getParkirDetail($_POST['posisi'], $_POST['grup'], $date);
@@ -376,9 +384,25 @@ class Parkir extends BaseController
 
     public function tambah_parkir()
     {
+        helper(['form']);
         $data  = $_POST['parking'];
+        $rules = [
+            'parking.grup' => 'required',
+            'parking.position' => 'required',
+            'parking.jenis_parkir' => 'required',
+            'parking.category' => 'required'
+        ];
+
+        if (!$this->validate($rules)) {
+            return $this->validator->getErrors();
+        }
+
+
         $nopol = strtoupper($_POST['license_plate']);
+        // $date  = $data['date'] ? $data['date'] : date('Y-m-d');
         $date  = date('Y-m-d');
+
+        $result = false;
 
         $prevPos  = 0;
         $prevGrup = 0;
@@ -387,18 +411,8 @@ class Parkir extends BaseController
         if ($vehicle) {
             $prevPos  = $vehicle['position'];
             $prevGrup = $vehicle['grup'];
-            $this->parkir->where('license_plate', $nopol)->delete();
-            $tryAgain = true;
-            do {
-                try {
-                    $delete = $this->parkir->where('license_plate', $nopol)->delete();
-                    if ($delete) {
-                        $tryAgain = false;
-                    }
-                } catch (Exception $e) {
-                    $tryAgain = true;
-                }
-            } while ($tryAgain);
+        } else {
+            $result = $this->addDataIfParkingEmpty($date);
         }
         $data['license_plate'] = $nopol;
 
@@ -410,15 +424,18 @@ class Parkir extends BaseController
 
         $save           = $this->parkir->save($data);
         $date           = date('Y-m-d');
-        $this->parkir->set('user', session()->get('user')['user'])->where('created_at', $date)->update();
 
+        //-- Update user security
+        $this->parkir->set('user', session()->get('user')['user'])->where('created_at', $date)->update();
         if ($save) {
             return json_encode(array(
-                'code'      => 200,
-                'message'   => "Data berhasil di simpan!",
-                'data'      => $data,
-                'prevPos'   => $prevPos,
-                'prevGrup'  => $prevGrup
+                'code'          => 200,
+                'message'       => "Data berhasil di simpan!",
+                'data'          => $data,
+                'prevPos'       => $prevPos,
+                'prevGrup'      => $prevGrup,
+                'redirect'      => $result,
+                'redirect_url'  => base_url() . '/parkir/' . strtolower(preg_replace('/\s+/', '', $data['lokasi']))
             ));
         } else {
             return json_encode(array(
@@ -426,6 +443,100 @@ class Parkir extends BaseController
                 'message'   => "Database Error!"
             ));
         }
+    }
+
+    public function update_parkir()
+    {
+        helper(['form']);
+        $data  = $_POST['parking'];
+        $rules = [
+            'parking.grup' => 'required',
+            'parking.position' => 'required',
+            'parking.jenis_parkir' => 'required',
+            'parking.category' => 'required'
+        ];
+
+        if (!$this->validate($rules)) {
+            return $this->validator->getErrors();
+        }
+
+
+        $date = $data['date'];
+
+        $nopol = strtoupper($_POST['license_plate']);
+        $vehicle = $this->parkir->select('*')->where('created_at', $date)->where('license_plate', $nopol)->get()->getRowArray();
+        if ($vehicle) {
+            $prevPos  = $vehicle['position'];
+            $prevGrup = $vehicle['grup'];
+        } else {
+            $this->addDataIfParkingEmpty($date);
+        }
+        $data['license_plate'] = $nopol;
+
+        if (isset($_POST['id'])) {
+            if ($_POST['id']) {
+                $data['id'] = $_POST['id'];
+            }
+        }
+
+        $save = $this->parkir->save($data);
+        if ($save) {
+            return json_encode(array(
+                'code'          => 200,
+                'message'       => "Data berhasil di simpan!",
+                'data'          => $data,
+            ));
+        } else {
+            return json_encode(array(
+                'code'      => 500,
+                'message'   => "Database Error!"
+            ));
+        }
+    }
+
+    public function addDataIfParkingEmpty($date)
+    {
+        $parkirNow        = $this->parkir->select('*')->where('created_at', $date)->where('position !=', '0')->where('grup !=', '0')->get()->getResultArray();
+        if (!$parkirNow) {
+            $lastDateExist = $this->parkir->select('created_at')->orderBy('created_at', 'DESC')->get()->getFirstRow();
+            if (!$lastDateExist) {
+                return false;
+            } else {
+                $lastDateExist = $lastDateExist->created_at;
+            }
+            $lastData      = $this->parkir->select('*')->where('created_at', $lastDateExist)->get()->getResultArray();
+
+            #---- remove timestamp column
+            $lastData = array_map(
+                function (array $elem) {
+                    unset($elem['created_at']);
+                    unset($elem['updated_at']);
+                    return $elem;
+                },
+                $lastData
+            );
+
+            #---- try insert batch if fails will retry again
+            $retry = false;
+            do {
+                try {
+                    $insertBatch   = $this->parkir->insertBatch($lastData);
+                    $insertBatch ? $retry = false : $retry = true;
+
+                    //-- Update user security
+                    $this->parkir->set('user', session()->get('user')['user'])->where('created_at', $date)->update();
+                } catch (Exception $e) {
+                    $retry = true;
+                    continue;
+                }
+
+                break;
+            } while ($retry);
+
+            if (!$retry) return true;
+        }
+
+        return false;
     }
 
     public function delete_parkir()

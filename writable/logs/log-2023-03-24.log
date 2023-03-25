@@ -1,0 +1,48 @@
+ERROR - 2023-03-24 21:29:59 --> Error connecting to the database: Unknown database 'parkir'
+ERROR - 2023-03-24 21:37:23 --> You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'UNSIGNED NOT NULL,
+	`capacity` INT(50) UNSIGNED NOT NULL AUTO_INCREMENT,
+	`categ' at line 3
+ERROR - 2023-03-24 21:38:04 --> Table 'tb_model_kendaraan' already exists
+ERROR - 2023-03-24 21:38:14 --> Table 'tb_model_kendaraan' already exists
+ERROR - 2023-03-24 21:39:33 --> Table 'tb_model_kendaraan' already exists
+ERROR - 2023-03-24 21:40:22 --> You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'UNSIGNED NOT NULL,
+	`password` VARCHAR(50) UNSIGNED NOT NULL,
+	`role` ENUM("edit' at line 3
+ERROR - 2023-03-24 21:42:22 --> You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(255) NOT NULL,
+	CONSTRAINT `pk_tb_user` PRIMARY KEY(`id`)
+) DEFAULT CHARACTER S' at line 5
+ERROR - 2023-03-24 21:43:53 --> You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(255) NOT NULL,
+	CONSTRAINT `pk_tb_user` PRIMARY KEY(`id`)
+) DEFAULT CHARACTER S' at line 5
+ERROR - 2023-03-24 21:48:11 --> Unknown column 'username' in 'field list'
+ERROR - 2023-03-24 22:00:22 --> You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(255) NOT NULL,
+	`updated_at` DATE(255) NOT NULL,
+	`user` VARCHAR(250) NOT NULL,' at line 12
+ERROR - 2023-03-24 22:00:52 --> Table 'tb_model_kendaraan' already exists
+ERROR - 2023-03-24 22:01:06 --> You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(255) NULL,
+	`updated_at` DATE(255) NULL,
+	`user` VARCHAR(250) NULL,
+	CONSTRAINT' at line 12
+ERROR - 2023-03-24 22:02:00 --> Table 'tb_model_kendaraan' already exists
+ERROR - 2023-03-24 22:02:03 --> Table 'tb_model_kendaraan' already exists
+ERROR - 2023-03-24 22:02:20 --> Error connecting to the database: Unknown database 'parkir'
+ERROR - 2023-03-24 22:03:20 --> Error connecting to the database: Unknown database 'parkir'
+ERROR - 2023-03-24 22:03:20 --> Error connecting to the database: Unknown database 'parkir'
+ERROR - 2023-03-24 22:03:26 --> Error connecting to the database: Unknown database 'parkir'
+ERROR - 2023-03-24 22:03:26 --> Error connecting to the database: Unknown database 'parkir'
+ERROR - 2023-03-24 22:05:35 --> You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(255) NULL,
+	`updated_at` DATE(255) NULL,
+	`user` VARCHAR(250) NULL,
+	CONSTRAINT' at line 12
+CRITICAL - 2023-03-24 22:06:01 --> Cannot declare class App\Database\Migrations\Parking, because the name is already in use
+in APPPATH\Database\Migrations\2023-03-25-030510_Parking.php on line 7.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+CRITICAL - 2023-03-24 22:06:36 --> Cannot declare class App\Database\Migrations\Parking, because the name is already in use
+in APPPATH\Database\Migrations\2022-08-04-061334_Parking.php on line 7.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+ERROR - 2023-03-24 22:16:38 --> You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(255) NULL,
+	`updated_at` DATE(255) NULL,
+	CONSTRAINT `pk_tb_parking` PRIMARY KE' at line 12
+CRITICAL - 2023-03-24 22:26:55 --> 'continue' not in the 'loop' or 'switch' context
+in APPPATH\Database\Seeds\Model.php on line 23.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()

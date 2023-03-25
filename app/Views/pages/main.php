@@ -7,7 +7,7 @@
     <title>E Parking | Main</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
     <link rel="stylesheet" href="/css/main/style.css">
-
+    <link rel="shortcut icon" href="/assets/logo.svg" type="image/x-icon">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
@@ -17,21 +17,23 @@
 <body>
     <section class="main-section">
 
-
-
-
-        <a class="btn btn-danger position-absolute top-0 start-0 mt-3 ms-3 shadow" href="/logout">
-            <span class="material-icons">
-                logout
-            </span>
-        </a>
-
-        <button class="btn btn-success position-absolute top-0 end-0 mt-3 me-3 shadow btn-history">
-            <span class="material-icons">
-                history
-            </span>
-        </button>
         <div class="container">
+            <div class="row mb-3">
+                <div class="col-6">
+                    <a class="btn btn-danger shadow" href="/logout">
+                        <span class="material-icons">
+                            logout
+                        </span>
+                    </a>
+                </div>
+                <div class="col-6 text-end">
+                    <button class="btn btn-success shadow btn-history">
+                        <span class="material-icons">
+                            history
+                        </span>
+                    </button>
+                </div>
+            </div>
 
             <!-- Hidden Input -->
             <input type="hidden" class="form-control" id="usage" value="<?= $exist['total']; ?>">
@@ -44,16 +46,15 @@
             <input type="hidden" class="form-control" id="AKMvehicle" value="<?= $exist['AKM']; ?>">
 
             <div class="row justify-content-center">
-                <div class="col-12 mb-2 text-white text-center text-oleo">
+                <div class="col-12 mb-3 text-white text-center text-oleo">
+                    <?php if (isset($user)) : ?>
+                        <p class="card-subtitle fs-6 fst-italic" style="font-family: 'Poppins', sans-serif">
+                            Last updated by <?= $user; ?> at <?= $date; ?>
+                        </p>
+                    <?php endif; ?>
                     <h1 class="card-title">
                         Parking Mobile Akastra
                     </h1>
-
-                    <?php if (isset($user)) : ?>
-                        <p class="card-subtitle fs-6 fst-italic" style="font-family: 'Poppins', sans-serif">
-                            last updated by <?= $user; ?> at <?= $date; ?>
-                        </p>
-                    <?php endif; ?>
                 </div>
                 <div class="col-lg-6 col-md-12 mb-5 gap-2 d-flex flex-column">
                     <form action="/parkir/search_car" method="POST" id="search-form">
@@ -80,7 +81,7 @@
                 <div class="col-lg-3 col-md-6 col-sm-12 mb-2">
                     <div class="card">
                         <div class="card-body border-0 shadow">
-                            <h5 class="card-text text-lato text-muted">Usage All</h5>
+                            <h5 class="card-text text-lato text-muted">Usage All <span class="fst-italic">( + Internal )</span></h5>
                             <h2 class="card-title mb-4 text-lato fw-bold"><?= $exist['total']; ?> / <?= $capacity['total']; ?></h2>
                             <div class="progress ">
                                 <div class="progress-bar" role="progressbar" aria-label="Basic example" id="overall-progress" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
@@ -313,8 +314,6 @@
                     }
                 }
             }
-
-            console.log(divisi);
 
             result['persentase'] = parseInt(persentase);
             return result;

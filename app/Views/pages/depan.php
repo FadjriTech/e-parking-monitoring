@@ -2,7 +2,6 @@
 
 <?= $this->section('content'); ?>
 <section class="main-section">
-
     <h1 class="headline">Area Parkir</h1>
     <div class="main-area" id="main-area">
         <div class="legend">
@@ -225,7 +224,6 @@
 
     <div class="empty"></div>
     <div class="wrapper"></div>
-
     <nav class="bottom-nav justify-content-between">
         <a href="/" class="next-button d-flex">
             <span class="material-icons">

@@ -64,7 +64,7 @@ html, body {
     min-height: 100%;
     display: flex;
     justify-content: center;
-    padding-top: 10%;
+    align-items: center;
 }
 
 .no-decoration {

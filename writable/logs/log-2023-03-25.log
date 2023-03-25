@@ -1,0 +1,335 @@
+ERROR - 2023-03-25 09:32:12 --> Table 'parkir.tb_user' doesn't exist
+CRITICAL - 2023-03-25 09:32:12 --> Table 'parkir.tb_user' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 292.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(292): mysqli->query('SELECT *
+FROM `tb_user`
+WHERE `email` = \'esa\'', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(695): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *
+FROM `tb_user`
+WHERE `email` = \'esa\'')
+ 3 SYSTEMPATH\Database\BaseConnection.php(609): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *
+FROM `tb_user`
+WHERE `email` = \'esa\'')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1585): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `tb_user`
+WHERE `email` = :email:', [...], false)
+ 5 APPPATH\Models\ParkirModel.php(74): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH\Controllers\Parkir.php(270): App\Models\ParkirModel->_getUserByEmail('esa')
+ 7 SYSTEMPATH\CodeIgniter.php(898): App\Controllers\Parkir->authentication()
+ 8 SYSTEMPATH\CodeIgniter.php(468): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Parkir))
+ 9 SYSTEMPATH\CodeIgniter.php(351): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 FCPATH\index.php(55): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Commands\Server\rewrite.php(43): require_once('FCPATH\\index.php')
+ERROR - 2023-03-25 09:32:14 --> Table 'parkir.tb_user' doesn't exist
+CRITICAL - 2023-03-25 09:32:14 --> Table 'parkir.tb_user' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 292.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(292): mysqli->query('SELECT *
+FROM `tb_user`
+WHERE `email` = \'esa\'', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(695): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *
+FROM `tb_user`
+WHERE `email` = \'esa\'')
+ 3 SYSTEMPATH\Database\BaseConnection.php(609): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *
+FROM `tb_user`
+WHERE `email` = \'esa\'')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1585): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `tb_user`
+WHERE `email` = :email:', [...], false)
+ 5 APPPATH\Models\ParkirModel.php(74): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH\Controllers\Parkir.php(270): App\Models\ParkirModel->_getUserByEmail('esa')
+ 7 SYSTEMPATH\CodeIgniter.php(898): App\Controllers\Parkir->authentication()
+ 8 SYSTEMPATH\CodeIgniter.php(468): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Parkir))
+ 9 SYSTEMPATH\CodeIgniter.php(351): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 FCPATH\index.php(55): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Commands\Server\rewrite.php(43): require_once('FCPATH\\index.php')
+ERROR - 2023-03-25 09:32:15 --> Table 'parkir.tb_user' doesn't exist
+CRITICAL - 2023-03-25 09:32:15 --> Table 'parkir.tb_user' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 292.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(292): mysqli->query('SELECT *
+FROM `tb_user`
+WHERE `email` = \'esa\'', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(695): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *
+FROM `tb_user`
+WHERE `email` = \'esa\'')
+ 3 SYSTEMPATH\Database\BaseConnection.php(609): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *
+FROM `tb_user`
+WHERE `email` = \'esa\'')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1585): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `tb_user`
+WHERE `email` = :email:', [...], false)
+ 5 APPPATH\Models\ParkirModel.php(74): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH\Controllers\Parkir.php(270): App\Models\ParkirModel->_getUserByEmail('esa')
+ 7 SYSTEMPATH\CodeIgniter.php(898): App\Controllers\Parkir->authentication()
+ 8 SYSTEMPATH\CodeIgniter.php(468): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Parkir))
+ 9 SYSTEMPATH\CodeIgniter.php(351): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 FCPATH\index.php(55): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Commands\Server\rewrite.php(43): require_once('FCPATH\\index.php')
+ERROR - 2023-03-25 09:32:19 --> Table 'parkir.tb_user' doesn't exist
+CRITICAL - 2023-03-25 09:32:19 --> Table 'parkir.tb_user' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 292.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(292): mysqli->query('SELECT *
+FROM `tb_user`
+WHERE `email` = \'esa\'', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(695): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *
+FROM `tb_user`
+WHERE `email` = \'esa\'')
+ 3 SYSTEMPATH\Database\BaseConnection.php(609): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *
+FROM `tb_user`
+WHERE `email` = \'esa\'')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1585): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `tb_user`
+WHERE `email` = :email:', [...], false)
+ 5 APPPATH\Models\ParkirModel.php(74): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH\Controllers\Parkir.php(270): App\Models\ParkirModel->_getUserByEmail('esa')
+ 7 SYSTEMPATH\CodeIgniter.php(898): App\Controllers\Parkir->authentication()
+ 8 SYSTEMPATH\CodeIgniter.php(468): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Parkir))
+ 9 SYSTEMPATH\CodeIgniter.php(351): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 FCPATH\index.php(55): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Commands\Server\rewrite.php(43): require_once('FCPATH\\index.php')
+ERROR - 2023-03-25 09:32:19 --> Table 'parkir.tb_user' doesn't exist
+CRITICAL - 2023-03-25 09:32:19 --> Table 'parkir.tb_user' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 292.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(292): mysqli->query('SELECT *
+FROM `tb_user`
+WHERE `email` = \'esa\'', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(695): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *
+FROM `tb_user`
+WHERE `email` = \'esa\'')
+ 3 SYSTEMPATH\Database\BaseConnection.php(609): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *
+FROM `tb_user`
+WHERE `email` = \'esa\'')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1585): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `tb_user`
+WHERE `email` = :email:', [...], false)
+ 5 APPPATH\Models\ParkirModel.php(74): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH\Controllers\Parkir.php(270): App\Models\ParkirModel->_getUserByEmail('esa')
+ 7 SYSTEMPATH\CodeIgniter.php(898): App\Controllers\Parkir->authentication()
+ 8 SYSTEMPATH\CodeIgniter.php(468): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Parkir))
+ 9 SYSTEMPATH\CodeIgniter.php(351): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 FCPATH\index.php(55): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Commands\Server\rewrite.php(43): require_once('FCPATH\\index.php')
+ERROR - 2023-03-25 09:32:19 --> Table 'parkir.tb_user' doesn't exist
+CRITICAL - 2023-03-25 09:32:19 --> Table 'parkir.tb_user' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 292.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(292): mysqli->query('SELECT *
+FROM `tb_user`
+WHERE `email` = \'esa\'', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(695): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *
+FROM `tb_user`
+WHERE `email` = \'esa\'')
+ 3 SYSTEMPATH\Database\BaseConnection.php(609): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *
+FROM `tb_user`
+WHERE `email` = \'esa\'')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1585): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `tb_user`
+WHERE `email` = :email:', [...], false)
+ 5 APPPATH\Models\ParkirModel.php(74): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH\Controllers\Parkir.php(270): App\Models\ParkirModel->_getUserByEmail('esa')
+ 7 SYSTEMPATH\CodeIgniter.php(898): App\Controllers\Parkir->authentication()
+ 8 SYSTEMPATH\CodeIgniter.php(468): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Parkir))
+ 9 SYSTEMPATH\CodeIgniter.php(351): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 FCPATH\index.php(55): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Commands\Server\rewrite.php(43): require_once('FCPATH\\index.php')
+ERROR - 2023-03-25 09:32:20 --> Table 'parkir.tb_user' doesn't exist
+CRITICAL - 2023-03-25 09:32:20 --> Table 'parkir.tb_user' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 292.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(292): mysqli->query('SELECT *
+FROM `tb_user`
+WHERE `email` = \'esa\'', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(695): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *
+FROM `tb_user`
+WHERE `email` = \'esa\'')
+ 3 SYSTEMPATH\Database\BaseConnection.php(609): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *
+FROM `tb_user`
+WHERE `email` = \'esa\'')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1585): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `tb_user`
+WHERE `email` = :email:', [...], false)
+ 5 APPPATH\Models\ParkirModel.php(74): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH\Controllers\Parkir.php(270): App\Models\ParkirModel->_getUserByEmail('esa')
+ 7 SYSTEMPATH\CodeIgniter.php(898): App\Controllers\Parkir->authentication()
+ 8 SYSTEMPATH\CodeIgniter.php(468): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Parkir))
+ 9 SYSTEMPATH\CodeIgniter.php(351): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 FCPATH\index.php(55): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Commands\Server\rewrite.php(43): require_once('FCPATH\\index.php')
+ERROR - 2023-03-25 09:32:20 --> Table 'parkir.tb_user' doesn't exist
+CRITICAL - 2023-03-25 09:32:20 --> Table 'parkir.tb_user' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 292.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(292): mysqli->query('SELECT *
+FROM `tb_user`
+WHERE `email` = \'esa\'', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(695): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *
+FROM `tb_user`
+WHERE `email` = \'esa\'')
+ 3 SYSTEMPATH\Database\BaseConnection.php(609): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *
+FROM `tb_user`
+WHERE `email` = \'esa\'')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1585): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `tb_user`
+WHERE `email` = :email:', [...], false)
+ 5 APPPATH\Models\ParkirModel.php(74): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH\Controllers\Parkir.php(270): App\Models\ParkirModel->_getUserByEmail('esa')
+ 7 SYSTEMPATH\CodeIgniter.php(898): App\Controllers\Parkir->authentication()
+ 8 SYSTEMPATH\CodeIgniter.php(468): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Parkir))
+ 9 SYSTEMPATH\CodeIgniter.php(351): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 FCPATH\index.php(55): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Commands\Server\rewrite.php(43): require_once('FCPATH\\index.php')
+ERROR - 2023-03-25 09:32:20 --> Table 'parkir.tb_user' doesn't exist
+CRITICAL - 2023-03-25 09:32:20 --> Table 'parkir.tb_user' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 292.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(292): mysqli->query('SELECT *
+FROM `tb_user`
+WHERE `email` = \'esa\'', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(695): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *
+FROM `tb_user`
+WHERE `email` = \'esa\'')
+ 3 SYSTEMPATH\Database\BaseConnection.php(609): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *
+FROM `tb_user`
+WHERE `email` = \'esa\'')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1585): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `tb_user`
+WHERE `email` = :email:', [...], false)
+ 5 APPPATH\Models\ParkirModel.php(74): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH\Controllers\Parkir.php(270): App\Models\ParkirModel->_getUserByEmail('esa')
+ 7 SYSTEMPATH\CodeIgniter.php(898): App\Controllers\Parkir->authentication()
+ 8 SYSTEMPATH\CodeIgniter.php(468): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Parkir))
+ 9 SYSTEMPATH\CodeIgniter.php(351): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 FCPATH\index.php(55): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Commands\Server\rewrite.php(43): require_once('FCPATH\\index.php')
+ERROR - 2023-03-25 09:32:20 --> Table 'parkir.tb_user' doesn't exist
+CRITICAL - 2023-03-25 09:32:20 --> Table 'parkir.tb_user' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 292.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(292): mysqli->query('SELECT *
+FROM `tb_user`
+WHERE `email` = \'esa\'', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(695): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *
+FROM `tb_user`
+WHERE `email` = \'esa\'')
+ 3 SYSTEMPATH\Database\BaseConnection.php(609): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *
+FROM `tb_user`
+WHERE `email` = \'esa\'')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1585): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `tb_user`
+WHERE `email` = :email:', [...], false)
+ 5 APPPATH\Models\ParkirModel.php(74): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH\Controllers\Parkir.php(270): App\Models\ParkirModel->_getUserByEmail('esa')
+ 7 SYSTEMPATH\CodeIgniter.php(898): App\Controllers\Parkir->authentication()
+ 8 SYSTEMPATH\CodeIgniter.php(468): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Parkir))
+ 9 SYSTEMPATH\CodeIgniter.php(351): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 FCPATH\index.php(55): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Commands\Server\rewrite.php(43): require_once('FCPATH\\index.php')
+ERROR - 2023-03-25 09:32:21 --> Table 'parkir.tb_user' doesn't exist
+CRITICAL - 2023-03-25 09:32:21 --> Table 'parkir.tb_user' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 292.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(292): mysqli->query('SELECT *
+FROM `tb_user`
+WHERE `email` = \'esa\'', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(695): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *
+FROM `tb_user`
+WHERE `email` = \'esa\'')
+ 3 SYSTEMPATH\Database\BaseConnection.php(609): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *
+FROM `tb_user`
+WHERE `email` = \'esa\'')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1585): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `tb_user`
+WHERE `email` = :email:', [...], false)
+ 5 APPPATH\Models\ParkirModel.php(74): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH\Controllers\Parkir.php(270): App\Models\ParkirModel->_getUserByEmail('esa')
+ 7 SYSTEMPATH\CodeIgniter.php(898): App\Controllers\Parkir->authentication()
+ 8 SYSTEMPATH\CodeIgniter.php(468): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Parkir))
+ 9 SYSTEMPATH\CodeIgniter.php(351): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 FCPATH\index.php(55): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Commands\Server\rewrite.php(43): require_once('FCPATH\\index.php')
+ERROR - 2023-03-25 09:32:21 --> Table 'parkir.tb_user' doesn't exist
+CRITICAL - 2023-03-25 09:32:21 --> Table 'parkir.tb_user' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 292.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(292): mysqli->query('SELECT *
+FROM `tb_user`
+WHERE `email` = \'esa\'', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(695): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *
+FROM `tb_user`
+WHERE `email` = \'esa\'')
+ 3 SYSTEMPATH\Database\BaseConnection.php(609): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *
+FROM `tb_user`
+WHERE `email` = \'esa\'')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1585): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `tb_user`
+WHERE `email` = :email:', [...], false)
+ 5 APPPATH\Models\ParkirModel.php(74): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH\Controllers\Parkir.php(270): App\Models\ParkirModel->_getUserByEmail('esa')
+ 7 SYSTEMPATH\CodeIgniter.php(898): App\Controllers\Parkir->authentication()
+ 8 SYSTEMPATH\CodeIgniter.php(468): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Parkir))
+ 9 SYSTEMPATH\CodeIgniter.php(351): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 FCPATH\index.php(55): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Commands\Server\rewrite.php(43): require_once('FCPATH\\index.php')
+ERROR - 2023-03-25 09:32:21 --> Table 'parkir.tb_user' doesn't exist
+CRITICAL - 2023-03-25 09:32:21 --> Table 'parkir.tb_user' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 292.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(292): mysqli->query('SELECT *
+FROM `tb_user`
+WHERE `email` = \'esa\'', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(695): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *
+FROM `tb_user`
+WHERE `email` = \'esa\'')
+ 3 SYSTEMPATH\Database\BaseConnection.php(609): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *
+FROM `tb_user`
+WHERE `email` = \'esa\'')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1585): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `tb_user`
+WHERE `email` = :email:', [...], false)
+ 5 APPPATH\Models\ParkirModel.php(74): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH\Controllers\Parkir.php(270): App\Models\ParkirModel->_getUserByEmail('esa')
+ 7 SYSTEMPATH\CodeIgniter.php(898): App\Controllers\Parkir->authentication()
+ 8 SYSTEMPATH\CodeIgniter.php(468): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Parkir))
+ 9 SYSTEMPATH\CodeIgniter.php(351): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 FCPATH\index.php(55): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Commands\Server\rewrite.php(43): require_once('FCPATH\\index.php')
+ERROR - 2023-03-25 09:55:34 --> Unknown column 'created_at' in 'where clause'
+CRITICAL - 2023-03-25 09:55:34 --> Unknown column 'created_at' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 292.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(292): mysqli->query('SELECT *
+FROM `tb_parking`
+WHERE `created_at` = \'2023-03-25\'', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(695): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *
+FROM `tb_parking`
+WHERE `created_at` = \'2023-03-25\'')
+ 3 SYSTEMPATH\Database\BaseConnection.php(609): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *
+FROM `tb_parking`
+WHERE `created_at` = \'2023-03-25\'')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1585): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `tb_parking`
+WHERE `created_at` = :created_at:', [...], false)
+ 5 SYSTEMPATH\Model.php(771): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH\Controllers\Parkir.php(60): CodeIgniter\Model->__call('get', [])
+ 7 SYSTEMPATH\CodeIgniter.php(898): App\Controllers\Parkir->index()
+ 8 SYSTEMPATH\CodeIgniter.php(468): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Parkir))
+ 9 SYSTEMPATH\CodeIgniter.php(351): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 FCPATH\index.php(55): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Commands\Server\rewrite.php(43): require_once('FCPATH\\index.php')
+CRITICAL - 2023-03-25 10:28:47 --> file_get_contents(../../public/models.json): Failed to open stream: No such file or directory
+in APPPATH\Controllers\Parkir.php on line 54.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'file_get_contents(../../public/models.json): Failed to open stream: No such file or directory', 'APPPATH\\Controllers\\Parkir.php', 54)
+ 2 APPPATH\Controllers\Parkir.php(54): file_get_contents('../../public/models.json')
+ 3 SYSTEMPATH\CodeIgniter.php(898): App\Controllers\Parkir->index()
+ 4 SYSTEMPATH\CodeIgniter.php(468): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Parkir))
+ 5 SYSTEMPATH\CodeIgniter.php(351): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 FCPATH\index.php(55): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Commands\Server\rewrite.php(43): require_once('FCPATH\\index.php')
+CRITICAL - 2023-03-25 10:28:53 --> file_get_contents(/models.json): Failed to open stream: No such file or directory
+in APPPATH\Controllers\Parkir.php on line 54.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'file_get_contents(/models.json): Failed to open stream: No such file or directory', 'APPPATH\\Controllers\\Parkir.php', 54)
+ 2 APPPATH\Controllers\Parkir.php(54): file_get_contents('/models.json')
+ 3 SYSTEMPATH\CodeIgniter.php(898): App\Controllers\Parkir->index()
+ 4 SYSTEMPATH\CodeIgniter.php(468): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Parkir))
+ 5 SYSTEMPATH\CodeIgniter.php(351): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 FCPATH\index.php(55): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Commands\Server\rewrite.php(43): require_once('FCPATH\\index.php')
+CRITICAL - 2023-03-25 10:29:20 --> file_get_contents(../Database/models.json): Failed to open stream: No such file or directory
+in APPPATH\Controllers\Parkir.php on line 54.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'file_get_contents(../Database/models.json): Failed to open stream: No such file or directory', 'APPPATH\\Controllers\\Parkir.php', 54)
+ 2 APPPATH\Controllers\Parkir.php(54): file_get_contents('../Database/models.json')
+ 3 SYSTEMPATH\CodeIgniter.php(898): App\Controllers\Parkir->index()
+ 4 SYSTEMPATH\CodeIgniter.php(468): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Parkir))
+ 5 SYSTEMPATH\CodeIgniter.php(351): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 FCPATH\index.php(55): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Commands\Server\rewrite.php(43): require_once('FCPATH\\index.php')

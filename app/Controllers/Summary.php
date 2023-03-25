@@ -16,6 +16,7 @@ class Summary extends BaseController
     {
         $this->parkir       = new ParkirModel();
         $this->kapasitas    = new KapasitasModel();
+        date_default_timezone_set('Asia/Jakarta');
     }
 
     public function index()
@@ -51,10 +52,10 @@ class Summary extends BaseController
         $data = [
             'lokasi'       => '',
             'capacity'     => $kapasitas,
-            'exist'        => $exist,
-            'GRSummary'    => $GRSummary,
-            'BPSummary'    => $BPSummary,
-            'AKMSummary'   => $AKMSummary,
+            'exist'        => $exist ? $exist : 0,
+            'GRSummary'    => isset($GRSummary) ? $GRSummary : 0,
+            'BPSummary'    => isset($BPSummary) ? $BPSummary : 0,
+            'AKMSummary'   => isset($AKMSummary) ? $AKMSummary : 0,
             'date'         => $date,
             'user'         => $user
         ];
